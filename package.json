@@ -1,0 +1,19 @@
+{
+  "name": "hueniversity",
+  "version": "1.0.0",
+  "description": "Hueniversity University!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'You should write some tests!'",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hueniverse/hueniversity.git"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/hueniverse/hueniversity",
+  "dependencies": {
+    "hapi": "8.3.x"
+  }
+}
