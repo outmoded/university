@@ -20,7 +20,7 @@ Every few days a new issue will be posted with an [`assignment` label](https://g
 
 While you wait for the assignment to close, take a look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write example, update the documentation). If you see ways in which others can improve their solution, comment on their Pull Request.
 
-Each assignment will have a close date. When the issues expires, one of the Pull Requests submitted will be picked and merged. Any follow up assignement will be based on the merged code.
+Each assignment will have a close date. When the issues expires, one of the Pull Requests submitted will be picked and merged. Any follow up assignments will be based on the merged code.
 
 Before starting the next assignment, make sure to rebase your fork to match the current master since only one Pull Request can be accepted.
 
@@ -29,7 +29,7 @@ Before starting the next assignment, make sure to rebase your fork to match the 
 There are lots of way you can help make this experiment succeed and help shape a new format for teaching development skills:
 - Submit Pull Requests to improve this readme, add examples, write quick tutorials on how to work with git, etc.
 - Look for issues with a [`help wanted` label](https://github.com/hueniverse/hueniversity/labels/help%20wanted) or [`new contributor` label](https://github.com/hueniverse/hueniversity/labels/new%20contributor) and help with those.
-- Randomlly pick submitted Pull Request and review them, offering advice and helping others improve their skills.
+- Randomly pick submitted Pull Request and review them, offering advice and helping others improve their skills.
 
 ### Anything else?
 
