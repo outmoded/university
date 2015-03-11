@@ -16,7 +16,7 @@ First, read the [Code of Conduct](https://github.com/hueniverse/hueniversity/blo
 
 Simple, you start by forking this repo.
 
-Every few days a new issue will be posted with an [`assignment` label](https://github.com/hueniverse/hueniversity/labels/assignment). If you would like to participate in the assignment, try to solve it and when you are done, submit a Pull Request back to this repo.
+Every few days a new issue will be posted with an [`assignment` label](https://github.com/hueniverse/hueniversity/labels/assignment). If you would like to participate in the assignment, try to solve it and when you are done, submit a Pull Request back to this repo. Make sure your code complies with the **hapi** community [Style Guide](https://github.com/hapijs/contrib/blob/master/Style.md).
 
 While you wait for the assignment to close, take a look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write example, update the documentation). If you see ways in which others can improve their solution, comment on their Pull Request.
 
