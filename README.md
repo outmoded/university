@@ -6,9 +6,15 @@ This is a community learning experiment. The idea is simple - use GitHub as a pl
 
 You will learn how to build an application server using node and [hapi](http://hapijs.com). It will start with the basics and move on to more advance topic such as authentication, validation, application architecture, testing, and more.
 
+### What do I need to know?
+
+You should feel comfortable writing simple functions in JavaScript, working with GitHub, using basic git commands, have a basic familiarity with node, and be able to pick up new subjects by reading tutorials and documentation.
+
 ### How advance is this course?
 
 We'll start from the basics and make our way to the most advanced topics. The way this course is structures, you can choose which assignments to participate in, so more experienced developers can "sit out" or help others during the basic assignments and participate when it gets to areas they are not as strong in. However, since teaching is one of the most effective ways to learn, participating early will improve the existing skills of advanced developers.
+
+The assignment will include just enough information to get you going, but you will need to do most of the learning on your own by using the wide range of online resources available. However, the real benefit of this process will come from the code review of your Pull Request. This is where expert developers will review your work and provide you specific and actionable feedback.
 
 ### How does it work?
 
