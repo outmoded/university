@@ -12,7 +12,7 @@ You should feel comfortable writing simple functions in JavaScript, working with
 
 ### How advanced is this course?
 
-We'll start from the basics and make our way to the most advanced topics. The way this course is structures, you can choose which assignments to participate in, so more experienced developers can "sit out" or help others during the basic assignments and participate when it gets to areas they are not as strong in. However, since teaching is one of the most effective ways to learn, participating early will improve the existing skills of advanced developers.
+We'll start from the basics and make our way to the most advanced topics. The way this course is structured, you can choose which assignments to participate in, so more experienced developers can "sit out" or help others during the basic assignments and participate when it gets to areas they are not as strong in. However, since teaching is one of the most effective ways to learn, participating early will improve the existing skills of advanced developers.
 
 The assignment will include just enough information to get you going, but you will need to do most of the learning on your own by using the wide range of online resources available. However, the real benefit of this process will come from the code review of your Pull Request. This is where expert developers will review your work and provide you specific and actionable feedback.
 
@@ -24,9 +24,9 @@ Simple, you start by forking this repo.
 
 Every few days a new issue will be posted with an [`assignment` label](https://github.com/hueniverse/hueniversity/labels/assignment). If you would like to participate in the assignment, try to solve it and when you are done, submit a Pull Request back to this repo. Make sure your code complies with the **hapi** community [Style Guide](https://github.com/hapijs/contrib/blob/master/Style.md).
 
-While you wait for the assignment to close, take a look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write example, update the documentation). If you see ways in which others can improve their solution, comment on their Pull Request.
+While you wait for the assignment to close, take a look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write examples, update the documentation). If you see ways in which others can improve their solution, comment on their Pull Request.
 
-Each assignment will have a close date. When the issues expires, one of the Pull Requests submitted will be picked and merged. Any follow up assignments will be based on the merged code.
+Each assignment will have a close date. When the issue expires, one of the Pull Requests submitted will be picked and merged. Any follow up assignments will be based on the merged code.
 
 Before starting the next assignment, make sure to rebase your fork to match the current master since only one Pull Request can be accepted.
 
