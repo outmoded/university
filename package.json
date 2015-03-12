@@ -1,0 +1,13 @@
+{
+  "name": "hueniversity",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hueniverse/hueniversity.git"
+  },
+  "homepage": "https://github.com/hueniverse/hueniversity",
+  "dependencies": {
+    "hapi": "^8.3.1"
+  }
+}
