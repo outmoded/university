@@ -22,7 +22,12 @@ server.route({
     }
 });
 
-server.start(function () {
+server.start(function (err) {
+
+    if (err) {
+        console.error('There was an error starting the server: ' + err);
+        process.exit(1);
+    }
 
     console.log('Server started listening at:' + server.info.uri);
 });
