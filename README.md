@@ -10,7 +10,7 @@ You will learn how to build an application server using node and [hapi](http://h
 
 You should feel comfortable writing simple functions in JavaScript, working with GitHub, using basic git commands, have a basic familiarity with node, and be able to pick up new subjects by reading tutorials and documentation.
 
-### How advance is this course?
+### How advanced is this course?
 
 We'll start from the basics and make our way to the most advanced topics. The way this course is structures, you can choose which assignments to participate in, so more experienced developers can "sit out" or help others during the basic assignments and participate when it gets to areas they are not as strong in. However, since teaching is one of the most effective ways to learn, participating early will improve the existing skills of advanced developers.
 
