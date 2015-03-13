@@ -1,0 +1,25 @@
+{
+  "name": "hueniviersity",
+  "version": "0.0.1",
+  "description": "Communitiy learning experiment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hueniverse/hueniversity.git"
+  },
+  "keywords": [
+    "hapi",
+    "hapijs"
+  ],
+  "author": "Community",
+  "bugs": {
+    "url": "https://github.com/hueniverse/hueniversity/issues"
+  },
+  "homepage": "https://github.com/hueniverse/hueniversity",
+  "dependencies": {
+    "hapi": "^8.3.1"
+  }
+}
