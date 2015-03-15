@@ -1,0 +1,20 @@
+{
+  "name": "basic-http-server",
+  "version": "1.0.0",
+  "description": "A basic hapi.js HTTP server.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "keywords": [
+    "hapi",
+    "http",
+    "json"
+  ],
+  "author": "Rodrigo Medeiros <rodrigo.mangue@gmail.com> (https://coderbits.com/rodrigomangue)",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^8.4.0"
+  }
+}
