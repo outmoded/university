@@ -9,7 +9,7 @@ server.route({
     method: 'GET',
     path: '/version',
     handler: function(request, reply) {
-        reply({ "version": require('../package.json').version });
+        reply({ "version": require('./package.json').version });
     }
 });
 
