@@ -4,7 +4,7 @@
   "description": "Hueniversity - a community learning experiment!",
   "main": "lib/index.js",
   "scripts": {
-    "start": "node lib/index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
