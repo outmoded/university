@@ -1,0 +1,26 @@
+{
+  "name": "hueniversity",
+  "version": "0.0.1",
+  "description": "Hueniverse Hapi assignments",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anthonyringoet/hueniversity.git"
+  },
+  "keywords": [
+    "hapi"
+  ],
+  "author": "Anthony Ringoet <anthonyringoet@gmail.com> (http://anthonyringoet.be/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anthonyringoet/hueniversity/issues"
+  },
+  "homepage": "https://github.com/anthonyringoet/hueniversity",
+  "dependencies": {
+    "hapi": "^8.4.0"
+  }
+}
