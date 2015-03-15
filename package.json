@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
-    "hapi": "8.3.x"
+    "hapi": "8.4.x"
   }
 }
