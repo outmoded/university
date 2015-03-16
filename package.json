@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node lib/index.js"
   },
   "author": "Hueniversity students",
   "homepage": "https://github.com/hueniverse/hueniversity",
