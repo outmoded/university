@@ -1,0 +1,23 @@
+{
+  "name": "hueniversity",
+  "version": "0.0.1",
+  "description": "This is a community learning experiment. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.",
+  "main": "lib/index.js",
+  "dependencies": {
+    "hapi": "^8.4.0",
+    "hoek": "^2.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hueniverse/hueniversity.git"
+  },
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/hueniverse/hueniversity/issues"
+  },
+  "homepage": "https://github.com/hueniverse/hueniversity"
+}
