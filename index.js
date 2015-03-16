@@ -36,6 +36,7 @@ server.route({
 
 
 server.start(function(err){
+
     if (err){
 	
 	throw err;
