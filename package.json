@@ -17,12 +17,13 @@
     "hapi.js"
   ],
   "author": "Hueniversity students",
-  "license": "ISC",
+  "license": "BSD",
   "bugs": {
     "url": "https://github.com/hueniverse/hueniversity/issues"
   },
   "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
-    "hapi": "8.4.x"
+    "hapi": "8.4.x",
+    "hoek": "2.11.x"
   }
 }
