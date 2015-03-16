@@ -1,5 +1,7 @@
 var Hapi = require('hapi');
-var packageJSON = require('./package.json');
+var internals = {
+    version: require('./package.json').version
+};
 
 var server = new Hapi.Server();
 
@@ -10,11 +12,17 @@ server.route({
     path: '/version',
     config: {
         handler: function (request, reply) {
-            return reply({ version: packageJSON.version });
+
+            return reply({ version: internals.version });
         }
     }
 });
 
-server.start(function () {
-    console.log('Server running at:', server.info.uri);
+server.start(function (err) {
+    if (err) {
+        throw err;
+    }
+    else {
+        console.log('Server running at:', server.info.uri);
+    }
 });

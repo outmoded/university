@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/muhammad-saleh/hueniversity.git"
+    "url": "https://github.com/hueniverse/hueniversity.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/muhammad-saleh/hueniversity/issues"
+    "url": "https://github.com/hueniverse/hueniversity/issues"
   },
-  "homepage": "https://github.com/muhammad-saleh/hueniversity",
+  "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
     "hapi": "^8.3.1"
   }
