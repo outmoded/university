@@ -19,11 +19,9 @@ server.connection({ port: process.env.PORT || 8000 });
 
 // Routes
 server.route({
-
     method: 'GET',
     path: '/version',
     config: {
-
 	description: 'Get version of the application',
 
 	handler: function(request, reply){
