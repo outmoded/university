@@ -11,12 +11,13 @@
     "url": "https://github.com/hueniverse/hueniversity.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "BSD",
   "bugs": {
     "url": "https://github.com/hueniverse/hueniversity/issues"
   },
   "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
-    "hapi": "^8.3.1"
+    "hapi": "^8.3.1",
+    "hoek": "^2.11.1"
   }
 }
