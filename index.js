@@ -1,4 +1,5 @@
 var Hapi = require('hapi');
+var Hoek = require('hoek');
 var internals = {
     version: require('./package.json').version
 };
@@ -19,10 +20,7 @@ server.route({
 });
 
 server.start(function (err) {
-    if (err) {
-        throw err;
-    }
-    else {
+
+        Hoek.assert(!err, err);
         console.log('Server running at:', server.info.uri);
-    }
 });
