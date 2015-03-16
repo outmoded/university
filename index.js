@@ -5,9 +5,9 @@
 // Dependencies
 
 var Hapi = require('hapi');
+var Hoek = require('hoek');
 
-
-// Internal links
+// Internal objects
 var internals = {
     pkg: require('./package.json')
 }
@@ -22,26 +22,32 @@ server.connection({ port: process.env.PORT || 8000 });
 
 // Routes
 
-
 server.route({
     method: 'GET',
     path: '/version',
-    handler: function(request, reply){
-	
-	// Return the version of the application
+    config:{
 
-	return reply({ verison: internals.pkg.version });
+	description: 'Get version of the application',
+
+	handler: function(request, reply){
+
+	    // Preparing the response
+
+	    var response = {
+		version: internals.pkg.version
+	    }
+
+	    return reply(response);
+	}
     }
 });
 
 
 server.start(function(err){
 
-    if (err){
-	
-	throw err;
-    }
-
+    Hoek.assert(!err, err);
+    
     // Log the running server
+
     console.log('Server is running at ' + server.info.uri);
 });
