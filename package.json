@@ -8,15 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Couto/hueniversity.git"
+    "url": "https://github.com/hueniverse/hueniversity.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Couto/hueniversity/issues"
+    "url": "https://github.com/hueniverse/hueniversity/issues"
   },
-  "homepage": "https://github.com/Couto/hueniversity",
+  "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
-    "hapi": "^8.4.0"
+    "hapi": "^8.4.0",
+    "hoek": "^2.11.1"
   }
 }
