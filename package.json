@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/hueniverse/hueniversity.git"
   },
-  "homepage": "https://github.com/MrBri/hueniversity",
+  "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
     "hapi": "^8.4.0",
     "hoek": "^2.11.1"
