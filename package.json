@@ -3,6 +3,7 @@
   "description": "Community Learning Experiment",
   "homepage": "https://github.com/hueniverse/hueniversity",
   "version": "0.0.1",
+  "license": "BSD",
   "repository": {
     "type": "git",
     "url": "git://github.com/hueniverse/hueniversity"
@@ -26,12 +27,6 @@
     "hapi": "^8.4.0",
     "hoek": "^2.11.1"
   },
-  "licenses": [
-    {
-      "type": "BSD",
-      "url": "https://raw.githubusercontent.com/hueniverse/hueniversity/master/LICENSE"
-    }
-  ],
   "devDependencies": {
     "chai": "^2.1.2",
     "lab": "^5.5.0"
