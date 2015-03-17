@@ -1,0 +1,27 @@
+{
+  "name": "hueniversity",
+  "version": "0.0.1",
+  "description": "A community learning experiment to teach people group coding skills using github. The goal is to learn how to operate a distributed classroom where everyone is a student and a teacher, then, apply this learning pattern to other subjects.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node lib/index.js"
+  },
+  "dependencies": {
+    "hapi": "^8.4.0",
+    "hoek": "^2.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hueniverse/hueniversity.git"
+  },
+  "keywords": [
+    "hueniversity"
+  ],
+  "author": "hueniversity community",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/hueniverse/hueniversity/issues"
+  },
+  "homepage": "https://github.com/hueniverse/hueniversity"
+}
