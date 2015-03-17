@@ -1,0 +1,27 @@
+{
+    "name": "hueniversity",
+    "version": "0.0.1",
+    "description": "Communitiy learning experiment",
+    "main": "index.js",
+    "scripts": {
+	"start": "node ./lib/index.js"
+    },
+    "repository": {
+	"type": "git",
+    "url": "https://github.com/hueniverse/hueniversity.git"
+    },
+    "keywords": [
+    "hapi",
+	"hapijs"
+    ],
+    "author": "Community",
+    "license": "BSD",
+    "bugs": {
+	"url": "https://github.com/hueniverse/hueniversity/issues"
+    },
+    "homepage": "https://github.com/hueniverse/hueniversity",
+    "dependencies": {
+	"hapi": "^8.4.0",
+	"hoek": "^2.11.1"
+    }
+}
