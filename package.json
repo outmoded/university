@@ -22,6 +22,6 @@
     "homepage": "https://github.com/hueniverse/hueniversity",
     "dependencies": {
 	"hapi": "^8.4.0",
-    "hoek": "^2.11.1"
+	"hoek": "^2.11.1"
     }
 }
