@@ -13,13 +13,13 @@ describe('server', function() {
 
     it('should return a version', function(done) {
 
-        var server = require('../lib/server');
+        var server = require('../lib/index');
 
         server.inject('/version', function(res) {
 
             expect(res.statusCode).to.equal(200);
             expect(server.info.port).to.equal(8000);
-            expect(res.payload).to.equal('{"versions":"0.0.1"}');
+            expect(res.payload).to.equal('{"version":"0.0.1"}');
             done();
         });
     });
