@@ -1,0 +1,34 @@
+{
+  "name": "hueniversity",
+  "description": "Community Learning Experiment",
+  "homepage": "https://github.com/hueniverse/hueniversity",
+  "version": "0.0.1",
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hueniverse/hueniversity"
+  },
+  "main": "lib/index.js",
+  "keywords": [
+    "community",
+    "education",
+    "hapi",
+    "server"
+  ],
+  "engines": {
+    "node": ">=0.10.32"
+  },
+  "scripts": {
+    "start": "node lib/index.js",
+    "test": "lab -t 100 -L",
+    "test-cov": "lab -r html -o coverage.html"
+  },
+  "dependencies": {
+    "hapi": "^8.4.0",
+    "hoek": "^2.11.1"
+  },
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "lab": "^5.5.0"
+  }
+}
