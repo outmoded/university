@@ -1,0 +1,19 @@
+{
+    "name": "hueniversity",
+    "version": "0.0.1",
+    "description": "Community learning experiment",
+    "main": "./lib/index",
+    "scripts": {
+        "test": "echo 'No tests!'",
+        "start": "node ./lib/index"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hueniverse/hueniversity.git"
+    },
+    "license": "BSD",
+    "dependencies": {
+        "hapi": "^8.3.1",
+        "hoek": "^2.11.1"
+    }
+}
