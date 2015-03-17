@@ -1,0 +1,26 @@
+{
+  "name": "hueniversity",
+  "version": "0.0.1",
+  "description": "Hueversity turorials assignements repository",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hueniverse/hueniversity.git"
+  },
+  "keywords": [
+    "Hueversity",
+    "hapi",
+    "knowledge"
+  ],
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/hueniverse/hueniversity/issues"
+  },
+  "dependencies": {
+    "hapi": "~8.4.0",
+    "hoek": "~2.11.1"
+  }
+}
