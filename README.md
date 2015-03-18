@@ -28,7 +28,7 @@ While you wait for the assignment to close, take a look at what others are submi
 
 Each assignment will have a close date. When the issue expires, one of the Pull Requests submitted will be picked and merged. Any follow up assignments will be based on the merged code.
 
-Before starting the next assignment, make sure to rebase your fork to match the current master since only one Pull Request can be accepted.
+Before starting the next assignment, make sure [your fork matches the current master](guides/git.md) since only one Pull Request can be accepted.
 
 ### How can I help?
 
