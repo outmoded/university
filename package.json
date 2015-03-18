@@ -1,23 +1,28 @@
 {
-  "name": "hueniversity",
-  "version": "0.0.1",
-  "description": "",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node lib/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/towns/hueniversity.git"
-  },
-  "author": "towns",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/towns/hueniversity/issues"
-  },
-  "homepage": "https://github.com/towns/hueniversity",
-  "dependencies": {
-    "hapi": "~8.3.1"
-  }
+    "name": "hueniversity",
+    "version": "0.0.1",
+    "description": "Community learning experiment with hapi.js",
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node lib/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/towns/hueniversity.git"
+    },
+    "keywords": [
+        "hapi",
+        "learn",
+        "community"
+    ],
+    "author": "towns",
+    "license": "BSD",
+    "bugs": {
+        "url": "https://github.com/towns/hueniversity/issues"
+    },
+    "homepage": "https://github.com/towns/hueniversity",
+    "dependencies": {
+        "hapi": "~8.3.1"
+    }
 }
