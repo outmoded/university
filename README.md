@@ -1,4 +1,4 @@
-# hueniversity
+<img src='images/logo.png' />
 
 This is a community learning experiment. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
 
