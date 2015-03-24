@@ -1,22 +1,23 @@
 {
   "name": "hueniversity",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hueniverse/hueniversity.git"
+    "url": "https://github.com/hueniversity/hueniversity.git"
   },
   "keywords": [
     "hapi",
     "learn",
     "community"
   ],
+  "author": "Tyler Briles",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/hueniverse/hueniversity/issues"
+    "url": "https://github.com/hueniversity/hueniversity.git"
   },
-  "homepage": "https://github.com/hueniverse/hueniversity",
+  "homepage": "https://github.com/hueniversity/hueniversity",
   "dependencies": {
     "hapi": "8.x.x",
     "hoek": "2.x.x"
