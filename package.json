@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MrBri/hueniversity.git"
+    "url": "https://github.com/hueniversity/hueniversity.git"
   },
   "keywords": [
     "hapi",
@@ -15,9 +15,9 @@
   "author": "Tyler Briles",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/MrBri/hueniversity.git"
+    "url": "https://github.com/hueniversity/hueniversity.git"
   },
-  "homepage": "https://github.com/MrBri/hueniversity",
+  "homepage": "https://github.com/hueniversity/hueniversity",
   "dependencies": {
     "hapi": "8.x.x",
     "hoek": "2.x.x"
