@@ -22,7 +22,10 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "make test-cov",
     "start": "node lib/index.js"
+  },
+  "devDependencies": {
+    "lab": "^5.5.1"
   }
 }
