@@ -25,7 +25,7 @@
   "scripts": {
     "test": "lab -a code -t 100 -L",
     "test-cov-html": "lab -a code -r html -o coverage.html",
-    "start": "node lib/index.js"
+    "start": "node start.js"
   },
   "devDependencies": {
     "lab": "^5.5.1"
