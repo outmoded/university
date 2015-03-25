@@ -3,12 +3,11 @@
 var Code = require('code');
 var Lab = require('lab');
 var Server = require('../lib');
-
+var Pkg = require('../package.json');
 
 // Declare internals
 
 var internals = {};
-
 
 // Test shortcuts
 
@@ -26,7 +25,7 @@ describe('version', function () {
             server.inject('/version', function(response) {
 
                 expect(response.statusCode).to.equal(200);
-                expect(response.result.version).to.equal('0.0.3');
+                expect(response.result.version).to.equal(Pkg.version);
                 server.stop(done);
             });
         });
