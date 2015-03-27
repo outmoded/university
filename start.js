@@ -1,6 +1,6 @@
 Hoek = require('hoek');
 
-Server = require('./index');
+Server = require('./lib');
 
 Server.init(8000, function(err, server) {
     Hoek.assert(!err, err);
