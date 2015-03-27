@@ -5,10 +5,6 @@ var Lab = require('lab');
 var Server = require('../lib');
 var Pkg = require('../package.json');
 
-// Declare internals
-
-var internals = {};
-
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
