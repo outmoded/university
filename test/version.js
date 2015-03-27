@@ -2,6 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
+var Pkg = require('../package.json');
 var Server = require('../lib');
 
 
@@ -12,23 +13,22 @@ var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
-lab.test('Give the version data of the package.json file ', function(done) {
+describe('/version', function () {
 
-    var options = {
-        method: 'GET',
-        url: '/version'
-        };
+    it('returns the version from package.json', function (done) {
 
-    Server.init(5000, function (err, server) {
+        Server.init(5000, function (err, server) {
 
-        server.inject(options, function(response) {
+            expect(err).to.not.exist();
 
-            var result = response.result;
+            server.inject('/version', function (res) {
 
-            expect(response.statusCode).to.equal(200);
-            expect(result.version).to.equal('0.0.2');
+                expect(res.statusCode).to.equal(200);
+                expect(res.result).to.deep.equal({ version: Pkg.version });
 
-            done();
+                server.stop(done);
             });
         });
+    });
 });
+
