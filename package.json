@@ -24,5 +24,9 @@
   "scripts": {
     "test": "make test-cov",
     "start": "node start.js"
+  },
+  "devDependencies": {
+    "code": "^1.4.0",
+    "lab": "^5.5.1"
   }
 }
