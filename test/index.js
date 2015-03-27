@@ -14,10 +14,10 @@ var expect = Code.expect;
 var it = lab.test;
 
 describe('Server', function() {
-   
+
     it('starts server on port 8000 by default', function (done) {
 
-        Server.init(8000, function (err, server) {
+        Server.init(null, function (err, server) {
 
             expect(err).to.not.exist();
             expect(server.info.port).to.equal(8000);
