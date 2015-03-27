@@ -1,14 +1,17 @@
+// Load modules
+
 var Code = require('code');
 var Lab = require('lab');
 var Package = require('../package.json');
-var lab = exports.lab = Lab.script();
 var lib = require('../lib/');
 
-lab.test('returns true when 1 + 1 equals 2', function (done) {
+// Declare internals
 
-    Code.expect(1 + 1).to.equal(2);
-    done();
-});
+var internals = {};
+
+// Test shortcuts
+var lab = exports.lab = Lab.script();
+var expect = Code.expect;
 
 
 lab.test('it returns the version', function (done) {
@@ -18,14 +21,15 @@ lab.test('it returns the version', function (done) {
         url: '/version'
     };
 
+    lib.init(function (err, server) {
 
+        expect(err).to.be.undefined();
+        expect(server.info.port).to.equal(8000);
+        server.inject(options, function (response) {
 
-    server.inject(options, function (response) {
-
-        var result = response.result;
-        //console.log(result);
-
-        Code.expect(response.statusCode).to.equal(200);
-
+            expect(response.statusCode).to.equal(200);
+            expect(response.result.version).to.equal(Package.version);
+            server.stop(done);
+        });
     });
 });
