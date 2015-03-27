@@ -1,6 +1,5 @@
 
 var Code = require('code');   // assertion library
-var Hoek = require('hoek');
 
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();

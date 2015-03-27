@@ -1,5 +1,4 @@
 var Code = require('code');   // assertion library
-var Hoek = require('hoek');
 
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
@@ -17,7 +16,7 @@ lab.test('test version endpoint', function (done) {
 
     Server.init(function(err, server) {
 
-        Hoek.assert(!err, err);
+        Code.expect(!err, err);
 
         var options = {
             method: 'GET',
