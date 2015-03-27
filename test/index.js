@@ -4,8 +4,7 @@
 var Code = require('code');
 var Lab = require('lab');
 var Server = require('../lib');
-var Hoek = require('hoek');
-var lib = require('../lib');
+var Version = require('../lib/version');
 
 
 // Test shortcuts
@@ -22,8 +21,6 @@ describe('Server', function() {
 
          Server.init(5000, function(err, server){
 
-            // Hoek or expect undefined ??? best practices are what ??
-            // Hoek.assert(!err, err); ?? Hoek or below ?? 
             expect(err).to.be.undefined();
 
             expect(server.info.port).to.equal(5000);
@@ -33,29 +30,31 @@ describe('Server', function() {
     });
 
 
-    it('Failed ot load plugin test', function(done){
+    it('Load version plugin failed test', function(done){
 
-        // Test logic taken from @TheAlphaNerd assignment3
-        var register = lib.Version.register;
+        var register = Version.register;
 
-        lib.Version.register = function (server, options, next) {
-            next('I like to break stuff');
+        // Break version plugin logic mostly based on @TheAlphaNerd's assignment3.
+        Version.register = function (server, options, next) {
+            next('Break the version plugin.');
         };
 
-        lib.Version.register.attributes = {
+
+        Version.register.attributes = {
             name: 'Fakey Mc Fakerson'
-        };
+        }; 
 
-         Server.init(5000, function(err, server){
 
-             expect(err).to.equal('I like to break stuff');
-            // Hoek or expect undefined ??? best practices are what ??
-            // Hoek.assert(!err, err); ?? Hoek or below ?? 
-            // expect(err).to.be.undefined();
+        Server.init(5000, function(err, server){
+
+            expect(err).to.equal('Break the version plugin.');
+
 
             expect(server.info.port).to.equal(5000);
 
-            lib.Version.register = register;
+
+            Version.register = register;
+
 
             server.stop(done);
         });

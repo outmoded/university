@@ -3,7 +3,6 @@ var Code = require('code');
 var Lab = require('lab');
 var Server = require('../lib');
 var Pkg = require('../package.json');
-var Hoek = require('hoek');
 
 
 // Test shortcuts 
@@ -20,7 +19,7 @@ describe('Version', function() {
 
         Server.init(null,function(err, server){
 
-            Hoek.assert(!err, err);
+            expect(err).to.be.undefined();
 
             expect(server.info.port).to.equal(8000);
 
