@@ -23,7 +23,6 @@
   },
   "scripts": {
     "test": "make test-cov",
-    "test-cov-html": "make test-cov-html",
     "start": "node start.js"
   }
 }
