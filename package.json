@@ -23,7 +23,9 @@
   },
   "scripts": {
     "start": "node start.js",
-    "test": "lab -t 100"
+    "test": "lab",
+    "test-coverage": "lab -t 100",
+    "test-coverage-html": "lab -r html -o test/coverage.html"
   },
   "devDependencies": {
     "code": "^1.4.0",

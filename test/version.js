@@ -11,6 +11,7 @@ var describe = lab.experiment;
 var it = lab.test;
 var expect = Code.expect;
 
+
 describe('Version plugin', function(){
 
     it('-- ensure version data is correct',function(done){
