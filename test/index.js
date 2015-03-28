@@ -1,4 +1,3 @@
-
 //Load modules
 
 var Code = require('code');
@@ -15,13 +14,11 @@ var it = lab.test;
 var expect = Code.expect;
 
 
-describe('Server', function() {
+describe('Check server startup',function(){
 
-    it('Run on 5000', function(done){
+    it('test port 5000', function(done){
 
-         Server.init(5000, function(err, server){
-
-            expect(err).to.be.undefined();
+        Server.init(5000, function(err, server){
 
             expect(server.info.port).to.equal(5000);
 
@@ -30,13 +27,35 @@ describe('Server', function() {
     });
 
 
-    it('Load version plugin failed test', function(done){
+    it('test no port submitted', function(done){
+
+        Server.init(function(err, server){
+
+            expect(server.info.port).to.equal(8000);
+
+            server.stop(done);
+        });
+    });
+
+
+    it('test null submitted', function(done){
+
+        Server.init(null, function(err, server){
+
+            expect(server.info.port).to.equal(8000);
+
+            server.stop(done);
+        });
+    });
+
+
+    it('test version plugin load fail', function(done){
 
         var register = Version.register;
 
-        // Break version plugin logic mostly based on @TheAlphaNerd's assignment3.
+        // Credit: Break plugin code based on  @TheAlphaNerd's assignment3.
         Version.register = function (server, options, next) {
-            next('Break the version plugin.');
+            next('Break plugin');
         };
 
 
@@ -45,12 +64,12 @@ describe('Server', function() {
         }; 
 
 
-        Server.init(5000, function(err, server){
+        Server.init(function(err, server){
+        
+            expect(err).to.equal('Break plugin');
 
-            expect(err).to.equal('Break the version plugin.');
 
-
-            expect(server.info.port).to.equal(5000);
+            expect(server.info.port).to.equal(8000);
 
 
             Version.register = register;
@@ -59,44 +78,7 @@ describe('Server', function() {
             server.stop(done);
         });
     });
-
-
-    lab.test('Run on 7000', function(done){
-
-         Server.init(7000, function(err, server){
-
-            expect(err).to.be.undefined();
-
-            expect(server.info.port).to.equal(7000);
-
-            server.stop(done);
-        });
-    });
-
-
-    it('Default Run on 8000', function(done){
-
-        Server.init(null, function(err, server){
-
-            expect(err).to.be.undefined();
-
-            expect(server.info.port).to.equal(8000);
-            
-            server.stop(done());
-        });
-    });
-
-
-    it('Default Run on 8899', function(done){
-
-        Server.init(8899, function(err, server){
-
-            expect(err).to.be.undefined();
-
-            expect(server.info.port).to.equal(8899);
-
-            server.stop(done);
-        });
-    });
 });
+
+
 

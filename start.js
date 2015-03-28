@@ -1,14 +1,11 @@
-
 var Hoek = require('hoek');
-var Index = require('./lib/index');
+var Server = require('./lib/');
 
 
-Index.init(null, function (err, server) {
+Server.init(function(err, server){
 
     Hoek.assert(!err, err);
 
-    console.log( 'Server started at: '+ server.info.uri +'\n'+
-                 'Server port is: '+ server.info.port);
-});
-
-
+    console.log('Server started at: '+ server.info.uri +'\n'+
+                 'Using port: '+ server.info.port);
+})

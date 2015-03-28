@@ -1,4 +1,3 @@
-
 var Code = require('code');
 var Lab = require('lab');
 var Server = require('../lib');
@@ -13,13 +12,14 @@ var it = lab.test;
 var expect = Code.expect;
 
 
-describe('Version', function() {
+describe('Version plugin', function(){
 
-    it('Return correct version data', function(done){
-
+    it('-- ensure version data is correct',function(done){
+    
         Server.init(null,function(err, server){
 
             expect(err).to.be.undefined();
+
 
             expect(server.info.port).to.equal(8000);
 
@@ -28,8 +28,10 @@ describe('Version', function() {
 
                 expect(response.statusCode).to.equal(200);
 
-                expect(response.result.version).to.equal(Pkg.version);
+
+                expect(response.result.version).to.equal(Pkg.version)   
             });
+
 
             server.stop(done);
         });
