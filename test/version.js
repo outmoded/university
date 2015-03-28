@@ -1,6 +1,7 @@
 var Lab = require('lab');
 var Code = require('code');
 var Server = require('../lib');
+var Package = require('../package.json');
 
 
 var lab = exports.lab = Lab.script();
@@ -10,7 +11,7 @@ lab.experiment('Version Plugin', function () {
 
     lab.test('server returns plugin version', function (done) {
 
-        Server.init(null, function (err, server) {
+        Server.init(function (err, server) {
 
             var request = {
                 method: 'GET',
@@ -20,7 +21,7 @@ lab.experiment('Version Plugin', function () {
             server.inject(request, function (res) {
 
                 expect(res.result).to.exist();
-                expect(res.result).to.equal({ 'version': '0.0.3' });
+                expect(res.result.version).to.equal(Package.version);
                 server.stop(done);
             });
         });

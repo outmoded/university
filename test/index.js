@@ -32,6 +32,7 @@ lab.experiment('Server', function () {
     lab.test('server handles plugin errors', function (done) {
 
         var Version = require('../lib/version');
+        var register = Version.register;
 
         Version.register = function (server, options, next) {
             return next(new Error('Plugin error!'));
@@ -46,6 +47,7 @@ lab.experiment('Server', function () {
             Code.expect(err).to.exist();
             Code.expect(server).to.be.undefined();
             Code.expect(err.message).to.equal('Plugin error!');
+            Version.register = register;
             done();
         });
     });
