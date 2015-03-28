@@ -17,7 +17,7 @@ describe('Server', function() {
 
     it('starts server on port 8000 by default', function (done) {
 
-        Server.init(null, function (err, server) {
+        Server.init(function (err, server) {
 
             expect(err).to.not.exist();
             expect(server.info.port).to.equal(8000);
@@ -25,7 +25,6 @@ describe('Server', function() {
             server.stop(done);
         });
     });
-
 
     it('starts server on provided port', function (done) {
 
@@ -50,7 +49,7 @@ describe('Server', function() {
             name: 'fake version'
         };
 
-        Server.init(5000, function (err, server) {
+        Server.init(function (err, server) {
 
             expect(err).to.exist();
             expect(err.message).to.equal('register version failed');
