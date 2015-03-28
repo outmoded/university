@@ -22,7 +22,8 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "test": "lab -La code -t 100",
+    "test": "lab -a code -t 100 -L",
+    "test-tap": "lab -a code -r tap -o tests.tap",
     "start": "node start.js"
   },
   "devDependencies": {
