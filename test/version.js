@@ -21,7 +21,7 @@ describe('Version', function () {
         var server = new Hapi.Server().connection();
         server.register(Version, function (err) {
 
-            expect(err).to.be.undefined();
+            expect(err).to.not.exist();
             server.inject({ url: '/version' }, function (res) {
 
                 expect(res.statusCode).to.equal(200);
