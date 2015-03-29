@@ -22,7 +22,12 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node lib/index.js"
+    "start": "node ./lib/start.js",
+    "test": "lab -e test -t 100 -vL -a code",
+    "test-cov-html": "lab -e test -r html -o coverage.html -vL -a code"
+  },
+  "devDependencies": {
+    "code": "1.x.x",
+    "lab": "5.x.x"
   }
 }
