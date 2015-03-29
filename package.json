@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "make test-cov",
-    "start": "node lib/start.js"
+    "start": "node start.js"
   },
   "devDependencies": {
     "code": "^1.4.0",

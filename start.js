@@ -1,4 +1,4 @@
-var Server = require('./index');
+var Server = require('./lib/');
 var Hoek = require('hoek');
 
 Server.init(8000, function(err, server) {
