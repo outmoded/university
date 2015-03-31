@@ -2,7 +2,7 @@
 //
 var Hoek = require('hoek');
 
-// Requiring './lib' like this assigns all the `register` & `init` methods to the variable `lib`. 
+// Requiring './lib' like this assigns the `register` & `init` methods to the variable `lib`. 
 
 var lib = require('./lib');
 
