@@ -38,23 +38,13 @@ describe('Check server startup',function(){
     });
 
 
-    it('test null submitted', function(done){
-
-        Server.init(null, function(err, server){
-
-            expect(server.info.port).to.equal(8000);
-
-            server.stop(done);
-        });
-    });
-
-
     it('test version plugin load fail', function(done){
 
         var register = Version.register;
 
         // Credit: Break plugin code based on  @TheAlphaNerd's assignment3.
         Version.register = function (server, options, next) {
+
             next('Break plugin');
         };
 
