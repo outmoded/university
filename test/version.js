@@ -7,7 +7,7 @@ var Hoek = require('hoek');
 
 var lab = exports.lab = Lab.script();
 
-lab.experiment('', function () {
+lab.experiment('Version plugin', function () {
     
     lab.beforeEach(function (done) {
 
@@ -24,12 +24,12 @@ lab.experiment('', function () {
         done();
     });
 
-    lab.test('', function (done) {
+    lab.test('it should return the current version', function (done) {
 
         server.inject('/version', function (res) {
             
             console.log(res.result);
-            Code.expect(res.result).to.deep.equal({ version: '0.0.2'});
+            Code.expect(res.result).to.be.an.object();
             done();
         });
     });
