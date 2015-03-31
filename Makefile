@@ -31,4 +31,4 @@ help:
 	@echo "  cov-mac	-- run coverage tests output to html file and open in Safari"
 	@echo "  						    "
 
-.PHONY: all test clean
+.PHONY: start install test cov cov-html cov-mac help 

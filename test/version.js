@@ -21,9 +21,6 @@ describe('Version plugin', function(){
             expect(err).to.be.undefined();
 
 
-            expect(server.info.port).to.equal(8000);
-
-
             server.inject('/version', function (response) {
 
                 expect(response.statusCode).to.equal(200);
