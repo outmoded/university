@@ -1,5 +1,3 @@
-'use strict';
-
 var Code = require('code');
 var Lab = require('lab');
 
@@ -15,7 +13,7 @@ describe('version.js', function() {
 
     it('returns correct version', function(done) {
 
-        Index.init(8000, function(err, server) {
+        Index.init(function(err, server) {
 
             expect(err).to.be.undefined();
             expect(server).to.be.object();
@@ -24,11 +22,8 @@ describe('version.js', function() {
                 method: 'GET',
                 url: '/version'
             }, function(res) {
-
-                var version = res.result.version;
-
                 expect(res.statusCode).to.equal(200);
-                expect(version).to.be.a.string().and.to.equal(Pkg.version);
+                expect(res.result).to.be.deep.equal({ version: Pkg.version });
                 done();
             });
         });

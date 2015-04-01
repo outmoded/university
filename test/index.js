@@ -1,5 +1,3 @@
-'use strict';
-
 var Code = require('code');
 var Lab = require('lab');
 
@@ -13,7 +11,7 @@ var it = lab.it;
 
 describe('index.js', function() {
 
-    var server;
+    var port = 1000 + Math.floor(Math.random() * 1000);
 
     it('Should not require port to start on default port', function(done) {
 
@@ -21,18 +19,18 @@ describe('index.js', function() {
 
             expect(err).to.be.undefined();
             expect(server).to.be.object();
-            expect(server.info.port).to.equal(8000);
+            expect(server.info.port).to.be.a.number();
             server.stop(done);
         });
     });
 
-    it('Should start server correctly on port 5000', function(done) {
+    it('Should start server correctly on specified port', function(done) {
 
-        Index.init(5000, function(err, server) {
+        Index.init(port, function(err, server) {
 
             expect(err).to.be.undefined();
             expect(server).to.be.object();
-            expect(server.info.port).to.equal(5000);
+            expect(server.info.port).to.equal(port);
             server.stop(done);
         });
     });
@@ -51,11 +49,11 @@ describe('index.js', function() {
             name: 'An error'
         };
 
-        Index.init(8000, function(err, server) {
+        Index.init(port, function(err, server) {
 
             expect(err).to.be.equal('An error');
             expect(server).to.be.object();
-            expect(server.info.port).to.equal(8000);
+            expect(server.info.port).to.equal(port);
 
             Version.register = register;
 
