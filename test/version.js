@@ -5,9 +5,6 @@ var Lab = require('lab');
 var Index = require('../lib');
 var Pkg = require('../package.json');
 
-var internals = {
-  port: 3000
-};
 
 var lab = exports.lab = Lab.script();
 var describe = lab.describe;
