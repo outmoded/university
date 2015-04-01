@@ -16,7 +16,7 @@ describe('Version plugin', function(){
 
     it('-- ensure version data is correct',function(done){
     
-        Server.init(null,function(err, server){
+        Server.init(function(err, server){
 
             expect(err).to.be.undefined();
 
