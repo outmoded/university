@@ -2,7 +2,7 @@
   "name": "hueniversity",
   "version": "0.0.3",
   "description": "Community learning experiment",
-  "main": "lib/index.js",
+  "main": "lib/start.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/hueniverse/hueniversity.git"
@@ -22,7 +22,7 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "start": "node start.js",
+    "start": "node lib/start.js",
     "test": "lab -e test -t 100 -vL -a code",
     "test-cov-html": "lab -e test -r html -o coverage.html -vL -a code"
   },
