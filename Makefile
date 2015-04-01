@@ -1,10 +1,7 @@
 test:
-	@node node_modules/lab/bin/lab -a code
-test-cov:
-	@node node_modules/lab/bin/lab -a code -t 100 -L
-test-cov-html:
-	@node node_modules/lab/bin/lab -a code -r html -o coverage.html
-changelog:
-	@mdchangelog --no-prologue --no-orphan-issues --overwrite --order-milestones semver --order-issues closed_at --dependents --timeout 120000
+	npm test
 
-.PHONY: test test-cov test-cov-html changelog
+test-cov-html:
+	npm test-cov-html
+
+.PHONY: test test-cov-html
