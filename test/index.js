@@ -17,11 +17,12 @@ describe('Should create a server with default port', function() {
 
             expect(err).to.be.undefined();
             expect(server.info.port).to.equal(8000);
-            server.stop(done); // done is getting passed as a callback?
+            server.stop(done);
         });
     });
 
     it('Starts server with default port', function(done) {
+
         Server.init(function(err, server) {
             expect(server.info.port).to.equal(8000);
             server.stop(done);
