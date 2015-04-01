@@ -1,7 +1,6 @@
 var Code = require('code');
 var Lab = require('lab');
 var Server = require('../lib/index');
-//var Version = require('../lib/version');
 
 var lab = exports.lab = Lab.script();
 var expect = Code.expect;
