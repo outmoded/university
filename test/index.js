@@ -14,7 +14,8 @@ describe('Should create a server with default port', function() {
     it('starts the server', function(done) {
 
         Server.init(8000, function(err, server) {
-
+            //
+            //console.log(server.info);
             //expect(err).to.be.undefined();
             //expect(server).to.be.an.object();
             expect(server.info.port).to.equal(8000);
