@@ -11,7 +11,7 @@ var it = lab.it;
 
 describe('index.js', function() {
 
-    var port = 1000 + Math.floor(Math.random() * 1000);
+    var port = 1024 + Math.floor(Math.random() * 1000);
 
     it('Should not require port to start on default port', function(done) {
 
