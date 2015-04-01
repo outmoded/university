@@ -2,7 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Server = require('../lib');
+var Lib = require('../lib');
 var Pkg = require('../package.json');
 
 // Test shortcuts
@@ -16,7 +16,7 @@ describe('version', function () {
 
     it('gets the version', function (done) {
 
-        Server.init(4000, function(err, server) {
+        Lib.init(0, function(err, server) {
 
             server.inject('/version', function(response) {
 

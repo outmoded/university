@@ -2,7 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Server = require('../lib');
+var Lib = require('../lib');
 var Version = require('../lib/version');
 
 // Test shortcuts
@@ -14,27 +14,18 @@ var expect = Code.expect;
 
 describe('index', function () {
 
-    it('should create a server with default port', function (done) {
+    it('should create a server', function (done) {
 
-        Server.init(function(err, server) {
+        Lib.init(0, function(err, server) {
 
-            expect(server.info.port).to.equal(8000);
-            server.stop(done);
-        });
-    });
-
-    it('should create a server with specific port', function (done) {
-
-        Server.init(3000, function(err, server) {
-
-            expect(server.info.port).to.equal(3000);
+            expect(server.info.port).to.be.above(0);
             server.stop(done);
         });
     });
 
     it('should fail plugin registration', function (done) {
 
-        var oldRegister = Version.register;
+        var register = Version.register;
 
         Version.register = function(server, options, next) {
             next('Plugin Error');
@@ -42,10 +33,10 @@ describe('index', function () {
 
         Version.register.attributes = {name: 'Fake Plugin'};
 
-        Server.init(function(err, server) {
+        Lib.init(0, function(err, server) {
 
             expect(err).to.equal('Plugin Error');
-            Version.register = oldRegister;
+            Version.register = register;
             server.stop(done);
         });
     });
