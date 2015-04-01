@@ -15,9 +15,10 @@ describe('Should create a server with default port', function() {
         Server.init(8000, function(err, server) {
             //
             //console.log(server.info);
-            //expect(err).to.be.undefined();
+            expect(err).to.be.undefined();
             expect(server.info.port).to.equal(8000);
             server.stop(done); // done is getting passed as a callback?
         });
     });
+
 });
