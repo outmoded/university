@@ -22,7 +22,7 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "test": "lab",
+    "test": "make test-cov",
     "test-cov": "lab -a code -t 100 -L",
     "test-cov-html": "lab -a code -r html -o coverage.html"
   },
