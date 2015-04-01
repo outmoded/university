@@ -23,8 +23,8 @@
   },
   "scripts": {
     "test": "lab",
-    "test-coverage": "lab -t 100",
-    "test-cov-html": "lab -r html -o test/coverage.html"
+    "test-cov": "lab -a code -t 100 -L",
+    "test-cov-html": "lab -a code -r html -o coverage.html"
   },
   "devDependencies": {
     "code": "^1.3.0",
