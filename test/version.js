@@ -11,7 +11,6 @@ var it = lab.test;
 describe('Testing the Version plugin', function() {
 
     it('Returns the server version', function(done) {
-        
         Server.init(null, function(err, server) {
 
             server.inject('/version', function(response) {

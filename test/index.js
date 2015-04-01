@@ -21,4 +21,10 @@ describe('Should create a server with default port', function() {
         });
     });
 
+    it('Starts server with default port', function(done) {
+        Server.init(function(err, server) {
+            expect(server.info.port).to.equal(8000);
+            server.stop(done);
+        });
+    });
 });
