@@ -7,6 +7,7 @@ var expect = Code.expect;
 var labi = exports.lab = Lab.script();
 
 labi.experiment('index', function(){
+
     labi.test('init starts the server', function(done){
 
         Server.init(8081, function(err, server){

@@ -7,6 +7,7 @@ var expect = Code.expect;
 var labi = exports.lab = Lab.script();
 
 labi.experiment('Version:', function() {
+
 	labi.test('returns correct version', function(done) {
 
 		Server.init(8000, function(err, server) {
