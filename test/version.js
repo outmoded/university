@@ -1,7 +1,7 @@
 // Load modules
 
-var Lab = require('Lab');
-var Code = require('Code');
+var Lab = require('lab');
+var Code = require('code');
 var Server = require('../lib');
 var Pkg = require('../package.json');
 
