@@ -22,7 +22,7 @@
 		"hoek": "2.x.x"
 	},
 	"scripts": {
-		"test": "lab -t 100",
+		"test": "lab -a code -t 100 -L",
 		"test-cov-html": "lab -e test -r html -o coverage.html -vL -a code",
 		"start": "node lib/start.js"
 	},
