@@ -2,7 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Server = require('../lib');
+var Lib = require('../lib');
 var Version = require('../lib/version');
 
 
@@ -16,23 +16,11 @@ var expect = Code.expect;
 
 describe('Check server startup',function(){
 
-    it('test port 5000', function(done){
+    it('test server created', function(done){
 
-        Server.init(5000, function(err, server){
+        Lib.init(0, function(err, server){
 
-            expect(server.info.port).to.equal(5000);
-
-            server.stop(done);
-        });
-    });
-
-
-    it('test no port submitted', function(done){
-
-        Server.init(function(err, server){
-
-            expect(server.info.port).to.equal(8000);
-
+            expect(server.info.port).to.be.above(0);
             server.stop(done);
         });
     });
@@ -54,17 +42,10 @@ describe('Check server startup',function(){
         }; 
 
 
-        Server.init(function(err, server){
+        Lib.init(0, function(err, server){
         
             expect(err).to.equal('Break plugin');
-
-
-            expect(server.info.port).to.equal(8000);
-
-
             Version.register = register;
-
-
             server.stop(done);
         });
     });

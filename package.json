@@ -22,7 +22,7 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "start": "node start.js",
+    "start": "node lib/start.js",
     "test": "lab",
     "test-coverage": "lab -t 100",
     "test-coverage-html": "lab -r html -o test/coverage.html"

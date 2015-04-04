@@ -1,6 +1,6 @@
 var Code = require('code');
 var Lab = require('lab');
-var Server = require('../lib');
+var Lib = require('../lib');
 var Pkg = require('../package.json');
 
 
@@ -14,23 +14,18 @@ var expect = Code.expect;
 
 describe('Version plugin', function(){
 
-    it('-- ensure version data is correct',function(done){
+    it('version data should be correct',function(done){
     
-        Server.init(function(err, server){
-
-            expect(err).to.be.undefined();
-
+        Lib.init(0, function(err, server){
 
             server.inject('/version', function (response) {
 
                 expect(response.statusCode).to.equal(200);
-
-
                 expect(response.result.version).to.equal(Pkg.version)   
+                server.stop(done);
             });
 
 
-            server.stop(done);
         });
     });
 });
