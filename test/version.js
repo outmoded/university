@@ -43,5 +43,4 @@ lab.experiment('Version plugin', function () {
         internals.server.stop()
         done();
     });
-
 });
