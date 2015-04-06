@@ -21,8 +21,7 @@ describe('Server', function () {
 
             expect(err).to.not.exist();
             expect(server.info.port).to.equal(8000);
-            server.stop();
-            done();
+            server.stop(done);
         });
     });
 
@@ -39,8 +38,7 @@ describe('Server', function () {
                 }
             });
             expect(foundVersion, 'version route not found').to.equal(true);
-            server.stop();
-            done();
+            server.stop(done);
         });
     });
 
@@ -59,8 +57,7 @@ describe('Server', function () {
 
             expect(err).to.exist();
             Version.register = register;
-            server.stop();
-            done();
+            server.stop(done);
         });
     });
 
