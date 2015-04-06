@@ -24,9 +24,9 @@ lab.experiment('Version plugin', function () {
 
                 Code.expect(err).to.not.exist();
                 console.log('Server started at: ' + internals.server.info.uri);
+                done();
             });
         });
-        done();
     });
 
     lab.test('it should return the current version', function (done) {
