@@ -24,5 +24,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node lib/index.js"
+  },
+  "devDependencies": {
+    "lab": "^5.5.1"
   }
 }
