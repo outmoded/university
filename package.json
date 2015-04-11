@@ -26,6 +26,8 @@
     "start": "node lib/index.js"
   },
   "devDependencies": {
-    "lab": "^5.5.1"
+    "code": "^1.4.0",
+    "lab": "^5.5.1",
+    "mdchangelog": "^0.5.0"
   }
 }
