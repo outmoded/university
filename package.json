@@ -1,8 +1,8 @@
 {
   "name": "hueniversity",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Community learning experiment",
-  "main": "lib/index.js",
+  "main": "lib/start.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/hueniverse/hueniversity.git"
@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L",
-    "start": "node lib/index.js"
+    "start": "node lib/start.js"
   },
   "devDependencies": {
     "code": "^1.4.0",
