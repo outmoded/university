@@ -1,6 +1,5 @@
 var Version = require('../lib/version');
 var Index = require('../lib/index');
-var Hapi = require('hapi');
 var Code = require('code');
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
