@@ -28,14 +28,13 @@ describe('Version endpoint', function () {
             url: '/version'
         };
 
-        Init(8000, function (errors, server) {
+        Init(8002, function (errors, server) {
 
             server.inject(options, function (res) {
 
                 expect(res.result, 'Response').to.be.an.object();
                 expect(res.result, 'Response').to.include('version');
-                server.stop();
-                done();
+                server.stop(done);
             });
 
         });

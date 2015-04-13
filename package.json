@@ -26,7 +26,8 @@
     "lab": "^5.5.1"
   },
   "scripts": {
-    "test": "make test-cov",
+    "test": "lab -e test -t 100 -vL -a code",
+    "test-cov" : "lab -e test -r html -o coverage.html -vL -a code",  
     "start": "node start.js"
   }
 }
