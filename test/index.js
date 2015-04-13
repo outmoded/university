@@ -19,7 +19,6 @@ describe('Index', function () {
             expect(err).to.not.exist();
             server.stop(done);
         });
-
     });
 
     it('fails to starts', function(done) {
