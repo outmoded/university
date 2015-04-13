@@ -26,16 +26,6 @@ describe('Version Plugin', function () {
 
     });
 
-    it('registers routes', function(done) {
-
-        var plugins = server.table();
-
-        expect(plugins).to.have.length(1);
-        expect(plugins[0].table[0].path).to.equal('/version');
-
-        done();
-    });
-
     it('replys with the package version', function(done) {
 
         var options = {
