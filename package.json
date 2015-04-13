@@ -22,7 +22,7 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "test": "make test-cov",
+    "test": "node node_modules/lab/bin/lab -a code -t 100 -L",
     "start": "node lib/start.js"
   },
   "devDependencies": {
