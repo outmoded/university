@@ -13,7 +13,7 @@ var expect = Code.expect;
 describe('Index', function () {
 
     it('successfully starts', function(done) {
-        Index.init(0, function(err, server) {
+        Index.init(null, function(err, server) {
             expect(err).to.not.exist();
 
             server.stop(done);
@@ -32,7 +32,7 @@ describe('Index', function () {
             name: 'test'
         };
 
-        Index.init(0, function (err, server) {
+        Index.init(null, function (err, server) {
 
             expect(err).to.exist();
             Version.register = register;
