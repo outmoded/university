@@ -5,6 +5,7 @@ var Hoek = require('hoek');
 var Lab = require('lab');
 var Version = require('../lib/version');
 var Init = require('../lib/index').init;
+var Package = require('../package.json');
 
 // Declare internals
 
@@ -28,12 +29,12 @@ describe('Version endpoint', function () {
             url: '/version'
         };
 
-        Init(8002, function (errors, server) {
+        Init(function (errors, server) {
 
             server.inject(options, function (res) {
 
                 expect(res.result, 'Response').to.be.an.object();
-                expect(res.result, 'Response').to.include('version');
+                expect(res.result, 'Response').to.deep.equal({ version: Package.version });
                 server.stop(done);
             });
 

@@ -87,7 +87,6 @@ describe('index.js', function () {
             expect(server, 'server').to.not.exist();
 
             Version.register = backupRegister;
-
             done();
         });
 
