@@ -34,12 +34,11 @@ describe('Version Plugin', function () {
         };
 
         server.inject(options, function(response) {
-          
+
             var result = response.result;
 
             expect(response.statusCode).to.equal(200);
-            expect(result).to.be.instanceof(Object);
-            expect(result.version).to.be.equal(Package.version);
+            expect(response.result).to.deep.equal({version: Package.version});
 
             done();
         });
