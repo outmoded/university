@@ -17,15 +17,17 @@ describe('Version Plugin', function () {
     server.connection();
 
     it('successfully loads', function(done) {
-        server.register(Version, function(err) {
-            expect(err).to.not.exist();
 
+        server.register(Version, function(err) {
+
+            expect(err).to.not.exist();
             done();
         });
 
     });
 
     it('registers routes', function(done) {
+
         var plugins = server.table();
 
         expect(plugins).to.have.length(1);
@@ -35,12 +37,14 @@ describe('Version Plugin', function () {
     });
 
     it('replys with the package version', function(done) {
+
         var options = {
             method: 'GET',
             url: '/version'
         };
 
         server.inject(options, function(response) {
+          
             var result = response.result;
 
             expect(response.statusCode).to.equal(200);

@@ -13,9 +13,10 @@ var expect = Code.expect;
 describe('Index', function () {
 
     it('successfully starts', function(done) {
-        Index.init(null, function(err, server) {
-            expect(err).to.not.exist();
 
+        Index.init(null, function(err, server) {
+
+            expect(err).to.not.exist();
             server.stop(done);
         });
 
