@@ -13,10 +13,10 @@ var expect = Code.expect;
 
 describe('Version Plugin', function () {
 
-    var server = new Hapi.Server();
-    server.connection();
-
     it('successfully loads', function(done) {
+
+        var server = new Hapi.Server();
+        server.connection();
 
         server.register(Version, function(err) {
 
@@ -28,20 +28,25 @@ describe('Version Plugin', function () {
 
     it('replys with the package version', function(done) {
 
-        var options = {
-            method: 'GET',
-            url: '/version'
-        };
+        var server = new Hapi.Server();
+        server.connection();
 
-        server.inject(options, function(response) {
+        server.register(Version, function(err) {
 
-            var result = response.result;
+            var options = {
+                method: 'GET',
+                url: '/version'
+            };
 
-            expect(response.statusCode).to.equal(200);
-            expect(response.result).to.deep.equal({version: Package.version});
+            server.inject(options, function(response) {
 
-            done();
+                var result = response.result;
+
+                expect(response.statusCode).to.equal(200);
+                expect(response.result).to.deep.equal({version: Package.version});
+
+                done();
+            });
         });
-
     });
 });
