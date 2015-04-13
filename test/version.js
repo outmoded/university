@@ -43,7 +43,7 @@ describe('Version Plugin', function () {
                 var result = response.result;
 
                 expect(response.statusCode).to.equal(200);
-                expect(response.result).to.deep.equal({version: Package.version});
+                expect(response.result).to.deep.equal( { version: Package.version } );
 
                 done();
             });
