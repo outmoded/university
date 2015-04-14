@@ -2,6 +2,8 @@
 
 This is a community learning experiment. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
 
+[![Join the chat at https://gitter.im/hueniverse/hueniversity](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hueniverse/hueniversity?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### What am I going to learn?
 
 You will learn how to build an application server using node and [hapi](http://hapijs.com). It will start with the basics and move on to more advance topic such as authentication, validation, application architecture, testing, and more.
