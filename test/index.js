@@ -21,7 +21,7 @@ describe('Index', function () {
         });
     });
 
-    it('fails to starts', function(done) {
+    it('fails to starts', { parallel: false }, function(done) {
 
         var register = Version.register;
         Version.register = function (server, options, next) {
