@@ -10,7 +10,7 @@ var it = lab.test;
 
 
 describe('Should create a server with default port', function() {
-
+/* Redundant
     it('starts the server', function(done) {
 
         Server.init(8000, function(err, server) {
@@ -20,7 +20,7 @@ describe('Should create a server with default port', function() {
             server.stop(done);
         });
     });
-
+*/
     it('Starts server with default port', function(done) {
 
         Server.init(function(err, server) {
