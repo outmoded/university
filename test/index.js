@@ -10,17 +10,8 @@ var it = lab.test;
 
 
 describe('Should create a server with default port', function() {
-/* Redundant
-    it('starts the server', function(done) {
 
-        Server.init(8000, function(err, server) {
 
-            expect(err).to.be.undefined();
-            expect(server.info.port).to.equal(8000);
-            server.stop(done);
-        });
-    });
-*/
     it('Starts server with default port', function(done) {
 
         Server.init(function(err, server) {
@@ -41,7 +32,7 @@ describe('Should create a server with default port', function() {
 
         Version.register = function(server, options, next) {
 
-            next('Fake register function');
+            return next('Fake register function');
         };
 
         Version.register.attributes = {
