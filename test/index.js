@@ -22,7 +22,7 @@ var expect = Code.expect;
 
 describe('Lib', function() {
 
-    describe('init()', function () {
+    describe('init()', { parallel: false }, function () {
 
         it('should properly handle an error if the plugin does not load correctly', function (done) {
 
