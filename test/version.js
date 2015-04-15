@@ -10,7 +10,7 @@ var it = lab.test;
 
 describe('Testing the Version plugin', function() {
 
-    it('Returns the server version', function(done) {
+    it('Returns the server version', { parallel: false }, function(done) {
 
         Server.init(null, function(err, server) {
 
