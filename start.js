@@ -1,7 +1,7 @@
 // Load modules
 
 var Hoek = require('hoek');
-var Index = require('./');
+var Index = require('./lib');
 
 
 // Declare internals
