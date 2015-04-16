@@ -22,7 +22,7 @@ describe('Version', function () {
         server.register(Version, function (err) {
 
             expect(err).to.not.exist();
-            server.inject({ url: '/version' }, function (res) {
+            server.inject('/version', function (res) {
 
                 expect(res.statusCode).to.equal(200);
                 expect(res.result).to.deep.equal({ version: Package.version });
