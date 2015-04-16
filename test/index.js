@@ -11,8 +11,6 @@ var it = lab.it;
 
 describe('index.js', function() {
 
-    var port = 1024 + Math.floor(Math.random() * 1000);
-
     it('Should not require port to start on default port', function(done) {
 
         Index.init(function(err, server) {
@@ -25,6 +23,7 @@ describe('index.js', function() {
     });
 
     it('Should start server correctly on specified port', function(done) {
+        var port = 6000;
 
         Index.init(port, function(err, server) {
 
@@ -49,11 +48,11 @@ describe('index.js', function() {
             name: 'An error'
         };
 
-        Index.init(port, function(err, server) {
+        Index.init(null, function(err, server) {
 
             expect(err).to.be.equal('An error');
             expect(server).to.be.object();
-            expect(server.info.port).to.equal(port);
+            expect(server.info.port).to.be.a.number();
 
             Version.register = register;
 
