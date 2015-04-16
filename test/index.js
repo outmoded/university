@@ -17,17 +17,17 @@ describe('Server', function () {
 
     it('listens on supplied port', function (done) {
 
-        Index.init(8000, function (err, server) {
+        Index.init(0, function (err, server) {
 
             expect(err).to.not.exist();
-            expect(server.info.port).to.equal(8000);
+            expect(server.info.port).to.be.a.number();
             server.stop(done);
         });
     });
 
     it('registers version plugin', function (done) {
 
-        Index.init(8000, function (err, server) {
+        Index.init(0, function (err, server) {
 
             expect(err).to.not.exist();
             var routes = server.connections[0].table();
@@ -53,7 +53,7 @@ describe('Server', function () {
             name: 'test'
         };
 
-        Index.init(8000, function (err, server) {
+        Index.init(0, function (err, server) {
 
             expect(err).to.exist();
             Version.register = register;
