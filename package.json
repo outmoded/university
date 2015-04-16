@@ -1,6 +1,6 @@
 {
   "name": "hueniversity",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
@@ -22,7 +22,13 @@
     "hoek": "2.x.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node lib/index.js"
+    "start": "node start.js",
+    "test": "lab -L",
+    "test-coverage": "lab -L -t 100",
+    "test-coverage-html": "lab -L -r html -o test/coverage.html"
+  },
+  "devDependencies": {
+    "code": "^1.4.0",
+    "lab": "^5.5.1"
   }
 }
