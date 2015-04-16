@@ -15,35 +15,35 @@ var expect = Code.expect;
 
 describe('lib', function() {
 
-	it('should run on any defined port', function(done) {
+    it('should run on any defined port', function(done) {
 
-		Lib.init(1234, function(err, server) {
+        Lib.init(1234, function(err, server) {
 
-			expect(err).to.not.exist();
-			expect(server.info.port).to.equal(1234);
+            expect(err).to.not.exist();
+            expect(server.info.port).to.equal(1234);
 
-			server.stop(done);
-		});
-	});
+            server.stop(done);
+        });
+    });
 
-	it('should fail if plugin does not register', function(done) {
+    it('should fail if plugin does not register', function(done) {
 
-		var register = Version.register;
-		Version.register = function(server, options, next) {
+        var register = Version.register;
+        Version.register = function(server, options, next) {
 
-			return next(new Error('Plugin registration failed'));
-		};
+            return next(new Error('Plugin registration failed'));
+        };
 
-		Version.register.attributes = {
-			name: 'version'
-		};
+        Version.register.attributes = {
+            name: 'version'
+        };
 
-		Lib.init(8000, function(err, server) {
+        Lib.init(8000, function(err, server) {
 
-			expect(err).to.exist();
+            expect(err).to.exist();
 
-			Version.register = register;
-			server.stop(done);
-		});
-	});
+            Version.register = register;
+            server.stop(done);
+        });
+    });
 });

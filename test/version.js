@@ -14,18 +14,18 @@ var expect = Code.expect;
 
 describe('/version', function() {
 
-	it('should return proper version', function(done) {
+    it('should return proper version', function(done) {
 
-		Lib.init(8000, function(err, server) {
+        Lib.init(8000, function(err, server) {
 
-			expect(err).to.not.exist();
-			server.inject('/version', function(response) {
+            expect(err).to.not.exist();
+            server.inject('/version', function(response) {
 
-				expect(response.statusCode).to.equal(200);
-				expect(response.result).to.deep.equal({ version: Pkg.version });
-			});
+                expect(response.statusCode).to.equal(200);
+                expect(response.result).to.deep.equal({ version: Pkg.version });
+            });
 
-			server.stop(done);
-		});
-	});
+            server.stop(done);
+        });
+    });
 });
