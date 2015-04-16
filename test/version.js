@@ -3,6 +3,8 @@ var Lab = require('lab');
 var Server = require('../lib/index');
 var Pkg = require('../package.json');
 
+// Set testing nicknames (shortcuts) for readablility
+
 var lab = exports.lab = Lab.script();
 var expect = Code.expect;
 var describe = lab.experiment;
