@@ -42,7 +42,7 @@ describe('Server', function () {
         });
     });
 
-    it('reports plugin registration error', function (done) {
+    it({ parallel: false }, 'reports plugin registration error', function (done) {
 
         var register = Version.register;
         Version.register = function (server, options, next) {
