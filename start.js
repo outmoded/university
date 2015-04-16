@@ -1,6 +1,6 @@
 var Hoek = require('hoek');
 
-var lib = require('./lib');
+var Lib = require('./lib');
 
 lib.init(8000, function (err, server) {
 
