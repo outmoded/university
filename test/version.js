@@ -24,8 +24,6 @@ describe('Version plugin', function(){
                 expect(response.result.version).to.equal(Pkg.version)   
                 server.stop(done);
             });
-
-
         });
     });
 });
