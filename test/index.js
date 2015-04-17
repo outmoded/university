@@ -17,16 +17,16 @@ describe('lib', function() {
 
     it('should run on any defined port', function(done) {
 
-        Lib.init(1234, function(err, server) {
+        Lib.init(0, function(err, server) {
 
             expect(err).to.not.exist();
-            expect(server.info.port).to.equal(1234);
+            expect(server.info.port).to.be.above(0);
 
             server.stop(done);
         });
     });
 
-    it('should fail if plugin does not register', function(done) {
+    it('should fail if plugin does not register', { parallel: false }, function(done) {
 
         var register = Version.register;
         Version.register = function(server, options, next) {
@@ -38,10 +38,9 @@ describe('lib', function() {
             name: 'version'
         };
 
-        Lib.init(8000, function(err, server) {
+        Lib.init(0, function(err, server) {
 
             expect(err).to.exist();
-
             Version.register = register;
             server.stop(done);
         });
