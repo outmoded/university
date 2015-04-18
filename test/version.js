@@ -33,12 +33,7 @@ describe('Version Plugin', function () {
 
         server.register(Version, function(err) {
 
-            var options = {
-                method: 'GET',
-                url: '/version'
-            };
-
-            server.inject(options, function(response) {
+            server.inject('/version', function(response) {
 
                 var result = response.result;
 
