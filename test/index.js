@@ -38,7 +38,7 @@ describe('Server', function() {
         });
     });
 
-    it('handles register plugin errors', { parallel: true }, function (done) {
+    it('handles register plugin errors', { parallel: false }, function (done) {
 
         var register = Version.register;
         Version.register = function (server, options, next) {
