@@ -10,7 +10,6 @@ var Version = require('../lib/version');
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
