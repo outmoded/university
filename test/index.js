@@ -37,7 +37,7 @@ it('starts server on provided port', function (done) {
     });
 });
 
-it('handles register plugin errors', { parallel: true }, function (done) {
+it('handles register plugin errors', { parallel: false }, function (done) {
 
     var orig = Version.register;
     Version.register = function (server, options, next) {
