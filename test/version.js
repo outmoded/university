@@ -13,6 +13,7 @@ var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
+
 describe('/version', function () {
 
     it('returns the version from package.json', function (done) {
