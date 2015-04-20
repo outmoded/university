@@ -10,7 +10,6 @@ var Version = require('../lib/version');
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
@@ -50,7 +49,7 @@ it('handles register plugin errors', { parallel: false }, function (done) {
         name: 'fake version'
     };
 
-    Hueniversity.init(0, function (err, server) {
+    Hueniversity.init(0, function (err) {
 
         expect(err).to.exist();
         expect(err.message).to.equal('register version failed');
