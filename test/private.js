@@ -4,6 +4,7 @@ var Code = require('code');
 var Lab = require('lab');
 var Server = require('../lib');
 var HapiAuthBasic = require('hapi-auth-basic');
+var Users = require('../lib/users.json');
 
 // Declare internals
 
@@ -39,7 +40,7 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('username1', 'passone') } };
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.username1.username, Users.username1.password) } };
 
             server.inject(request, function (res) {
 
@@ -55,7 +56,7 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('username1', 'wrongpass') } };
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.username1.username, 'wrongpass') } };
 
             server.inject(request, function (res) {
 
