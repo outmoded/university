@@ -45,6 +45,7 @@ describe('/private', function () {
             server.inject(request, function (res) {
 
                 expect(res.statusCode).to.equal(200);
+                expect(res.result).to.equal('<p>Welcome ' + Users.username1.username + '</p>');
                 server.stop(done);
             });
         });
