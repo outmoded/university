@@ -33,4 +33,8 @@ it('returns a greeting for the authenticated user', function (done) {
         });
 });
 
-   
+
+internals.header = function (username, password) {
+
+    return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
