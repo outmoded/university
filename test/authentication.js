@@ -55,7 +55,7 @@ it('returns a error message  for the authenticated user with a wrong password', 
 
         expect(err).to.not.exist();
 
-        var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('', '') } };
+        var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('wrong_name', '') } };
         server.inject(request, function (res) {
 
             expect(res.statusCode, 'Status code').to.equal(401);
