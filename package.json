@@ -1,6 +1,6 @@
 {
   "name": "hueniversity",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
@@ -19,7 +19,9 @@
   "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
     "hapi": "8.x.x",
-    "hoek": "2.x.x"
+    "hoek": "2.x.x",
+    "hapi-auth-basic": "^2.0.0",
+    "lab": "^5.5.1"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L",
