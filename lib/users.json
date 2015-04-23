@@ -1,0 +1,14 @@
+{
+    "john": {
+        "username": "john",
+        "password": "pwone",   
+        "name": "John Doe",
+        "id": "2133d32a"
+    },
+    "alisha": {
+        "username": "alisha",
+        "password": "pwtwo",  
+        "name": "Alisha Doe",
+        "id": "2134e32b"
+    }
+}
