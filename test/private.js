@@ -23,7 +23,7 @@ var afterEach = lab.afterEach;
 describe('/private', function () {
 
 
-    it('returns unauthorized if user doesn\'t exist', { parallel: false }, function (done) {
+    it('returns unauthorized if user doesn\'t exist', function (done) {
 
         Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
@@ -43,7 +43,7 @@ describe('/private', function () {
         });
     });
 
-    it('returns unauthorized if user exist but password is wrong', { parallel: false }, function (done) {
+    it('returns unauthorized if user exist but password is wrong', function (done) {
 
         Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
@@ -62,7 +62,7 @@ describe('/private', function () {
         });
     });
 
-    it('returns greetings if user exists and password is ok', { parallel: false }, function (done) {
+    it('returns greetings if user exists and password is ok', function (done) {
 
         Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
