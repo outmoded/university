@@ -3,7 +3,8 @@
 var Code = require('code');
 var Lab = require('lab');
 var Pkg = require('../package.json');
-var Server = require('../lib');
+var Hueniversity = require('../lib');
+var Users = require('../lib/users.json');
 
 
 // Test shortcuts
@@ -18,7 +19,7 @@ describe('/version', function () {
 
     it('returns the version from package.json', function (done) {
 
-        Server.init(0, function (err, server) {
+        Hueniversity.init({port: 0, users: Users}, function (err, server) {
 
             expect(err).to.not.exist();
 
