@@ -1,0 +1,15 @@
+
+{
+	"john" :{
+	    "username": "john",
+	    "password": "12345",
+	    "name": "John Doe"
+	},
+
+	"derek" :{
+		"username": "derek",
+		"password": "!@#$",
+		"name": "Derek Phillips"
+	}
+
+}
