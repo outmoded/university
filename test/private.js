@@ -5,6 +5,7 @@ var Lab = require('lab');
 var Hueniversity = require('../lib');
 var Users = require('../lib/users.json');
 var Basic = require('hapi-auth-basic');
+var Hoek = require('hoek');
 
 // Declare internals
 
@@ -16,11 +17,25 @@ var lab = exports.lab = Lab.script();
 var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
+var beforeEach = lab.beforeEach;
+var afterEach = lab.afterEach;
 
 
 describe('/private', function () {
 
-    it('returns unauthorized if user doesn\'t exist', function (done) {
+    beforeEach(function(done){
+
+        internals.injectTestUsersByPatchingUsersModule();
+        done();
+    });
+
+    afterEach(function(done){
+
+        internals.restoreOrigUsersCollectionInUsersModule();
+        done();
+    });
+
+    it('returns unauthorized if user doesn\'t exist', { parallel: false }, function (done) {
 
         Hueniversity.init(0, function (err, server) {
 
@@ -28,8 +43,6 @@ describe('/private', function () {
 
             var username = 'test';
 
-            expect(Users[username]).to.be.undefined();
-
             var password = '12345678';
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(username, password) } };
 
@@ -42,16 +55,13 @@ describe('/private', function () {
         });
     });
 
-    it('returns unauthorized if user exist but password is wrong', function (done) {
+    it('returns unauthorized if user exist but password is wrong', { parallel: false }, function (done) {
 
         Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
             var username = 'jdoe';
-
-            expect(Users[username]).to.deep.equal({username: 'jdoe', password: 'qwerty'});
-
             var password = '12345678';
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(username, password) } };
 
@@ -64,16 +74,13 @@ describe('/private', function () {
         });
     });
 
-    it('returns greetings if user exists and password is ok', function (done) {
+    it('returns greetings if user exists and password is ok', { parallel: false }, function (done) {
 
         Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
             var username = 'jdoe';
-
-            expect(Users[username]).to.deep.equal({username: 'jdoe', password: 'qwerty'});
-
             var password = 'qwerty';
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(username, password) } };
 
@@ -113,4 +120,17 @@ describe('/private', function () {
 internals.header = function (username, password) {
 
     return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+internals.testUsers = [{username: 'jdoe', password: 'qwerty'}];
+
+internals.injectTestUsersByPatchingUsersModule = function(){
+
+    internals.origUsersCollection = Users.collection;
+    Users.collection = Hoek.clone(internals.testUsers);
+};
+
+internals.restoreOrigUsersCollectionInUsersModule = function(){
+
+    Users.collection = internals.origUsersCollection;
 };

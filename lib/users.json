@@ -1,10 +1,12 @@
 {
-    "dummy": {
-        "username": "dummy",
-        "password": "12345678"
-    },
-    "jdoe": {
-        "username": "jdoe",
-        "password": "qwerty"
-    }
+    "collection": [
+        {
+            "username": "dummy",
+            "password": "12345678"
+        },
+        {
+            "username": "janedoe",
+            "password": "azerty"
+        }
+    ]
 }
