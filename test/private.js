@@ -3,7 +3,6 @@
 var Code = require('code');
 var Lab = require('lab');
 var Hueniversity = require('../lib');
-var Users = require('../lib/users.json');
 var Basic = require('hapi-auth-basic');
 var Hoek = require('hoek');
 
@@ -23,21 +22,10 @@ var afterEach = lab.afterEach;
 
 describe('/private', function () {
 
-    beforeEach(function(done){
-
-        internals.injectTestUsersByPatchingUsersModule();
-        done();
-    });
-
-    afterEach(function(done){
-
-        internals.restoreOrigUsersCollectionInUsersModule();
-        done();
-    });
 
     it('returns unauthorized if user doesn\'t exist', { parallel: false }, function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -57,7 +45,7 @@ describe('/private', function () {
 
     it('returns unauthorized if user exist but password is wrong', { parallel: false }, function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -76,7 +64,7 @@ describe('/private', function () {
 
     it('returns greetings if user exists and password is ok', { parallel: false }, function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -107,10 +95,32 @@ describe('/private', function () {
             name: 'fake basic auth'
         };
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init({port: 0, users: internals.getTestUsers()}, function (err, server) {
 
             expect(err).to.exist();
             expect(err.message).to.equal('register basic auth failed');
+
+            done();
+        });
+    });
+
+    it('throws an error if users aren\'t provided', function(done){
+
+        Hueniversity.init({port: 0, users: null}, function (err, server) {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('private plugin requires users to be provided as option');
+
+            done();
+        });
+    });
+
+    it('throws an error if provided users object doesn\'t have filter method', function(done){
+
+        Hueniversity.init({port: 0, users: {}}, function (err, server) {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('provided users option must have a filter method');
 
             done();
         });
@@ -124,13 +134,7 @@ internals.header = function (username, password) {
 
 internals.testUsers = [{username: 'jdoe', password: 'qwerty'}];
 
-internals.injectTestUsersByPatchingUsersModule = function(){
+internals.getTestUsers = function(){
 
-    internals.origUsersCollection = Users.collection;
-    Users.collection = Hoek.clone(internals.testUsers);
-};
-
-internals.restoreOrigUsersCollectionInUsersModule = function(){
-
-    Users.collection = internals.origUsersCollection;
+    return Hoek.clone(internals.testUsers);
 };

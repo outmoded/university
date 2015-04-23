@@ -1,12 +1,10 @@
-{
-    "collection": [
-        {
-            "username": "dummy",
-            "password": "12345678"
-        },
-        {
-            "username": "janedoe",
-            "password": "azerty"
-        }
-    ]
-}
+[
+    {
+        "username": "dummy",
+        "password": "12345678"
+    },
+    {
+        "username": "janedoe",
+        "password": "azerty"
+    }
+]
