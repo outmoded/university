@@ -2,7 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Server = require('../lib');
+var Hueniversity = require('../lib');
 var HapiAuthBasic = require('hapi-auth-basic');
 var Users = require('../lib/users.json');
 
@@ -22,7 +22,7 @@ describe('/private', function () {
 
     it('should ask for authentication', function (done) {
 
-        Server.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -36,7 +36,7 @@ describe('/private', function () {
 
     it('should should work with valid credentials', function (done) {
 
-        Server.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -53,7 +53,7 @@ describe('/private', function () {
 
     it('should should fail with in-valid password', function (done) {
 
-        Server.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -69,7 +69,7 @@ describe('/private', function () {
 
     it('should should fail with in-valid username', function (done) {
 
-        Server.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -96,7 +96,7 @@ describe('/private', function () {
             name: 'fake version'
         };
 
-        Server.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.exist();
             expect(err.message).to.equal('register version failed');
