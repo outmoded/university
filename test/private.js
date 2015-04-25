@@ -39,6 +39,28 @@ describe('/private', function () {
             });
         });
     });
+
+    it('should send a 401 when you try a user that does not exist', function (done) {
+
+        Server.init(0, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = {
+                method: 'GET',
+                url: '/private',
+                headers: {
+                    authorization: internals.header('darth', 'vader')
+                }
+            };
+
+            server.inject(request, function (res) {
+
+                expect(res.statusCode).to.equal(401);
+                server.stop(done);
+            });
+        });
+    });
 });
 
 
