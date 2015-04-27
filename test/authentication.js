@@ -33,62 +33,63 @@ it('returns a greeting for the authenticated user', function (done) {
 
             server.stop(done);
 
-            });
         });
     });
+});
 
-    it('returns error on wrong password', function (done) {
+it('returns error on wrong password', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+    Hueniversity.init(0, function (err, server) {
 
-            expect(err).to.not.exist();
+        expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.user1.username, 'wrong password') } };
-            server.inject(request, function (res) {
+        var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.user1.username, 'wrong password') } };
+        server.inject(request, function (res) {
 
-                expect(res.statusCode, 'Status code').to.equal(401);
+            expect(res.statusCode, 'Status code').to.equal(401);
 
-                server.stop(done);
-            });
+            server.stop(done);
         });
     });
+});
 
-    it('returns error on failed auth', function (done) {
+it('returns error on failed auth', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+    Hueniversity.init(0, function (err, server) {
 
-            expect(err).to.not.exist();
+        expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('wrong_name', '') } };
-            server.inject(request, function (res) {
+        var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('wrong_name', '') } };
+        server.inject(request, function (res) {
 
-                expect(res.statusCode, 'Status code').to.equal(401);
+            expect(res.statusCode, 'Status code').to.equal(401);
 
-                server.stop(done);
-            });
+            server.stop(done);
         });
     });
+});
 
-    it('returns error on failed registering of auth', { parallel: false }, function (done) {
+it('returns error on failed registering of auth', { parallel: false }, function (done) {
 
-        var orig = Basic.register;
-        Basic.register = function (plugin, options, next) {
+    var orig = Basic.register;
+    Basic.register = function (plugin, options, next) {
 
-            return next(new Error('fail'));
-        };
-        Basic.register.attributes = {
+        return next(new Error('fail'));
+    };
+
+    Basic.register.attributes = {
             name: 'fake hapi-auth-basic'
         };
 
-        Hueniversity.init(0, function (err) {
+    Hueniversity.init(0, function (err) {
 
-            Basic.register = orig;
+        Basic.register = orig;
 
-            expect(err).to.exist();
+        expect(err).to.exist();
 
-            done();
-        });
+        done();
     });
+});
 
 internals.header = function (username, password) {
 
