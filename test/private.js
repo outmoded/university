@@ -75,6 +75,7 @@ describe('/private', function () {
         var orig = Basic.register;
         Basic.register = function (plugin, options, next) {
 
+            Basic.register = orig;
             return next(new Error('fail'));
         };
         Basic.register.attributes = {
@@ -82,8 +83,6 @@ describe('/private', function () {
         };
 
         Hueniversity.init(0, function (err) {
-
-            Basic.register = orig;
 
             expect(err).to.exist();
 
