@@ -11,7 +11,8 @@ var Basic = require('hapi-auth-basic');
 var internals = {};
 
 
-internals.createAuth = function(username, password) {
+internals.createAuth = function (username, password) {
+
     return 'Basic ' + (new Buffer(username + ':' + password)).toString('base64');
 };
 
@@ -86,7 +87,7 @@ describe('/private', function () {
 
         var originalRegister = Basic.register;
 
-        Basic.register = function(server, options, next) {
+        Basic.register = function (server, options, next) {
 
             Basic.register = originalRegister;
             return next(new Error('hapi-auth-basic failed to register.'));
