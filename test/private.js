@@ -31,7 +31,7 @@ describe('/private', function () {
             server.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal('hello');
+                expect(res.result, 'result').to.equal('<span>Hello ren</span>');
 
                 server.stop(done);
             });
@@ -56,7 +56,7 @@ describe('/private', function () {
 
     it('returns error on wrong username', function (done) {
 
-        Hueniversity.init(0, function (err) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 

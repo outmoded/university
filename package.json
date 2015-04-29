@@ -19,7 +19,7 @@
   "homepage": "https://github.com/hueniverse/hueniversity",
   "dependencies": {
     "hapi": "8.x.x",
-    "hapi-auth-basic": "^2.0.0",
+    "hapi-auth-basic": "2.x.x",
     "hoek": "2.x.x"
   },
   "scripts": {
