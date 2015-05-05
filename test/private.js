@@ -3,7 +3,7 @@
 var Basic = require('hapi-auth-basic');
 var Code = require('code');
 var Lab = require('lab');
-var Lib = require('../lib');
+var Hueniversity = require('../lib');
 
 // Declare internals
 
@@ -37,7 +37,7 @@ describe('/private', function () {
             name: 'foo hapi-auth'
         };
 
-        Lib.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.exist();
             expect(err.message).to.equal('Registration failed');
@@ -48,7 +48,7 @@ describe('/private', function () {
 
     it('returns the welcome message with authenticated username', function (done) {
 
-        Lib.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -69,9 +69,9 @@ describe('/private', function () {
         });
     });
 
-    it('return unathorized for failure authentication', function(done) {
+    it('return unathorized for failure authentication', function (done) {
 
-        Lib.init(0, function (err, server) {
+        Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
