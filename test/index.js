@@ -49,7 +49,7 @@ it('handles register plugin errors', { parallel: false }, function (done) {
         name: 'fake version'
     };
 
-    Hueniversity.init(0, function (err) {
+    Hueniversity.init(0, function (err, server) {
 
         expect(err).to.exist();
         expect(err.message).to.equal('register version failed');

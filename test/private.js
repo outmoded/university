@@ -6,6 +6,7 @@ var Hueniversity = require('../lib');
 var Users = require('../lib/users.json');
 var Basic = require('hapi-auth-basic');
 
+
 // Declare internals
 
 var internals = {};
@@ -27,24 +28,24 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.Foo.username, Users.Foo.password) } };
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
             server.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal('<div>Hello Foo</div>');
+                expect(res.result, 'result').to.equal('<div>Hello foo</div>');
 
                 server.stop(done);
             });
         });
     });
 
-    it('returns error on wrong password', function (done) {
+    it('errors on wrong password', function (done) {
 
         Hueniversity.init(0, function (err, server) {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.Foo.username, '') } };
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
             server.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
@@ -54,7 +55,7 @@ describe('/private', function () {
         });
     });
 
-    it('returns error on failed auth', function (done) {
+    it('errors on failed auth', function (done) {
 
         Hueniversity.init(0, function (err, server) {
 
@@ -70,14 +71,16 @@ describe('/private', function () {
         });
     });
 
-    it('returns error on failed registering of auth', { parallel: false }, function (done) {
+    it('errors on failed registering of auth', { parallel: false }, function (done) {
 
         var orig = Basic.register;
+
         Basic.register = function (plugin, options, next) {
 
             Basic.register = orig;
             return next(new Error('fail'));
         };
+
         Basic.register.attributes = {
             name: 'fake hapi-auth-basic'
         };
@@ -90,6 +93,7 @@ describe('/private', function () {
         });
     });
 });
+
 
 internals.header = function (username, password) {
 

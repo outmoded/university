@@ -1,10 +1,8 @@
 {
-	"Foo": {
-		"username": "Foo",
-		"password": "mysupersecuredpassword"
+	"foo": {
+		"password": "foo"
 	},
-	"Bar": {
-		"username": "Bar",
-		"password": "mysupersecuredpassword2"
+	"bar": {
+		"password": "bar"
 	}
 }
