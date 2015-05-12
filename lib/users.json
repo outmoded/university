@@ -1,0 +1,10 @@
+{
+	"Foo": {
+		"username": "Foo",
+		"password": "mysupersecuredpassword"
+	},
+	"Bar": {
+		"username": "Bar",
+		"password": "mysupersecuredpassword2"
+	}
+}
