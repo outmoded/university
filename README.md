@@ -1,14 +1,39 @@
 <img src='images/logo.png' />
 
-This is a community learning experiment. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
-
-[![Join the chat at https://gitter.im/hueniverse/hueniversity](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hueniverse/hueniversity?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Welcome to hapijs university.
+This is a community learning experiment keeping to the values established through the hueniversity distributed classroom. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
 
 Lead Maintainer - [Zoe](https://github.com/zoe-1)
 
+[![Join the chat at https://gitter.im/hapijs/university](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hapijs/university?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+### What are we going to build?
+
+Using hueniversity distributed classroom style of learning and development.
+We are going to build an application with the following features 
+* A public page(s) accessible to all.
+* Route(s) with restricted access. Only authenticated users with correct permissions will have access to restricted routes.
+* Sessions support using "a simple cookie-based session management. The user has to be authenticated with a web form, and upon successful authentication, receive a reply with a session cookie." [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie)
+* form validation using [joi](https://github.com/hapijs/joi).
+* tls / ssl support as described at: [learning objectives]( https://github.com/zoe-1/hapitimes)
+* Combat Cross-Site Request Forgery (CSRF) attacks by using [hapijs / crumb](https://github.com/hapijs/crumb)
+* Configure a plugin to serve static files: css, images, and JavaScript.
+* Render html templates with a configured template engine (handlebars).
+* Configure a plugin to utilize partial html templates and helpers to generate data for html templates.
+
+In the end the application will have the following routes:
+* A home page open to the public (unrestricted) -- home.
+* A login page with login HTML form (unrestricted) -- login.
+* A logged in landing page (restricted) -- loggedin
+* The above routes would be in the "home" plugin. .<br/>
+If desired we can make the loggedin route be it's own plugin with a prefix configured.
+[See plugins tutorial](http://www.hapijs.com/tutorials/plugins) for more about prefixes.
+
+
 ### What am I going to learn?
 
-You will learn how to build an application server using node and [hapi](http://hapijs.com). It will start with the basics and move on to more advance topic such as authentication, validation, application architecture, testing, and more.
+You will learn how to build an application server using node and [hapi](http://hapijs.com) with the following [characteristics](https://github.com/zoe-1/hapitimes). 
+It will start with the basics and move on to more advance topic such as authentication, validation, application architecture, testing, and more. 
 
 ### What do I need to know?
 
@@ -36,7 +61,7 @@ Before starting the next assignment, make sure [your fork matches the current ma
 
 ### How can I help?
 
-There are lots of way you can help make this experiment succeed and help shape a new format for teaching development skills:
+There are lots of way you can help make hapijs university succeed and help shape a new format for teaching development skills:
 - Submit Pull Requests to improve this readme, add examples, write quick tutorials on how to work with git, etc.
 - Look for issues with a [`help wanted` label](https://github.com/hueniverse/hueniversity/labels/help%20wanted) or [`new contributor` label](https://github.com/hueniverse/hueniversity/labels/new%20contributor) and help with those.
 - Randomly pick submitted Pull Request and review them, offering advice and helping others improve their skills.
