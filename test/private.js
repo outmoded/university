@@ -2,10 +2,10 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 var Users = require('../lib/users.json');
 var Basic = require('hapi-auth-basic');
-
+var Path = require('path');
 
 // Declare internals
 
@@ -24,7 +24,7 @@ describe('/private', function () {
 
     it('returns a greeting for the authenticated user', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -41,7 +41,7 @@ describe('/private', function () {
 
     it('errors on wrong password', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -57,7 +57,7 @@ describe('/private', function () {
 
     it('errors on failed auth', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -85,7 +85,7 @@ describe('/private', function () {
             name: 'fake hapi-auth-basic'
         };
 
-        Hueniversity.init(0, function (err) {
+        University.init(internals.manifest, internals.composeOptions, function (err) {
 
             expect(err).to.exist();
 
@@ -98,4 +98,19 @@ describe('/private', function () {
 internals.header = function (username, password) {
 
     return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    plugins: {
+        './private': {}
+    }
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
 };
