@@ -3,7 +3,6 @@ var Code = require('code');
 var Lab = require('lab');
 var Composer = require('../lib/start');
 
-
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
