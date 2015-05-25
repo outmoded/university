@@ -3,7 +3,12 @@
 var Code = require('code');
 var Lab = require('lab');
 var Pkg = require('../package.json');
-var Hueniversity = require('../lib');
+var University = require('../lib');
+var Path = require('path');
+
+// Declare internals
+
+var internals = {};
 
 
 // Test shortcuts
@@ -18,7 +23,7 @@ describe('/version', function () {
 
     it('returns the version from package.json', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -32,3 +37,18 @@ describe('/version', function () {
         });
     });
 });
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    plugins: {
+        './version': {}
+    }
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
+};
