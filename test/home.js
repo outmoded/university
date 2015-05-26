@@ -37,7 +37,7 @@ describe('/home', function (){
             server.inject('/home', function (res) {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.contain('hueniversity\\views\\home.html');
+                expect(res.result).to.contain('views\\home.html');
 
                 server.stop(done);
             });
