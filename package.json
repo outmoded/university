@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
+    "glue": "2.x.x",
     "hapi": "8.x.x",
     "hapi-auth-basic": "2.x.x",
     "hoek": "2.x.x"

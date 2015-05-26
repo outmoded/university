@@ -3,7 +3,19 @@
 var Code = require('code');
 var Lab = require('lab');
 var Pkg = require('../package.json');
-var Hueniversity = require('../lib');
+var University = require('../lib');
+
+
+// Declare internals
+
+var internals = {};
+internals.defaultConfig = {
+    connections: [
+        {
+            port: 0
+        }
+    ]
+};
 
 
 // Test shortcuts
@@ -18,7 +30,7 @@ describe('/version', function () {
 
     it('returns the version from package.json', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.defaultConfig, function (err, server) {
 
             expect(err).to.not.exist();
 
