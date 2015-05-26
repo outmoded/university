@@ -2,6 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
+var Path = require('path');
 var University = require('../lib');
 
 
@@ -37,7 +38,7 @@ describe('/home', function (){
             server.inject('/home', function (res) {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.contain('views\\home.html');
+                expect(res.result).to.contain(Path.relative('./', 'views/home.html'));
 
                 server.stop(done);
             });
