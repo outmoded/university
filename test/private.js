@@ -10,7 +10,7 @@ var Basic = require('hapi-auth-basic');
 // Declare internals
 
 var internals = {};
-internals.defaultConfig = {
+internals.defaultServer = {
     connections: [
         {
             port: 0
@@ -30,7 +30,7 @@ describe('/private', function () {
 
     it('returns a greeting for the authenticated user', function (done) {
 
-        University.init(internals.defaultConfig, function (err, server) {
+        University.init(internals.defaultServer, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -47,7 +47,7 @@ describe('/private', function () {
 
     it('errors on wrong password', function (done) {
 
-        University.init(internals.defaultConfig, function (err, server) {
+        University.init(internals.defaultServer, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -63,7 +63,7 @@ describe('/private', function () {
 
     it('errors on failed auth', function (done) {
 
-        University.init(internals.defaultConfig, function (err, server) {
+        University.init(internals.defaultServer, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -91,7 +91,7 @@ describe('/private', function () {
             name: 'fake hapi-auth-basic'
         };
 
-        University.init(internals.defaultConfig, function (err) {
+        University.init(internals.defaultServer, function (err) {
 
             expect(err).to.exist();
 
