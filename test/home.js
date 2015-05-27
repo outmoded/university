@@ -19,6 +19,7 @@ var it = lab.test;
 
 
 
+
 it('returns the path', function (done) {
 
     University.init(internals.manifest, internals.composeOptions, function (err, server) {
@@ -29,7 +30,7 @@ it('returns the path', function (done) {
         server.inject(request, function (res) {
 
             expect(res.statusCode, 'Status code').to.equal(200);
-            expect(res.result, 'result').to.equal('views/home.html\n');
+            expect(res.result, 'result').to.contain('views/home.html\n');
 
             server.stop(done);
         });

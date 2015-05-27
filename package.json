@@ -1,5 +1,5 @@
 {
-  "name": "university",
+  "name": "Hapijs-University",
   "version": "0.0.5",
   "description": "Community learning experiment",
   "main": "lib/index.js",
@@ -12,14 +12,14 @@
     "learn",
     "community"
   ],
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/hapijs/university.git"
   },
   "homepage": "https://github.com/hapijs/university.git",
   "dependencies": {
-    "glue": "^2.0.0",
-    "handlebars": "^3.0.3",
+    "glue": "2.x.x",
+    "handlebars": "3.x.x",
     "hapi": "8.x.x",
     "hapi-auth-basic": "2.x.x",
     "hoek": "2.x.x"

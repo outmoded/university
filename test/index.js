@@ -20,7 +20,10 @@ var it = lab.test;
 
 it('starts server and returns hapi server object', function (done) {
 
-    University.init({}, {}, function (err, server) {
+    var manifest = {};
+    var manifestOptions = {};
+
+    University.init(manifest, manifestOptions, function (err, server) {
 
         expect(err).to.not.exist();
         expect(server).to.be.instanceof(Hapi.Server);
@@ -31,7 +34,10 @@ it('starts server and returns hapi server object', function (done) {
 
 it('starts server on provided port', function (done) {
 
-    University.init({connections: [{port: 5000}]}, {}, function (err, server) {
+    var manifest = {connections: [{port: 5000}]};
+    var manifestOptions = {};
+
+    University.init(manifest, manifestOptions, function (err, server) {
 
         expect(err).to.not.exist();
         expect(server.info.port).to.equal(5000);
@@ -76,11 +82,3 @@ internals.manifest = {
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
 };
-
-
-
-
-
-
-
-
