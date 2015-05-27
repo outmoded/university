@@ -1,0 +1,13 @@
+{
+    "connections": [
+        {
+            "port": 8000,
+            "labels": ["web"]
+        }
+    ],
+    "plugins": {
+        "./version": null,
+        "./private": null,
+        "./home": null
+    }
+}
