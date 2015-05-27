@@ -34,7 +34,12 @@ it('starts server and returns hapi server object', function (done) {
 
 it('starts server on provided port', function (done) {
 
-    var manifest = {connections: [{port: 5000}]};
+    var manifest = {
+        connections: [
+            { port: 5000 }
+        ]
+    };
+
     var manifestOptions = {};
 
     University.init(manifest, manifestOptions, function (err, server) {
