@@ -1,0 +1,7 @@
+{
+	"plugins": {
+		"../lib/private": {},
+		"../lib/version": {},
+		"../lib/home": {}
+	}
+}

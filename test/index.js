@@ -3,57 +3,84 @@
 var Hapi = require('hapi');
 var Code = require('code');
 var Lab = require('lab');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 var Version = require('../lib/version');
+
+
+// Declare internals
+
+var internals = {};
+internals.defaultServer = {
+    connections: [
+        {
+            port: 0
+        }
+    ]
+};
 
 
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
+var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
 
-it('starts server and returns hapi server object', function (done) {
 
-    Hueniversity.init(0, function (err, server) {
+describe('index', function () {
 
-        expect(err).to.not.exist();
-        expect(server).to.be.instanceof(Hapi.Server);
+    it('starts server and returns hapi server object', function (done) {
 
-        server.stop(done);
+        University.init(internals.defaultServer, function (err, server) {
+
+            expect(err).to.not.exist();
+            expect(server).to.be.instanceof(Hapi.Server);
+
+            server.stop(done);
+        });
     });
-});
 
-it('starts server on provided port', function (done) {
+    it('starts server on provided port', function (done) {
 
-    Hueniversity.init(5000, function (err, server) {
+        var config = {
+            connections: [
+                {
+                    port: 5000
+                }
+            ]
+        };
 
-        expect(err).to.not.exist();
-        expect(server.info.port).to.equal(5000);
 
-        server.stop(done);
+        University.init(config, function (err, server) {
+
+            expect(err).to.not.exist();
+            expect(server.info.port).to.equal(config.connections[0].port);
+
+            server.stop(done);
+        });
     });
-});
 
-it('handles register plugin errors', { parallel: false }, function (done) {
+    it('handles register plugin errors', { parallel: false }, function (done) {
 
-    var orig = Version.register;
-    Version.register = function (server, options, next) {
+        var orig = Version.register;
+        Version.register = function (server, options, next) {
 
-        Version.register = orig;
-        return next(new Error('register version failed'));
-    };
+            Version.register = orig;
+            return next(new Error('register version failed'));
+        };
 
-    Version.register.attributes = {
-        name: 'fake version'
-    };
+        Version.register.attributes = {
+            name: 'fake version'
+        };
 
-    Hueniversity.init(0, function (err, server) {
 
-        expect(err).to.exist();
-        expect(err.message).to.equal('register version failed');
+        University.init(internals.defaultServer, function (err, server) {
 
-        done();
+            expect(err).to.exist();
+            expect(err.message).to.equal('register version failed');
+
+            done();
+        });
     });
 });

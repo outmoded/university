@@ -1,29 +1,32 @@
 {
-  "name": "hueniversity",
-  "version": "0.0.4",
+  "name": "Hapijs-University",
+  "version": "0.0.5",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hueniverse/hueniversity.git"
+    "url": "https://github.com/hapijs/university.git"
   },
   "keywords": [
     "hapi",
     "learn",
     "community"
   ],
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/hueniverse/hueniversity/issues"
+    "url": "https://github.com/hapijs/university/issues"
   },
-  "homepage": "https://github.com/hueniverse/hueniversity",
+  "homepage": "https://github.com/hapijs/university",
   "dependencies": {
+    "glue": "2.x.x",
+    "handlebars": "3.x.x",
     "hapi": "8.x.x",
     "hapi-auth-basic": "2.x.x",
     "hoek": "2.x.x"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L -v",
+    "test-cov-html": "node node_modules/lab/bin/lab -a code -r html -o coverage.html",
     "start": "node lib/start.js"
   },
   "devDependencies": {
