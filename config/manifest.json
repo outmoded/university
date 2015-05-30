@@ -1,0 +1,14 @@
+{
+    "connections": [
+        {
+            "port": 8000
+        }
+    ],
+    "plugins": {
+        "./version": null,
+        "./private": null,
+        "./home": null,
+        "./auth": null,
+        "hapi-auth-basic": null
+    }
+}

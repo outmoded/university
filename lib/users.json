@@ -1,8 +1,8 @@
 {
-	"foo": {
-		"password": "foo"
-	},
-	"bar": {
-		"password": "bar"
-	}
+    "foo": {
+        "password": "foo"
+    },
+    "bar": {
+        "password": "bar"
+    }
 }

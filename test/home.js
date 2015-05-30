@@ -2,7 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Pkg = require('../package.json');
+var Path = require('path');
 var University = require('../lib');
 
 
@@ -19,18 +19,18 @@ var expect = Code.expect;
 var it = lab.test;
 
 
-describe('/version', function () {
+describe('/home', function () {
 
-    it('returns the version from package.json', function (done) {
+    it('returns the path of the view file', function (done) {
 
         University.init(internals.defaultServer, function (err, server) {
 
             expect(err).to.not.exist();
 
-            server.inject('/version', function (res) {
+            server.inject('/home', function (res) {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ version: Pkg.version });
+                expect(res.result).to.equal(Path.relative('./', 'views/home.html') + '\n');
 
                 server.stop(done);
             });
