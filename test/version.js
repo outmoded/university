@@ -4,7 +4,6 @@ var Code = require('code');
 var Lab = require('lab');
 var Pkg = require('../package.json');
 var University = require('../lib');
-var Manifest = require('../lib/manifest.json');
 
 
 // Declare internals
@@ -24,7 +23,7 @@ describe('/version', function () {
 
     it('returns the version from package.json', function (done) {
 
-        University.init(Manifest, internals.options, function (err, server) {
+        University.init(internals.defaultServer, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -40,6 +39,10 @@ describe('/version', function () {
 });
 
 
-internals.options = {
-    relativeTo: __dirname + '../../lib'
+internals.defaultServer = {
+    connections: [
+        {
+            port: 0
+        }
+    ]
 };

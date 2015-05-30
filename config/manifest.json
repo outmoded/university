@@ -1,8 +1,7 @@
 {
     "connections": [
         {
-            "port": 8000,
-            "labels": ["web"]
+            "port": 8000
         }
     ],
     "plugins": {

@@ -2,9 +2,8 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var University = require('../lib');
 var Path = require('path');
-var Manifest = require('../lib/manifest.json');
+var University = require('../lib');
 
 
 // Declare internals
@@ -22,16 +21,16 @@ var it = lab.test;
 
 describe('/home', function () {
 
-    it('returns the version from package.json', function (done) {
+    it('returns the path of the view file', function (done) {
 
-        University.init(Manifest, internals.options, function (err, server) {
+        University.init(internals.defaultServer, function (err, server) {
 
             expect(err).to.not.exist();
 
             server.inject('/home', function (res) {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.equal(Path.relative('./', 'views/home.html'));
+                expect(res.result).to.equal(Path.relative('./', 'views/home.html') + '\n');
 
                 server.stop(done);
             });
@@ -40,6 +39,10 @@ describe('/home', function () {
 });
 
 
-internals.options = {
-    relativeTo: __dirname + '../../lib'
+internals.defaultServer = {
+    connections: [
+        {
+            port: 0
+        }
+    ]
 };

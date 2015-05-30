@@ -1,6 +1,6 @@
 {
   "name": "university",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
     "glue": "2.x.x",
-    "handlebars": "3.0.3",
+    "handlebars": "3.x.x",
     "hapi": "8.x.x",
     "hapi-auth-basic": "2.x.x",
     "hoek": "2.x.x"
