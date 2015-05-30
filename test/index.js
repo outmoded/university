@@ -3,9 +3,13 @@
 var Hapi = require('hapi');
 var Code = require('code');
 var Lab = require('lab');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 var Version = require('../lib/version');
+var Path = require('path');
 
+//declare internals
+
+var internals = {};
 
 // Test shortcuts
 
@@ -16,7 +20,10 @@ var it = lab.test;
 
 it('starts server and returns hapi server object', function (done) {
 
-    Hueniversity.init(0, function (err, server) {
+    var manifest = {};
+    var manifestOptions = {};
+
+    University.init(manifest, manifestOptions, function (err, server) {
 
         expect(err).to.not.exist();
         expect(server).to.be.instanceof(Hapi.Server);
@@ -27,7 +34,15 @@ it('starts server and returns hapi server object', function (done) {
 
 it('starts server on provided port', function (done) {
 
-    Hueniversity.init(5000, function (err, server) {
+    var manifest = {
+        connections: [
+            { port: 5000 }
+        ]
+    };
+
+    var manifestOptions = {};
+
+    University.init(manifest, manifestOptions, function (err, server) {
 
         expect(err).to.not.exist();
         expect(server.info.port).to.equal(5000);
@@ -49,7 +64,7 @@ it('handles register plugin errors', { parallel: false }, function (done) {
         name: 'fake version'
     };
 
-    Hueniversity.init(0, function (err, server) {
+    University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
         expect(err).to.exist();
         expect(err.message).to.equal('register version failed');
@@ -57,3 +72,18 @@ it('handles register plugin errors', { parallel: false }, function (done) {
         done();
     });
 });
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    plugins: {
+        './version': {}
+    }
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
+};
