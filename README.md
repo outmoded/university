@@ -3,7 +3,7 @@
 Welcome to hapijs university.
 This is a community learning experiment keeping to the values established through the hueniversity distributed classroom. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
 
-Lead Maintainer - [Zoe](https://github.com/zoe-1)
+Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 
 [![Join the chat at https://gitter.im/hapijs/university](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hapijs/university?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -47,11 +47,11 @@ The assignment will include just enough information to get you going, but you wi
 
 ### How does it work?
 
-First, read the [Code of Conduct](https://github.com/hueniverse/hueniversity/blob/master/COC.md)!
+First, read the [Code of Conduct](https://github.com/hapijs/university/blob/master/COC.md)!
 
 Simple, you start by forking this repo.
 
-Every few days a new issue will be posted with an [`assignment` label](https://github.com/hueniverse/hueniversity/labels/assignment). If you would like to participate in the assignment, try to solve it and when you are done, submit a Pull Request back to this repo. Make sure your code complies with the **hapi** community [Style Guide](https://github.com/hapijs/contrib/blob/master/Style.md).
+Every few days a new issue will be posted with an [`assignment` label](https://github.com/hapijs/university/labels/assignment). If you would like to participate in the assignment, try to solve it and when you are done, submit a Pull Request back to this repo. Make sure your code complies with the **hapi** community [Style Guide](https://github.com/hapijs/contrib/blob/master/Style.md).
 
 While you wait for the assignment to close, take a look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write examples, update the documentation). If you see ways in which others can improve their solution, comment on their Pull Request.
 
@@ -63,9 +63,9 @@ Before starting the next assignment, make sure [your fork matches the current ma
 
 There are lots of way you can help make hapijs university succeed and help shape a new format for teaching development skills:
 - Submit Pull Requests to improve this readme, add examples, write quick tutorials on how to work with git, etc.
-- Look for issues with a [`help wanted` label](https://github.com/hueniverse/hueniversity/labels/help%20wanted) or [`new contributor` label](https://github.com/hueniverse/hueniversity/labels/new%20contributor) and help with those.
+- Look for issues with a [`help wanted` label](https://github.com/hapijs/university/labels/help%20wanted) or [`new contributor` label](https://github.com/hapijs/university/labels/new%20contributor) and help with those.
 - Randomly pick submitted Pull Request and review them, offering advice and helping others improve their skills.
 
 ### Anything else?
 
-[Open an issue](https://github.com/hueniverse/hueniversity/issues/new), it's free.
+[Open an issue](https://github.com/hapijs/university/issues/new), it's free.
