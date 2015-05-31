@@ -1,8 +1,8 @@
+
 // Load modules
 
 var Code = require('code');
 var Lab = require('lab');
-var Pkg = require('../package.json');
 var University = require('../lib');
 var Path = require('path');
 
@@ -19,18 +19,20 @@ var expect = Code.expect;
 var it = lab.test;
 
 
-describe('/version', function () {
 
-    it('returns the version from package.json', function (done) {
+describe('/home', function () {
+
+    it('returns home page containing relative path from root to home template', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
-            server.inject('/version', function (res) {
+            var request = { method: 'GET', url: '/home' };
+            server.inject(request, function (res) {
 
-                expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ version: Pkg.version });
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result, 'result').to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html\n')));  // Why do I have \n in res.result??
 
                 server.stop(done);
             });
@@ -44,15 +46,12 @@ internals.manifest = {
         port: 0
     }
     ],
-        plugins: {
-            './version': {},
-            './private': {},
-            './home': {},
-            './auth-basic': {},
-            'hapi-auth-basic': {}
-        }
+    plugins: {
+        './home': {}
+    }
 };
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
 };
+

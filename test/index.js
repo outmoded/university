@@ -17,50 +17,53 @@ var internals = {};
 var lab = exports.lab = Lab.script();
 var expect = Code.expect;
 var it = lab.test;
+var describe = lab.experiment;
 
 
+describe('/index', function () {
 
-it('starts server and returns hapi server object', function (done) {
+    it('starts server and returns hapi server object', function (done) {
 
-    University.init({}, {}, function (err, server) {
+        University.init({}, {}, function (err, server) {
 
-        expect(err).to.not.exist();
-        expect(server).to.be.instanceof(Hapi.Server);
+            expect(err).to.not.exist();
+            expect(server).to.be.instanceof(Hapi.Server);
 
-        server.stop(done);
+            server.stop(done);
+        });
     });
-});
 
-it('starts server on provided port', function (done) {
+    it('starts server on provided port', function (done) {
 
-    University.init({connections: [{port: 5000}]}, {}, function (err, server) {
+        University.init({connections: [{port: 5000}]}, {}, function (err, server) {
 
-        expect(err).to.not.exist();
-        expect(server.info.port).to.equal(5000);
+            expect(err).to.not.exist();
+            expect(server.info.port).to.equal(5000);
 
-        server.stop(done);
+            server.stop(done);
+        });
     });
-});
 
-it('handles register plugin errors', { parallel: false }, function (done) {
+    it('handles register plugin errors', { parallel: false }, function (done) {
 
-    var orig = Version.register;
-    Version.register = function (server, options, next) {
+        var orig = Version.register;
+        Version.register = function (server, options, next) {
 
-        Version.register = orig;
-        return next(new Error('register version failed'));
-    };
+            Version.register = orig;
+            return next(new Error('register version failed'));
+        };
 
-    Version.register.attributes = {
-        name: 'fake version'
-    };
+        Version.register.attributes = {
+            name: 'fake version'
+        };
 
-    University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-        expect(err).to.exist();
-        expect(err.message).to.equal('register version failed');
+            expect(err).to.exist();
+            expect(err.message).to.equal('register version failed');
 
-        done();
+            done();
+        });
     });
 });
 
