@@ -2,10 +2,11 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 var Users = require('../lib/users.json');
-var Basic = require('hapi-auth-basic');
-
+var Auth = require('../lib/auth');
+var Path = require('path');
+var Hoek = require('hoek');
 
 // Declare internals
 
@@ -24,7 +25,7 @@ describe('/private', function () {
 
     it('returns a greeting for the authenticated user', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -41,7 +42,7 @@ describe('/private', function () {
 
     it('errors on wrong password', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -57,7 +58,7 @@ describe('/private', function () {
 
     it('errors on failed auth', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -73,24 +74,39 @@ describe('/private', function () {
 
     it('errors on failed registering of auth', { parallel: false }, function (done) {
 
-        var orig = Basic.register;
+        var orig = Auth.register;
 
-        Basic.register = function (plugin, options, next) {
+        Auth.register = function (plugin, options, next) {
 
-            Basic.register = orig;
+            Auth.register = orig;
             return next(new Error('fail'));
         };
 
-        Basic.register.attributes = {
+        Auth.register.attributes = {
             name: 'fake hapi-auth-basic'
         };
 
-        Hueniversity.init(0, function (err) {
+        University.init(internals.manifest, internals.composeOptions, function (err) {
 
             expect(err).to.exist();
 
             done();
         });
+    });
+
+    it('errors on missing Auth plugin', function (done) {
+
+        var manifest = Hoek.clone(internals.manifest);
+        delete manifest.plugins['./auth'];
+
+        var failingInit = University.init.bind(University, manifest, internals.composeOptions, function (err) {
+
+            done();
+        });
+
+        expect(failingInit).to.throw();
+
+        done();
     });
 });
 
@@ -98,4 +114,21 @@ describe('/private', function () {
 internals.header = function (username, password) {
 
     return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    plugins: {
+        './private': {},
+        './auth': {},
+        'hapi-auth-basic': {}
+    }
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
 };
