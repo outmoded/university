@@ -37,6 +37,26 @@ describe('/home', function () {
     });
 });
 
+describe('/login', function () {
+
+    it('returns login  page containing username', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'GET', url: '/login'};
+            server.inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result, 'result').to.contains('username');
+
+                server.stop(done);
+            });
+        });
+    });
+});
+
 internals.manifest = {
     connections: [
         {
