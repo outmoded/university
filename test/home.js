@@ -29,7 +29,7 @@ describe('/home', function () {
             server.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html')));
+                expect(res.result, 'result').to.contains(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html')));
 
                 server.stop(done);
             });
