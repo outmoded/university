@@ -10,7 +10,11 @@ var Basic = require('hapi-auth-basic');
 // Declare internals
 
 var internals = {};
-
+internals.defaultManifest = {
+    connections: [
+        { port: 0 }
+    ]
+};
 
 // Test shortcuts
 
@@ -24,7 +28,7 @@ describe('/private', function () {
 
     it('returns a greeting for the authenticated user', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -41,7 +45,7 @@ describe('/private', function () {
 
     it('errors on wrong password', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -57,7 +61,7 @@ describe('/private', function () {
 
     it('errors on failed auth', function (done) {
 
-        Hueniversity.init(0, function (err, server) {
+        Hueniversity.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.not.exist();
 
@@ -85,7 +89,7 @@ describe('/private', function () {
             name: 'fake hapi-auth-basic'
         };
 
-        Hueniversity.init(0, function (err) {
+        Hueniversity.init(internals.defaultManifest, function (err) {
 
             expect(err).to.exist();
 
