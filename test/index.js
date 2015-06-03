@@ -10,6 +10,7 @@ var Version = require('../lib/version');
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
+var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
@@ -22,52 +23,55 @@ internals.defaultManifest = {
     ]
 };
 
-it('starts server and returns hapi server object', function (done) {
+describe('/index', function () {
 
-    Hueniversity.init(internals.defaultManifest, function (err, server) {
+    it('starts server and returns hapi server object', function (done) {
 
-        expect(err).to.not.exist();
-        expect(server).to.be.instanceof(Hapi.Server);
+        Hueniversity.init(internals.defaultManifest, function (err, server) {
 
-        server.stop(done);
+            expect(err).to.not.exist();
+            expect(server).to.be.instanceof(Hapi.Server);
+
+            server.stop(done);
+        });
     });
-});
 
-it('starts server on provided port', function (done) {
+    it('starts server on provided port', function (done) {
 
-    var config = {
-	connections: [
-            { port: 5000 }
-        ]
-    };
+        var config = {
+            connections: [
+                { port: 5000 }
+            ]
+        };
 
-    Hueniversity.init(config, function (err, server) {
+        Hueniversity.init(config, function (err, server) {
 
-        expect(err).to.not.exist();
-        expect(server.info.port).to.equal(5000);
+            expect(err).to.not.exist();
+            expect(server.info.port).to.equal(5000);
 
-        server.stop(done);
+            server.stop(done);
+        });
     });
-});
 
-it('handles register plugin errors', { parallel: false }, function (done) {
+    it('handles register plugin errors', { parallel: false }, function (done) {
 
-    var orig = Version.register;
-    Version.register = function (server, options, next) {
+        var orig = Version.register;
+        Version.register = function (server, options, next) {
 
-        Version.register = orig;
-        return next(new Error('register version failed'));
-    };
+            Version.register = orig;
+            return next(new Error('register version failed'));
+        };
 
-    Version.register.attributes = {
-        name: 'fake version'
-    };
+        Version.register.attributes = {
+            name: 'fake version'
+        };
 
-    Hueniversity.init(internals.defaultManifest, function (err, server) {
+        Hueniversity.init(internals.defaultManifest, function (err, server) {
 
-        expect(err).to.exist();
-        expect(err.message).to.equal('register version failed');
+            expect(err).to.exist();
+            expect(err.message).to.equal('register version failed');
 
-        done();
+            done();
+        });
     });
 });
