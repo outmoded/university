@@ -2,7 +2,7 @@
 
 var Code = require('code');
 var Lab = require('lab');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 var Path = require('path');
 
 
@@ -29,7 +29,7 @@ describe('/home', function () {
 
     it('Displays a home page with the path to home.html', function (done) {
 
-        Hueniversity.init(internals.defaultManifest, function (err, server) {
+        University.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.not.exist();
 

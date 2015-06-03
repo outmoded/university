@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hueniverse/hueniversity.git"
+    "url": "https://github.com/hapijs/university.git"
   },
   "keywords": [
     "hapi",
@@ -14,9 +14,9 @@
   ],
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/hueniverse/hueniversity/issues"
+    "url": "https://github.com/hapijs/university/issues"
   },
-  "homepage": "https://github.com/hueniverse/hueniversity",
+  "homepage": "https://github.com/hapijs/university",
   "dependencies": {
     "glue": "2.x.x",
     "handlebars": "3.x.x",

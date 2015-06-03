@@ -3,7 +3,7 @@
 var Code = require('code');
 var Lab = require('lab');
 var Pkg = require('../package.json');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 
 
 // Test shortcuts
@@ -26,7 +26,7 @@ describe('/version', function () {
 
     it('returns the version from package.json', function (done) {
 
-        Hueniversity.init(internals.defaultManifest, function (err, server) {
+        University.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.not.exist();
 

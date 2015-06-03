@@ -3,7 +3,7 @@
 var Hapi = require('hapi');
 var Code = require('code');
 var Lab = require('lab');
-var Hueniversity = require('../lib');
+var University = require('../lib');
 var Version = require('../lib/version');
 
 
@@ -27,7 +27,7 @@ describe('/index', function () {
 
     it('starts server and returns hapi server object', function (done) {
 
-        Hueniversity.init(internals.defaultManifest, function (err, server) {
+        University.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.not.exist();
             expect(server).to.be.instanceof(Hapi.Server);
@@ -44,7 +44,7 @@ describe('/index', function () {
             ]
         };
 
-        Hueniversity.init(config, function (err, server) {
+        University.init(config, function (err, server) {
 
             expect(err).to.not.exist();
             expect(server.info.port).to.equal(5000);
@@ -66,7 +66,7 @@ describe('/index', function () {
             name: 'fake version'
         };
 
-        Hueniversity.init(internals.defaultManifest, function (err, server) {
+        University.init(internals.defaultManifest, function (err, server) {
 
             expect(err).to.exist();
             expect(err.message).to.equal('register version failed');
