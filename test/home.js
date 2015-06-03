@@ -29,7 +29,7 @@ describe('/home', function () {
             server.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.contains(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html')));
+                expect(res.result, 'result').to.contains('img');
 
                 server.stop(done);
             });
@@ -55,6 +55,23 @@ describe('/login', function () {
             });
         });
     });
+});
+
+it('GET request should respond properly.', function(done){
+
+        University.init(0, function(err, server){
+
+            expect(server.info.port).to.be.above(0);
+
+            // IMPORTANT   this is how to inject into tis connection avoiding the redirect.
+            var tlserver = server.select('web-tls');
+
+            tlserver.inject({url: '/home', method: 'GET' }, function (response) {
+
+                expect(response.statusCode).to.equal(200);
+                server.stop(done);
+            });
+        });
 });
 
 internals.manifest = {
