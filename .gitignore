@@ -14,4 +14,4 @@ config.json
 */*/._*
 coverage.*
 */*~
-.emacs
+.emacs*
