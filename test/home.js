@@ -57,21 +57,21 @@ describe('/login', function () {
     });
 });
 
-it('GET request should respond properly.', function(done){
+it('GET request should respond properly.', function (done){
 
-        University.init(0, function(err, server){
+    University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-            expect(server.info.port).to.be.above(0);
+        expect(err).to.not.exist();
 
-            // IMPORTANT   this is how to inject into tis connection avoiding the redirect.
-            var tlserver = server.select('web-tls');
+        // IMPORTANT   this is how to inject into tis connection avoiding the redirect.
+        var tlserver = server.select('web-tls');
 
-            tlserver.inject({url: '/home', method: 'GET' }, function (response) {
+        tlserver.inject({url: '/home', method: 'GET' }, function (response) {
 
-                expect(response.statusCode).to.equal(200);
-                server.stop(done);
-            });
+            expect(response.statusCode).to.equal(200);
+            server.stop(done);
         });
+    });
 });
 
 internals.manifest = {
