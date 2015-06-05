@@ -7,6 +7,7 @@ var Users = require('../lib/users.json');
 var Auth = require('../lib/auth');
 var Path = require('path');
 var Hoek = require('hoek');
+var Config = require('../lib/config');
 
 // Declare internals
 
@@ -23,7 +24,7 @@ var it = lab.test;
 
 describe('/private', function () {
 
-    it('returns a greeting for the authenticated user', function (done) {
+    it('ensure redirect for authenticate user login', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -32,7 +33,26 @@ describe('/private', function () {
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
             server.inject(request, function (res) {
 
+                expect(res.statusCode, 'Status code').to.equal(301);
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('https returns a greeting for the authenticated user', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var tlserver = server.select('web-tls');
+
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
+            tlserver.inject(request, function (res) {
+
                 expect(res.statusCode, 'Status code').to.equal(200);
+
                 expect(res.result, 'result').to.equal('<div>Hello foo</div>');
 
                 server.stop(done);
@@ -40,7 +60,7 @@ describe('/private', function () {
         });
     });
 
-    it('errors on wrong password', function (done) {
+    it('ensure redirect on errors on wrong password', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -49,6 +69,24 @@ describe('/private', function () {
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
             server.inject(request, function (res) {
 
+                expect(res.statusCode, 'Status code').to.equal(301);
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('https errors on wrong password', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var tlserver = server.select('web-tls');
+
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
+            tlserver.inject(request, function (res) {
+
                 expect(res.statusCode, 'Status code').to.equal(401);
 
                 server.stop(done);
@@ -56,7 +94,7 @@ describe('/private', function () {
         });
     });
 
-    it('errors on failed auth', function (done) {
+    it('redirect errors on failed auth', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -64,6 +102,24 @@ describe('/private', function () {
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
             server.inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('https errors on failed auth', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var tlserver = server.select('web-tls');
+
+            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
+            tlserver.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -118,9 +174,17 @@ internals.header = function (username, password) {
 
 internals.manifest = {
     connections: [
-        {
-            port: 0
-        }
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web']
+    },
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web-tls'],
+        tls: Config.tls
+    }
     ],
     plugins: {
         './private': {},
