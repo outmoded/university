@@ -49,7 +49,24 @@ describe('/home', function () {
             tlsServer.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html')));
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('returns image as required', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var tlsServer = server.select('web-tls');
+
+            var request = { method: 'GET', url: '/images/logo.png' };
+            tlsServer.inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
 
                 server.stop(done);
             });
