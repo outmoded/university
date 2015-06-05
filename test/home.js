@@ -77,7 +77,9 @@ it('GET request should respond properly.', function (done){
 internals.manifest = {
     connections: [
         {
-            port: 0
+            host: 'localhost',
+            port: 8001,
+            labels: ['web-tls']
         }
     ],
     plugins: {
