@@ -18,7 +18,7 @@ var expect = Code.expect;
 var it = lab.test;
 
 
-it('starts server and returns hapi server object', function (done) {
+it('Starts server and returns hapi server object', function (done) {
 
     University.init({}, {}, function (err, server) {
 
@@ -29,7 +29,7 @@ it('starts server and returns hapi server object', function (done) {
     });
 });
 
-it('starts server on provided port', function (done) {
+it('Starts server on provided port', function (done) {
 
     University.init({connections: [{port: 5000}]}, {}, function (err, server) {
 
@@ -40,7 +40,7 @@ it('starts server on provided port', function (done) {
     });
 });
 
-it('handles register plugin errors', { parallel: false }, function (done) {
+it('Handles register plugin errors', { parallel: false }, function (done) {
 
     var orig = Version.register;
     Version.register = function (server, options, next) {
