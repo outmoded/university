@@ -6,6 +6,7 @@ var Lab = require('lab');
 var University = require('../lib');
 var Version = require('../lib/version');
 var Path = require('path');
+var Config = require('../lib/config');
 
 //declare internals
 
@@ -15,63 +16,76 @@ var internals = {};
 
 var lab = exports.lab = Lab.script();
 var expect = Code.expect;
+var describe = lab.experiment;
 var it = lab.test;
 
 
-it('starts server and returns hapi server object', function (done) {
+describe('/index', function () {
 
-    University.init(internals.manifest, internals.composeOptions, function (err, server) {
+    it('starts server and returns hapi server object', function (done) {
 
-        expect(err).to.not.exist();
-        expect(server).to.be.instanceof(Hapi.Server);
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-        server.stop(done);
+            expect(err).to.not.exist();
+            // expect(server).to.be.instanceof(Hapi.Server);
+            expect(server.version).to.equal('8.6.1');
+            server.stop(done);
+        });
     });
-});
 
-it('starts server on provided port', function (done) {
+    it('starts server on provided port', function (done) {
 
-    internals.manifest.connections[0].port = 5000;
+        internals.manifest.connections[0].port = 5000;
 
-    University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-        expect(err).to.not.exist();
-        expect(server.info.port).to.equal(5000);
-        internals.manifest.connections[0].port = 0;
-        server.stop(done);
+            expect(err).to.not.exist();
+            expect(server.info.port).to.equal(5000);
+            internals.manifest.connections[0].port = 0;
+            server.stop(done);
+        });
     });
-});
 
-it('handles register plugin errors', { parallel: false }, function (done) {
+    it('handles register plugin errors', { parallel: false }, function (done) {
 
-    var orig = Version.register;
-    Version.register = function (server, options, next) {
+        var orig = Version.register;
+        Version.register = function (server, options, next) {
 
-        Version.register = orig;
-        return next(new Error('register version failed'));
-    };
+            Version.register = orig;
+            return next(new Error('register version failed'));
+        };
 
-    Version.register.attributes = {
-        name: 'fake version'
-    };
+        Version.register.attributes = {
+            name: 'fake version'
+        };
 
-    University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-        expect(err).to.exist();
-        expect(err.message).to.equal('register version failed');
+            expect(err).to.exist();
+            expect(err.message).to.equal('register version failed');
 
-        done();
+            done();
+        });
     });
 });
 
 internals.manifest = {
     connections: [
-        {
-            port: 0
-        }
-    ],
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web']
+    },
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web-tls'],
+        tls: Config.tls
+    }],
     plugins: {
-        './version': {}
+        './version': [{
+            'select': ['web', 'web-tls']
+        }]
     }
 };
 
