@@ -7,6 +7,7 @@ var Users = require('../lib/users.json');
 var Auth = require('../lib/auth');
 var Path = require('path');
 var Hoek = require('hoek');
+var Config = require('../lib/config');
 
 // Declare internals
 
@@ -119,7 +120,10 @@ internals.header = function (username, password) {
 internals.manifest = {
     connections: [
         {
-            port: 0
+            host: 'localhost',
+            port: 0,
+            labels: ['web-tls'],
+            tls: Config.tls
         }
     ],
     plugins: {
