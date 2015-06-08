@@ -107,7 +107,9 @@ internals.manifest = {
         tls: Config.tls
     }],
     plugins: {
-        './home': {}
+        './home': [{
+            'select': ['web', 'web-tls']
+        }]
     }
 };
 
