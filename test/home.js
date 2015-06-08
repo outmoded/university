@@ -4,6 +4,7 @@ var Code = require('code');
 var Lab = require('lab');
 var University = require('../lib');
 var Path = require('path');
+var Config = require('../lib/config');
 
 // Declare internals
 
@@ -26,7 +27,7 @@ describe('/home', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/home' };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result, 'result').to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html')));
@@ -39,8 +40,16 @@ describe('/home', function () {
 
 internals.manifest = {
     connections: [
+	{
+            host: 'localhost',
+            port: 0,
+            labels: ['web']
+        },
         {
-            port: 0
+            host: 'localhost',
+            port: 0,
+            labels: ['web-tls'],
+            tls: Config.tls
         }
     ],
     plugins: {
