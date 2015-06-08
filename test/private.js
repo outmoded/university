@@ -31,7 +31,7 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result, 'result').to.equal('<div>Hello foo</div>');
@@ -48,7 +48,7 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -64,7 +64,7 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -119,6 +119,11 @@ internals.header = function (username, password) {
 
 internals.manifest = {
     connections: [
+	{
+            host: 'localhost',
+            port: 0,
+            labels: ['web']
+        },
         {
             host: 'localhost',
             port: 0,
