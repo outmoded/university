@@ -68,9 +68,11 @@ describe('/index', function () {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-            server.inject('/version', function (res) {
+            server.inject('/', function (res) {
 
                 expect(res.statusCode).to.equal(301);
+		expect(res.headers.location).to.equal('https://localhost:8001/');
+
                 server.stop(done);
             });
         });
