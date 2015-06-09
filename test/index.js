@@ -20,6 +20,7 @@ var expect = Code.expect;
 var it = lab.test;
 
 describe('/index', function () {
+
     it('starts server and returns hapi server object', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
@@ -33,7 +34,7 @@ describe('/index', function () {
 
     it('starts server on provided port', function (done) {
 
-        University.init({connections: [{port: 5000, labels: 'web' }]}, {}, function (err, server) {
+        University.init({connections: [ {port: 5000, labels: 'web' } ]}, {}, function (err, server) {
 
             expect(err).to.not.exist();
             expect(server.select('web').info.port).to.equal(5000);
@@ -64,14 +65,14 @@ describe('/index', function () {
         });
     });
 
-    it('forces re-routing to https', function(done) {
+    it('forces re-routing to https', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-            server.inject('/', function (res) {
+            server.inject('/version', function (res) {
 
                 expect(res.statusCode).to.equal(301);
-		expect(res.headers.location).to.equal('https://localhost:8001/');
+                expect(res.headers.location).to.equal('https://localhost:8001/version');
 
                 server.stop(done);
             });
