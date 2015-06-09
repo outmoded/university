@@ -22,10 +22,10 @@ var it = lab.test;
 describe('/index', function () {
     it('starts server and returns hapi server object', function (done) {
 
-        University.init({}, {}, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
-            //expect(server).to.be.instanceof(Hapi.Server);
+            expect(server).to.be.instanceof(Hapi.Server);
 
             server.stop(done);
         });
@@ -33,10 +33,10 @@ describe('/index', function () {
 
     it('starts server on provided port', function (done) {
 
-        University.init({connections: [{port: 5000, labels: 'test' }]}, {}, function (err, server) {
+        University.init({connections: [{port: 5000, labels: 'web' }]}, {}, function (err, server) {
 
             expect(err).to.not.exist();
-            expect(server.select('test').info.port).to.equal(5000);
+            expect(server.select('web').info.port).to.equal(5000);
 
             server.stop(done);
         });
