@@ -2,11 +2,12 @@
 
 var Code = require('code');
 var Lab = require('lab');
+var Path = require('path');
+var Hoek = require('hoek');
 var University = require('../lib');
 var Users = require('../lib/users.json');
 var Auth = require('../lib/auth');
-var Path = require('path');
-var Hoek = require('hoek');
+var Config = require('../config/config.js');
 
 // Declare internals
 
@@ -23,14 +24,33 @@ var it = lab.test;
 
 describe('/private', function () {
 
+    it('should redirct http to https', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = {method: 'GET', url: '/private'};
+            server.inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal('https://localhost:8001/private');
+
+                server.stop(done);
+            });
+        });
+    });
+
     it('returns a greeting for the authenticated user', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
+            var tlsServer = server.select('web-tls');
+
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
-            server.inject(request, function (res) {
+            tlsServer.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result, 'result').to.equal('<div>Hello foo</div>');
@@ -46,8 +66,10 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
+            var tlsServer = server.select('web-tls');
+
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
-            server.inject(request, function (res) {
+            tlsServer.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -62,8 +84,10 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
+            var tlsServer = server.select('web-tls');
+
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
-            server.inject(request, function (res) {
+            tlsServer.inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -120,10 +144,18 @@ internals.manifest = {
     connections: [
         {
             port: 0
+        },
+        {
+            host: 'localhost',
+            port: 0,
+            labels: ['web-tls'],
+            tls: Config.tls
         }
     ],
     plugins: {
-        './private': {},
+        './private': [{
+            'select': ['web', 'web-tls']
+        }],
         './auth': {},
         'hapi-auth-basic': {}
     }
