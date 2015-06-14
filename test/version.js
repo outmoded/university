@@ -5,6 +5,7 @@ var Lab = require('lab');
 var Pkg = require('../package.json');
 var University = require('../lib');
 var Path = require('path');
+var Config = require('../lib/config');
 
 // Declare internals
 
@@ -21,7 +22,7 @@ var it = lab.test;
 
 describe('/version', function () {
 
-    it('returns the version from package.json', function (done) {
+    it('redirect on request for the version from package.json', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -29,8 +30,26 @@ describe('/version', function () {
 
             server.inject('/version', function (res) {
 
+                expect(res.statusCode).to.equal(301);
+                //expect(res.result).to.deep.equal({ version: Pkg.version });
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('https returns the version from package.json', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var tlserver = server.select('web-tls');
+
+            tlserver.inject('/version', function (res) {
+
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ version: Pkg.version });
+                // expect(res.result).to.deep.equal({ version: Pkg.version });
 
                 server.stop(done);
             });
@@ -40,10 +59,17 @@ describe('/version', function () {
 
 internals.manifest = {
     connections: [
-        {
-            port: 0
-        }
-    ],
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web']
+    },
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web-tls'],
+        tls: Config.tls
+    }],
     plugins: {
         './version': {}
     }
