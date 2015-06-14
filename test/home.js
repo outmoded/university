@@ -20,7 +20,24 @@ var it = lab.test;
 
 describe('/home', function () {
 
-    it('returns an home page', function (done) {
+    it('ensures that /home is always redirected to https', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'GET', url: '/home' };
+            server.select('web').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal('https://localhost:8001/home');
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('returns an home page via https', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -39,7 +56,7 @@ describe('/home', function () {
 
 internals.manifest = {
     connections: [
-	{
+        {
             host: 'localhost',
             port: 0,
             labels: ['web']

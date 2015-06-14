@@ -13,7 +13,6 @@ var Config = require('../lib/config');
 
 var internals = {};
 
-
 // Test shortcuts
 
 var lab = exports.lab = Lab.script();
@@ -21,8 +20,24 @@ var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
-
 describe('/private', function () {
+
+    it('ensures /private is always redirected to use https', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'GET', url: '/private' };
+            server.select('web').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal('https://localhost:8001/private');
+
+                server.stop(done);
+            });
+        });
+    });
 
     it('returns a greeting for the authenticated user', function (done) {
 
