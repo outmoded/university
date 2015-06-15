@@ -7,11 +7,11 @@ var Users = require('../lib/users.json');
 var Auth = require('../lib/auth');
 var Path = require('path');
 var Hoek = require('hoek');
+var Config = require('../lib/config');
 
 // Declare internals
 
 var internals = {};
-
 
 // Test shortcuts
 
@@ -20,8 +20,24 @@ var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
-
 describe('/private', function () {
+
+    it('ensures /private is always redirected to use https', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'GET', url: '/private' };
+            server.select('web').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal('https://localhost:8001/private');
+
+                server.stop(done);
+            });
+        });
+    });
 
     it('returns a greeting for the authenticated user', function (done) {
 
@@ -30,7 +46,7 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result, 'result').to.equal('<div>Hello foo</div>');
@@ -47,7 +63,7 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -63,7 +79,7 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
-            server.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -118,8 +134,16 @@ internals.header = function (username, password) {
 
 internals.manifest = {
     connections: [
+	{
+            host: 'localhost',
+            port: 0,
+            labels: ['web']
+        },
         {
-            port: 0
+            host: 'localhost',
+            port: 0,
+            labels: ['web-tls'],
+            tls: Config.tls
         }
     ],
     plugins: {
