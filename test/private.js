@@ -30,7 +30,7 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var request = {method: 'GET', url: '/private'};
+            var request = { method: 'GET', url: '/private' };
             server.select('web').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(301);

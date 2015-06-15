@@ -26,7 +26,7 @@ describe('/home', function () {
 
             expect(err).to.not.exist();
 
-            var request = {method: 'GET', url: '/home'};
+            var request = { method: 'GET', url: '/home' };
             server.select('web').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(301);
