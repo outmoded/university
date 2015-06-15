@@ -21,7 +21,7 @@ var it = lab.test;
 
 describe('/auth', function () {
 
-    it('errors on failed registering of hapi-basic-auth', { parallel: false }, function (done) {
+    it('Errors on failed registering of hapi-basic-auth', { parallel: false }, function (done) {
 
         var orig = Basic.register;
 
@@ -43,7 +43,7 @@ describe('/auth', function () {
         });
     });
 
-    it('errors on missing hapi-auth-basic plugin', function (done) {
+    it('Errors on missing hapi-auth-basic plugin', function (done) {
 
         var manifest = Hoek.clone(internals.manifest);
         delete manifest.plugins['hapi-auth-basic'];
