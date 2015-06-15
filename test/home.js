@@ -27,10 +27,10 @@ describe('/home', function () {
             expect(err).to.not.exist();
 
             var request = {method: 'GET', url: '/home'};
-            server.inject(request, function (res) {
+            server.select('web').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(301);
-                expect(res.headers.location).to.equal('https://localhost:8001/home');
+                expect(res.headers.location).to.equal('https://' + Config.host + ':' + Config.tls.port + '/home');
 
                 server.stop(done);
             });
@@ -43,10 +43,8 @@ describe('/home', function () {
 
             expect(err).to.not.exist();
 
-            var tlsServer = server.select('web-tls');
-
             var request = { method: 'GET', url: '/home' };
-            tlsServer.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
 
@@ -72,9 +70,7 @@ internals.manifest = {
         }
     ],
     plugins: {
-        './home': [{
-            'select': ['web', 'web-tls']
-        }]
+        './home': {}
     }
 };
 

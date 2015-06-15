@@ -31,10 +31,10 @@ describe('/private', function () {
             expect(err).to.not.exist();
 
             var request = {method: 'GET', url: '/private'};
-            server.inject(request, function (res) {
+            server.select('web').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(301);
-                expect(res.headers.location).to.equal('https://localhost:8001/private');
+                expect(res.headers.location).to.equal('https://' + Config.host + ':' + Config.tls.port + '/private');
 
                 server.stop(done);
             });
@@ -47,10 +47,8 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var tlsServer = server.select('web-tls');
-
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
-            tlsServer.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result, 'result').to.equal('<div>Hello foo</div>');
@@ -66,10 +64,8 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var tlsServer = server.select('web-tls');
-
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
-            tlsServer.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -84,10 +80,8 @@ describe('/private', function () {
 
             expect(err).to.not.exist();
 
-            var tlsServer = server.select('web-tls');
-
             var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
-            tlsServer.inject(request, function (res) {
+            server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -155,9 +149,7 @@ internals.manifest = {
         }
     ],
     plugins: {
-        './private': [{
-            'select': ['web', 'web-tls']
-        }],
+        './private': {},
         './auth': {},
         'hapi-auth-basic': {}
     }

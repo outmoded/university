@@ -29,10 +29,10 @@ describe('/version', function () {
             expect(err).to.not.exist();
 
             var request = {method: 'GET', url: '/version'};
-            server.inject(request, function (res) {
+            server.select('web').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(301);
-                expect(res.headers.location).to.equal('https://localhost:8001/version');
+                expect(res.headers.location).to.equal('https://' + Config.host + ':' + Config.tls.port + '/version');
 
                 server.stop(done);
             });
@@ -73,9 +73,7 @@ internals.manifest = {
         }
     ],
     plugins: {
-        './version': [{
-            'select': ['web', 'web-tls']
-        }]
+        './version': {}
     }
 };
 
