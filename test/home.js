@@ -81,7 +81,9 @@ internals.manifest = {
         }
     ],
     plugins: {
-        './home': {}
+        './home': {},
+        './auth-cookie': {},
+        'hapi-auth-cookie': {}
     }
 };
 
