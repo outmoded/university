@@ -1,0 +1,27 @@
+{
+  "name": "hapi-university",
+  "version": "0.0.1",
+  "description": "Community learning experiment",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsocius/university.git"
+  },
+  "keywords": [
+    "hapi",
+    "learn",
+    "community"
+  ],
+  "author": "",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/bsocius/university/issues"
+  },
+  "homepage": "https://github.com/bsocius/university#readme",
+  "dependencies": {
+    "hapi": "^8.6.1"
+  }
+}
