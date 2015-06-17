@@ -22,6 +22,7 @@
     "handlebars": "3.x.x",
     "hapi": "8.x.x",
     "hapi-auth-basic": "2.x.x",
+    "hapi-auth-cookie": "^3.0.1",
     "hoek": "2.x.x"
   },
   "scripts": {

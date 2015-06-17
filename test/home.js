@@ -43,10 +43,22 @@ describe('/home', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/home' };
+            // #### Debugging https testing conclusion is must use nock  #### //
+            // var request = { method: 'GET', url: '/home', headers: { Host: 'https', location: 'https://localhost:8001/home' } };
+            // @arb's recommendations
+            // i've used nock() before
+            // as you can probably guess by the issues i opened up
+            // it's good
+            // another thing you could do would be to stand up a dummy server that responds with JSON fixtures
+            // also you can look at request.url that should tell you if the request is https or not
+            var request = { method: 'GET', url: '/home', headers: { location: 'https://localhost:8001/home' } };
             server.select('web-tls').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
+
+                expect(res.raw.req.headers.location).to.equal('https://localhost:8001/home');
+
+                //expect(res.raw.req.result).to.equal('result');
 
                 server.stop(done);
             });
