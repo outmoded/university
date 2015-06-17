@@ -16,6 +16,10 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 
 You are welcome to join! 
 
+### Assignment List
+See the [list of assignments](https://github.com/hapijs/university/blob/master/guides/contents.md) for instructions on how to <br/>
+checkout the project in earlier states and work on previous assignments.  
+
 
 ### What are we going to build?
 
