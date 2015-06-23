@@ -7,10 +7,13 @@
   <body>
     {{#if user}}
         <h1>{{user.first}} {{user.last}}</h1>
+        <a href="/account">{{user.first}} 's Account</a><br/><br/>
+    {{else}}
+        <a href="/login">Login</a><br/><br/>
     {{/if}}
-    <img src="/images/logo.png" alt="Logo"/>
+    
     <h3>A Community Learning Experiment</h3>
+    <img src="/images/logo.png" alt="Logo"/>
     <br/>
-    <a href="/login">Login</a>
   </body>
 </html>
