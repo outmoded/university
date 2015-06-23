@@ -42,9 +42,9 @@ internals.errorMessage = function (message) {
     var newP = document.createElement('p');
     newP.innerHTML = message;
 
-    var att = document.createAttribute("class");
-    att.value = "errorMessage";
-    newP.setAttributeNode(att)
+    var att = document.createAttribute('class');
+    att.value = 'errorMessage';
+    newP.setAttributeNode(att);
 
     var form = document.getElementsByTagName('form')[0];
 
@@ -58,7 +58,7 @@ internals.errorMessage = function (message) {
 internals.clearErrors = function () {
 
     var errorMessages = document.getElementsByTagName('p');
-    
+
     if (errorMessages.length > 0) {
 
         console.log('Has Errors');

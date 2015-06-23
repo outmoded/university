@@ -142,7 +142,7 @@ internals.manifest = {
         {
             host: 'localhost',
             port: 0,
-            labels: ['web-tls'],
+            labels: ['web-tls', 'api'],
             tls: Config.tls
         }
     ],

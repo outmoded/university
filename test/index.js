@@ -34,7 +34,7 @@ describe('/index', function () {
 
     it('starts server on provided port', function (done) {
 
-        University.init({ connections: [{ port: 5000, labels: 'web' }] }, {}, function (err, server) {
+        University.init({ connections: [{ port: 5000, labels: ['web', 'web-tls', 'api'] }] }, {}, function (err, server) {
 
             expect(err).to.not.exist();
             expect(server.select('web').info.port).to.equal(5000);
@@ -89,7 +89,7 @@ describe('/index', function () {
             {
                 host: 'localhost',
                 port: 0,
-                labels: ['web-tls'],
+                labels: ['web-tls', 'api'],
                 tls: Config.tls
             }
         ],
