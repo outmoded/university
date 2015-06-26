@@ -7,10 +7,10 @@
   </head>
   <body>
     {{#if admin}}
-        <h3>{{admin.first}} {{admin.last}} Account</h3>
+        <h3>{{user.first}} {{user.last}} Account</h3>
         <a href="/admin">Admin CPanel</a>
     {{else}}
-        <h3>{{admin.first}} {{admin.last}} Account</h3>
+        <h3>{{user.first}} {{user.last}} Account</h3>
     {{/if}}
     <br/>
     <a href="/home">Home</a><br/>

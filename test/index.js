@@ -79,26 +79,142 @@ describe('/index', function () {
         });
     });
 
-    internals.manifest = {
-        connections: [
+
+});
+
+describe('server.ext() request cycle handles', function () {
+
+    it('bad route entered', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            server.select('web-tls').inject('/wakawaka', function (res) {
+
+                expect(res.statusCode).to.equal(301);
+                expect(res.headers.location).to.equal('https://localhost:8001/home');
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('insufficient scope for user web-tls', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('bar', 'bar') };
+
+            // Successfull Login
+
+            internals.server = server;
+
+            internals.server.select('api').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result.username).to.equal('Bar Head');
+
+                var header = res.headers['set-cookie'];
+                expect(header.length).to.equal(1);
+
+                expect(header[0]).to.contain('Max-Age=60');
+
+                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+
+                // ./home greets authenticated user
+
+                var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+
+                internals.server.select('web-tls').inject(request2, function (res) {
+
+                    expect(res.statusCode, 'Status code').to.equal(301);
+                    expect(res.headers.location).to.equal('https://localhost:8001/home');
+                    internals.server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('insufficient scope public user web-tls', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'GET', url: '/admin' };
+
+            // Successfull Login
+
+            internals.server = server;
+
+            internals.server.select('web-tls').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(302);
+                expect(res.headers.location).to.equal('/login');
+                internals.server.stop(done);
+            });
+        });
+    });
+
+    it('joi validation error transformed', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+
+            internals.server = server;
+
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foowakawaka', 'bamo') };  // This fails loggin in event w. correct credentials..
+
+            internals.server.select('web-tls').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(400);
+                expect(res.result.message).to.equal('Malformed Data Entered');
+                internals.server.stop(done);
+            });
+        });
+    });
+
+});
+
+
+
+internals.manifest = {
+    connections: [
+    {
+        host: 'localhost',
+        port: 0,
+        labels: ['web']
+    },
         {
             host: 'localhost',
             port: 0,
-            labels: ['web']
-        },
-            {
-                host: 'localhost',
-                port: 0,
-                labels: ['web-tls', 'api'],
-                tls: Config.tls
-            }
-        ],
-        plugins: {
-            './version': {}
+            labels: ['web-tls', 'api'],
+            tls: Config.tls
         }
-    };
-});
+    ],
+    plugins: {
+        './version': {},
+        './home': [{
+            'select': ['web', 'web-tls']
+        }],
+        './api/login': [{
+            'select': ['api']
+        }],
+        './auth-cookie': {},
+        'hapi-auth-cookie': {}
+    }
+};
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
+};
+
+internals.loginCredentials = function (username, password) {
+
+    return JSON.stringify({ username: username, password: password });
 };

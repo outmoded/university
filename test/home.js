@@ -5,6 +5,7 @@ var Lab = require('lab');
 var University = require('../lib');
 var Path = require('path');
 var Config = require('../lib/config');
+var Cheerio = require('cheerio');
 
 // Declare internals
 
@@ -65,8 +66,193 @@ describe('/home', function () {
             });
         });
     });
+
+    it('logged in user info is displayed', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
+            // Successfull Login
+
+            internals.server = server;
+
+
+            internals.server.select('api').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result.username).to.equal('Foo Foo');
+
+                var header = res.headers['set-cookie'];
+                expect(header.length).to.equal(1);
+
+                expect(header[0]).to.contain('Max-Age=60');
+                var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+
+                // ./home greets authenticated user
+
+
+                var request2 = { method: 'GET', url: '/home', headers: { cookie: 'hapi-university=' + cookie[1] } };
+
+                internals.server.select('web-tls').inject(request2, function (res) {
+
+                    // expect(res.result).to.equal('foofoo');
+                    var $ = Cheerio.load(res.result);
+                    var result = ($('h1', 'body').text());
+
+                    expect(result).to.equal('Foo Foo');
+
+                    internals.server.stop(done);
+                });
+            });
+        });
+    });
 });
 
+describe('./account', function () {
+
+    it('logged in (admin) user has admin information loaded.', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
+            // Successfull Login
+
+            internals.server = server;
+
+            internals.server.select('api').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result.username).to.equal('Foo Foo');
+
+                var header = res.headers['set-cookie'];
+                expect(header.length).to.equal(1);
+
+                expect(header[0]).to.contain('Max-Age=60');
+
+                // var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+
+                // ./home greets authenticated user
+
+
+                // var request2 = { method: 'GET', url: '/home',  headers: {cookie: 'hapi-university='+ cookie[1]} };
+                var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+
+                internals.server.select('web-tls').inject(request2, function (res) {
+
+                    var $ = Cheerio.load(res.result);
+                    var result = ($('h3', 'body').text());
+
+                    expect(result).to.equal('Foo Foo Account');
+
+                    internals.server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('logged in (non-admin) user has information loaded.', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('bar', 'bar') };
+
+            // Successfull Login
+
+            internals.server = server;
+
+            internals.server.select('api').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result.username).to.equal('Bar Head');
+
+                var header = res.headers['set-cookie'];
+                expect(header.length).to.equal(1);
+
+                expect(header[0]).to.contain('Max-Age=60');
+
+                // var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+
+                // ./home greets authenticated user
+
+
+                // var request2 = { method: 'GET', url: '/home',  headers: {cookie: 'hapi-university='+ cookie[1]} };
+                var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+
+                internals.server.select('web-tls').inject(request2, function (res) {
+
+                    var $ = Cheerio.load(res.result);
+                    var result = ($('h3', 'body').text());
+
+                    expect(result).to.equal('Bar Bar Account');
+
+                    internals.server.stop(done);
+                });
+            });
+        });
+    });
+});
+
+describe('./account', function () {
+
+    it('logged in (admin) user accesses /admin page.', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
+            // Successfull Login
+
+            internals.server = server;
+
+            internals.server.select('api').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result.username).to.equal('Foo Foo');
+
+                var header = res.headers['set-cookie'];
+                expect(header.length).to.equal(1);
+
+                expect(header[0]).to.contain('Max-Age=60');
+
+                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+
+                // ./home greets authenticated user
+
+
+                var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+
+                internals.server.select('web-tls').inject(request2, function (res) {
+
+                    var $ = Cheerio.load(res.result);
+                    var result = ($('h3', 'body').text());
+
+                    expect(result).to.equal('Success, you accessed the admin page!');
+
+                    internals.server.stop(done);
+                });
+            });
+        });
+    });
+
+});
 internals.manifest = {
     connections: [
         {
@@ -82,7 +268,12 @@ internals.manifest = {
         }
     ],
     plugins: {
-        './home': {},
+        './home': [{
+            'select': ['web', 'web-tls']
+        }],
+        './api/login': [{
+            'select': ['api']
+        }],
         './auth-cookie': {},
         'hapi-auth-cookie': {}
     }
@@ -91,3 +282,12 @@ internals.manifest = {
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
 };
+
+internals.loginCredentials = function (username, password) {
+
+    return JSON.stringify({ username: username, password: password });
+};
+
+internals.authenticatedHeader = false;
+
+internals.testServer = {};
