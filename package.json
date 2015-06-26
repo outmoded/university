@@ -26,7 +26,7 @@
     "hapi-auth-basic": "2.x.x",
     "hapi-auth-cookie": "^3.x.x",
     "hoek": "2.x.x",
-    "joi": "^6.4.3"
+    "joi": "^6.x.x"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L -v",
