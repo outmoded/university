@@ -1,6 +1,6 @@
 {
   "name": "hapi-university",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {

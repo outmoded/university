@@ -103,40 +103,52 @@ describe('/login', function () {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-            var tlserver = server.select('web-tls');
-
             // Successfull Login
 
-            var request = { method: 'POST', url: '/login', headers: { authorization: internals.loginCredentials('', 'test') } };  // This fails loggin in event w. correct credentials..
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('', 'test') };
 
-            tlserver.inject(request, function (res) {
+            server.select('api').inject(request, function (res) {
 
-                expect(res.statusCode, 'Status code').to.equal(401);
-                expect(res.result.message).to.equal('Did not submit password or username');
+                expect(res.statusCode, 'Status code').to.equal(400);
+                expect(res.result.message).to.equal('Malformed Data Entered');
+            });
+
+            var request1 = { method: 'POST', url: '/login', payload: internals.loginCredentials('test', '') };
+
+            server.select('api').inject(request1, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(400);
+                expect(res.result.message).to.equal('Malformed Data Entered');
             });
 
 
-            var request2 = { method: 'POST', url: '/login', headers: { authorization: internals.loginCredentials('foo', 'bamo') } };  // This fails loggin in event w. correct credentials..
+            var request2 = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'bamo') };
 
-            tlserver.inject(request2, function (res) {
+            server.select('api').inject(request2, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
-                expect(res.result.message).to.equal('Did not submit password or username');
+                expect(res.result.message).to.equal('Invalid password or username');
+                server.stop(done);
+            });
+        });
+    });
+
+    it('Login Fails', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            var request3 = { method: 'POST', url: '/login', payload: internals.loginCredentials('mafoo', 'bafoo') };
+
+            server.select('api').inject(request3, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(401);
+                expect(res.result.message).to.equal('Invalid password or username');
 
             });
 
-            var request3 = { method: 'POST', url: '/login', headers: { authorization: internals.loginCredentials('Mamo', 'bamo') } };  // This fails loggin in event w. correct credentials..
+            var request4 = { method: 'POST', url: '/login', payload: JSON.stringify({ username: 'boot', password: 'toot' }) };
 
-            tlserver.inject(request3, function (res) {
-
-                expect(res.statusCode, 'Status code').to.equal(401);
-                expect(res.result.message).to.equal('Did not submit password or username');
-
-            });
-
-            var request4 = { method: 'POST', url: '/login', payload: JSON.stringify({ username: 'boot', password: 'toot' }) };  // This fails loggin in event w. correct credentials..
-
-            tlserver.inject(request4, function (res) {
+            server.select('api').inject(request4, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
                 expect(res.result.message).to.equal('Invalid password or username');
