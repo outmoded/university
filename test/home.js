@@ -6,6 +6,8 @@ var University = require('../lib');
 var Path = require('path');
 var Config = require('../lib/config');
 var Cheerio = require('cheerio');
+var Auth = require('hapi-auth-cookie');
+var Hoek = require('hoek');
 
 // Declare internals
 
@@ -251,8 +253,49 @@ describe('./account', function () {
             });
         });
     });
-
 });
+
+describe('hapi-auth-cookie tests', function () {
+
+    it('errors on failed registering of auth-cookie', { parallel: false }, function (done) {
+
+        var orig = Auth.register;
+
+        Auth.register = function (plugin, options, next) {
+
+            Auth.register = orig;
+            return next(new Error('fail'));
+        };
+
+        Auth.register.attributes = {
+            name: 'fake hapi-auth-cookie'
+        };
+
+        University.init(internals.manifest, internals.composeOptions, function (err) {
+
+            expect(err).to.exist();
+
+            done();
+        });
+    });
+
+    it('errors on missing Auth cookie plugin', function (done) {
+
+        var manifest = Hoek.clone(internals.manifest);
+        delete manifest.plugins['./auth-cookie'];
+
+        var failingInit = University.init.bind(University, manifest, internals.composeOptions, function (err) {
+
+            expect(err).to.exist();
+            done();
+        });
+
+        expect(failingInit).to.throw();
+
+        done();
+    });
+});
+
 internals.manifest = {
     connections: [
         {
