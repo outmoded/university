@@ -20,7 +20,6 @@ var it = lab.test;
 
 describe('/version', function () {
 
-
     it('ensures /version always redirected to use https', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {

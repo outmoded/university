@@ -21,6 +21,7 @@ var describe = lab.experiment;
 var expect = Code.expect;
 var it = lab.test;
 
+
 describe('/home', function () {
 
     it('ensures that /home is always redirected to https', function (done) {
