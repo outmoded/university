@@ -70,18 +70,19 @@ describe('/home', function () {
         });
     });
 
-    it('logged in user info is displayed', function (done) {
+    it('Authenticated user info is displayed', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
 
             // Successfull Login
 
-            internals.server = server;
 
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
+            internals.server = server;
 
             internals.server.select('api').inject(request, function (res) {
 
@@ -89,9 +90,10 @@ describe('/home', function () {
                 expect(res.result.username).to.equal('Foo Foo');
 
                 var header = res.headers['set-cookie'];
-                expect(header.length).to.equal(1);
 
+                expect(header.length).to.equal(1);
                 expect(header[0]).to.contain('Max-Age=60');
+
                 var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
@@ -102,12 +104,10 @@ describe('/home', function () {
 
                 internals.server.select('web-tls').inject(request2, function (res) {
 
-                    // expect(res.result).to.equal('foofoo');
                     var $ = Cheerio.load(res.result);
                     var result = ($('h1', 'body').text());
 
                     expect(result).to.equal('Foo Foo');
-
                     internals.server.stop(done);
                 });
             });
@@ -123,9 +123,11 @@ describe('./account', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
 
             // Successfull Login
+
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
 
             internals.server = server;
 
@@ -139,15 +141,12 @@ describe('./account', function () {
 
                 expect(header[0]).to.contain('Max-Age=60');
 
-                // var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-
                 internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./home greets authenticated user
+                // ./account greets authenticated admin user
 
 
-                // var request2 = { method: 'GET', url: '/home',  headers: {cookie: 'hapi-university='+ cookie[1]} };
                 var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
                 internals.server.select('web-tls').inject(request2, function (res) {
@@ -169,9 +168,11 @@ describe('./account', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('bar', 'bar') };
 
-            // Successfull Login
+            // Successfull Login non-admin user
+
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('bar', 'bar') };
 
             internals.server = server;
 
@@ -181,19 +182,16 @@ describe('./account', function () {
                 expect(res.result.username).to.equal('Bar Head');
 
                 var header = res.headers['set-cookie'];
+
                 expect(header.length).to.equal(1);
-
                 expect(header[0]).to.contain('Max-Age=60');
-
-                // var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
                 internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./home greets authenticated user
+                // ./account greets authenticated non-admin user
 
 
-                // var request2 = { method: 'GET', url: '/home',  headers: {cookie: 'hapi-university='+ cookie[1]} };
                 var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
                 internals.server.select('web-tls').inject(request2, function (res) {
@@ -218,9 +216,11 @@ describe('./account', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
 
-            // Successfull Login
+            // Admin user successfull Login
+
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
 
             internals.server = server;
 
@@ -230,14 +230,14 @@ describe('./account', function () {
                 expect(res.result.username).to.equal('Foo Foo');
 
                 var header = res.headers['set-cookie'];
-                expect(header.length).to.equal(1);
 
+                expect(header.length).to.equal(1);
                 expect(header[0]).to.contain('Max-Age=60');
 
                 internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./home greets authenticated user
+                // ./admin route greets authenticated admin user
 
 
                 var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
@@ -248,7 +248,6 @@ describe('./account', function () {
                     var result = ($('h3', 'body').text());
 
                     expect(result).to.equal('Success, you accessed the admin page!');
-
                     internals.server.stop(done);
                 });
             });
@@ -256,7 +255,7 @@ describe('./account', function () {
     });
 });
 
-describe('hapi-auth-cookie tests', function () {
+describe('hapi-auth-cookie', function () {
 
     it('errors on failed registering of auth-cookie', { parallel: false }, function (done) {
 
@@ -283,6 +282,7 @@ describe('hapi-auth-cookie tests', function () {
     it('errors on missing Auth cookie plugin', function (done) {
 
         var manifest = Hoek.clone(internals.manifest);
+
         delete manifest.plugins['./auth-cookie'];
 
         var failingInit = University.init.bind(University, manifest, internals.composeOptions, function (err) {
@@ -292,7 +292,6 @@ describe('hapi-auth-cookie tests', function () {
         });
 
         expect(failingInit).to.throw();
-
         done();
     });
 });
@@ -331,7 +330,3 @@ internals.loginCredentials = function (username, password) {
 
     return JSON.stringify({ username: username, password: password });
 };
-
-internals.authenticatedHeader = false;
-
-internals.testServer = {};

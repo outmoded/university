@@ -30,10 +30,7 @@ describe('/login', function () {
 
             server.select('web-tls').inject(request1, function (res) {
 
-                // expect(res.result).to.equal('foofoo');
-
                 expect(res.statusCode, 'Status code').to.equal(200);
-
                 server.stop(done);
             });
         });
@@ -45,28 +42,30 @@ describe('/login', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
 
             // Successfull Login
 
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
             internals.server = server;
+
 
             internals.server.select('api').inject(request, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result.username).to.equal('Foo Foo');
 
-                var header = res.headers['set-cookie'];
-                expect(header.length).to.equal(1);
-
-                expect(header[0]).to.contain('Max-Age=60');
-
-                // var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-
-                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
                 // ./home greets authenticated user
+
+
+                var header = res.headers['set-cookie'];
+                expect(header.length).to.equal(1);
+                expect(header[0]).to.contain('Max-Age=60');
+
+                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
                 var request2 = { method: 'GET', url: '/home', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
@@ -78,7 +77,7 @@ describe('/login', function () {
                     expect(result).to.equal('Foo Foo');
 
 
-                    // ./login GET redirects to account if already logged in.
+                    // ./login GET redirects previously authenticated user to /account route.
 
 
                     var request3 = { method: 'GET', url: '/login', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
@@ -103,7 +102,9 @@ describe('/login', function () {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
-            // Successfull Login
+
+            // No username submitted attempt
+
 
             var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('', 'test') };
 
@@ -113,21 +114,28 @@ describe('/login', function () {
                 expect(res.result.message).to.equal('Malformed Data Entered');
             });
 
+
+            // No password submitted attempt
+
+
             var request1 = { method: 'POST', url: '/login', payload: internals.loginCredentials('test', '') };
 
             server.select('api').inject(request1, function (res) {
 
-                expect(res.statusCode, 'Status code').to.equal(400);
-                expect(res.result.message).to.equal('Malformed Data Entered');
+                expect(res.statusCode, 'Status code').to.equal(400);                // joi validation produces this error
+                expect(res.result.message).to.equal('Malformed Data Entered');      // lib/index.js logic customizes error message.
             });
+
+
+            // Non-existing user attempt
 
 
             var request2 = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'bamo') };
 
             server.select('api').inject(request2, function (res) {
 
-                expect(res.statusCode, 'Status code').to.equal(401);
-                expect(res.result.message).to.equal('Invalid password or username');
+                expect(res.statusCode, 'Status code').to.equal(401);                 // lib/api/login.js POST ./login issue Boom error.
+                expect(res.result.message).to.equal('Invalid password or username'); // message set in Boom.unauthorized(message)
                 server.stop(done);
             });
         });
@@ -137,14 +145,21 @@ describe('/login', function () {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
+
+            // Non-existing user attempt
+
+
             var request3 = { method: 'POST', url: '/login', payload: internals.loginCredentials('mafoo', 'bafoo') };
 
             server.select('api').inject(request3, function (res) {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
                 expect(res.result.message).to.equal('Invalid password or username');
-
             });
+
+
+            // Non-existing user attempt.
+
 
             var request4 = { method: 'POST', url: '/login', payload: JSON.stringify({ username: 'boot', password: 'toot' }) };
 
@@ -152,7 +167,6 @@ describe('/login', function () {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
                 expect(res.result.message).to.equal('Invalid password or username');
-
                 server.stop(done);
             });
         });
@@ -167,13 +181,13 @@ describe('/logout', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
-
-            var tlserver = server.select('web-tls');
-
 
             // Successfull Login
 
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
+            var tlserver = server.select('web-tls');
 
             tlserver.inject(request, function (res) {
 
@@ -181,27 +195,28 @@ describe('/logout', function () {
                 expect(res.result.username).to.equal('Foo Foo');
 
                 var header = res.headers['set-cookie'];
-                expect(header.length).to.equal(1);
 
+                expect(header.length).to.equal(1);
                 expect(header[0]).to.contain('Max-Age=60');
+
                 var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./home greets authenticated user
+                // ./logout authenticated user logout returns success message
 
 
                 var request2 = { method: 'POST', url: '/logout', headers: { cookie: 'hapi-university=' + cookie[1] } };
+
                 tlserver.inject(request2, function (res) {
 
                     expect(res.result.message).to.equal('Logged out');
-
                     server.stop(done);
                 });
             });
         });
     });
 
-    it('unregistered user tried to access restricted ./logout on api', function (done) {
+    it('Unregistered user tried to access restricted ./logout on api', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -209,18 +224,15 @@ describe('/logout', function () {
 
             var request = { method: 'POST', url: '/logout' };
 
-            // Successfull Login
-
-            internals.server = server;
-
             internals.server.select('api').inject(request, function (res) {
 
-                // expect(res.result.username).to.equal('Bar Head');
+
+                //  Unauthenticated user redirected to login page.
+
 
                 expect(res.statusCode, 'Status code').to.equal(302);
                 expect(res.headers.location).to.equal('/login');
-
-                internals.server.stop(done);
+                server.stop(done);
             });
         });
     });
