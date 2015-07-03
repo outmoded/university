@@ -64,15 +64,24 @@ internals.manifest = {
         {
             host: 'localhost',
             port: 0,
-            labels: ['web-tls'],
+            labels: ['web-tls', 'api'],
             tls: Config.tls
         }
     ],
     plugins: {
-        './home': {}
+        './home': [{
+            'select': ['web', 'web-tls']
+        }],
+        './auth-cookie': {},
+        'hapi-auth-cookie': {}
     }
 };
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
+};
+
+internals.loginCredentials = function (username, password) {
+
+    return JSON.stringify({ username: username, password: password });
 };
