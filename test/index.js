@@ -8,7 +8,7 @@ var Version = require('../lib/version');
 var Path = require('path');
 var Config = require('../lib/config');
 
-//declare internals
+// declare internals
 
 var internals = {};
 
