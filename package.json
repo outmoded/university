@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
+    "boom": "2.x.x",
     "glue": "2.x.x",
     "handlebars": "3.x.x",
     "hapi": "8.x.x",
-    "hoek": "2.x.x"
+    "hoek": "2.x.x",
+    "joi": "^6.5.0"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L -v",

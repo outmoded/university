@@ -52,6 +52,50 @@ describe('/home', function () {
             });
         });
     });
+
+    it('Authenticated user info is displayed', function (done) {
+
+        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+
+            expect(err).to.not.exist();
+
+
+            // Successfull Login
+
+
+            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+
+            internals.server = server;
+
+            internals.server.select('api').inject(request, function (res) {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.result.username).to.equal('Foo Foo');
+
+                var header = res.headers['set-cookie'];
+
+                expect(header.length).to.equal(1);
+                expect(header[0]).to.contain('Max-Age=60');
+
+                var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+
+
+                // ./home greets authenticated user
+
+
+                var request2 = { method: 'GET', url: '/home', headers: { cookie: 'hapi-university=' + cookie[1] } };
+
+                internals.server.select('web-tls').inject(request2, function (res) {
+
+                    var $ = Cheerio.load(res.result);
+                    var result = ($('h1', 'body').text());
+
+                    expect(result).to.equal('Foo Foo');
+                    internals.server.stop(done);
+                });
+            });
+        });
+    });
 });
 
 internals.manifest = {
