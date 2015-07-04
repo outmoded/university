@@ -68,6 +68,8 @@ describe('/home', function () {
             internals.server = server;
 
             internals.server.select('api').inject(request, function (res) {
+                
+                console.log(res)
 
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result.username).to.equal('Foo Foo');
