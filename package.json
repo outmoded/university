@@ -1,0 +1,26 @@
+{
+  "name": "university-benleen",
+  "version": "0.0.1",
+  "description": "This is a community learning experiment. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benleen/university.git"
+  },
+  "keywords": [
+    "hapijs",
+    "nodejs"
+  ],
+  "author": "Ben Leen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benleen/university/issues"
+  },
+  "homepage": "https://github.com/benleen/university#readme",
+  "dependencies": {
+    "hapi": "^8.8.0"
+  }
+}
