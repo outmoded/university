@@ -5,6 +5,7 @@ var Lab = require('lab');
 var University = require('../lib');
 var Path = require('path');
 var Config = require('../lib/config');
+var Cheerio = require('cheerio');
 
 // Declare internals
 
@@ -69,8 +70,6 @@ describe('/home', function () {
 
             internals.server.select('api').inject(request, function (res) {
 
-                console.log(res);
-
                 expect(res.statusCode, 'Status code').to.equal(200);
                 expect(res.result.username).to.equal('Foo Foo');
 
@@ -118,6 +117,9 @@ internals.manifest = {
         './home': [{
             'select': ['web', 'web-tls']
         }],
+        './api/login': [{
+            'select': ['api']
+        }],
         './auth-cookie': {},
         'hapi-auth-cookie': {}
     }
@@ -131,3 +133,5 @@ internals.loginCredentials = function (username, password) {
 
     return JSON.stringify({ username: username, password: password });
 };
+
+
