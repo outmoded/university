@@ -5,8 +5,6 @@ var internals = {};
 
 internals.executeAJAX = function (url, data, callback) {
 
-    internals.clearErrors();
-
     var request = new XMLHttpRequest();
 
     request.open('POST', url);
@@ -46,25 +44,15 @@ internals.errorMessage = function (message) {
     att.value = 'errorMessage';
     newP.setAttributeNode(att);
 
-    var form = document.getElementsByTagName('form')[0];
+    var header = document.getElementsByTagName('h3')[0];
 
-    var parentDiv = form.parentNode;
+    var parentDiv = header.parentNode;
 
-    parentDiv.insertBefore(newP, form);
+    parentDiv.insertBefore(newP, header);
 
     return false;
 };
 
-internals.clearErrors = function () {
-
-    var errorMessages = document.getElementsByTagName('p');
-
-    if (errorMessages.length > 0) {
-
-        console.log('Has Errors');
-        errorMessages[0].parentNode.removeChild(errorMessages[0]);
-    }
-};
 
 internals.successMessage = function (request) {
 
@@ -72,9 +60,7 @@ internals.successMessage = function (request) {
     // Success clear and display authenticated users links.
 
 
-    var form = document.getElementsByTagName('form')[0];
-    var parent1 = form.parentNode;
-
+    var parent1 = document.getElementsByTagName('body');
 
     // Parse response
 
@@ -84,8 +70,8 @@ internals.successMessage = function (request) {
     // Add links
 
 
-    parent1.innerHTML = 'Welcome: ' + data.username + ' <br/>' +
-            '<a href="/account">' + data.username + '\'s Account </a><br/>';
+    parent1[0].innerHTML = data.message + '<br/>' +
+            '<a href="/home">Home</a><br/>';
 
     return;
 };
@@ -99,32 +85,23 @@ document.onreadystatechange = function () {
 
         // Add click event handler
 
-        document.getElementById('btnLogin').addEventListener('click', function (event) {
+        document.getElementById('btnLogout').addEventListener('click', function (event) {
 
 
+            console.log('logout request');
             event.preventDefault();
 
 
             // Get submitted form data
+            var requestData = '{ request: \'logout\' }';
 
 
-            var username = document.getElementsByName('username')[0].value;
-            var password = document.getElementsByName('password')[0].value;
-            var requestData = { username: username, password: password };
 
-
-            internals.executeAJAX('/login', requestData, function (request) {
+            internals.executeAJAX('/logout', requestData, function (request) {
 
                 if (request.status === 200) {
 
                     internals.successMessage(request);
-
-                } else if (request.status !== 0) {
-
-                    // Boom error message received from server.
-
-                    var responseJson = JSON.parse(request.response);
-                    internals.errorMessage(responseJson.message);
 
                 } else {
 

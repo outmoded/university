@@ -1,6 +1,6 @@
 {
   "name": "hapi-university",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
@@ -18,11 +18,15 @@
   },
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
+    "bluebird": "2.x.x",
+    "boom": "2.x.x",
+    "cheerio": "^0.19.0",
     "glue": "2.x.x",
     "handlebars": "3.x.x",
     "hapi": "8.x.x",
-    "hapi-auth-basic": "2.x.x",
-    "hoek": "2.x.x"
+    "hapi-auth-cookie": "3.x.x",
+    "hoek": "2.x.x",
+    "joi": "^6.x.x"
   },
   "scripts": {
     "test": "node node_modules/lab/bin/lab -a code -t 100 -L -v",
