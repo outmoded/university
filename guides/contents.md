@@ -2,7 +2,7 @@
 
 Anyone is welcome to join hapijs university :-)
 To start at an earlier assignment follow below `git checkout branch_name`
-instructions and to start at the appropriate point.
+instructions to start at the appropriate point.
 
 
 ### 1 Create a basic HTTP server
