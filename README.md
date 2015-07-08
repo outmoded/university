@@ -8,7 +8,7 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 [![Join the chat at https://gitter.im/hapijs/university](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hapijs/university?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### How the project works
-* An assignment is issued.
+* An assignment is issued.<br/>
   See [Issues List Here](https://github.com/hapijs/university/issues), in this list look 
   for the issue labelled "assignment". That issue will describe the requirements of the current assignment.
   At anytime the issue list will contain: an issued assignment or a discussion about the next assignment.
@@ -21,7 +21,7 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 * Before starting the next assignment, make sure [your fork matches the current master](guides/git.md) since only one Pull Request can be accepted.
 
 ### Getting Started
-You are welcome to join! <br/>To begin: 
+You are welcome to join! To start:
 * read the [Getting Started Guide](https://github.com/hapijs/university/blob/master/guides/getstarted.md).
 * and read the rest of this document.
 
