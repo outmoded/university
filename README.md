@@ -1,7 +1,7 @@
 <img src='images/logo.png' />
 
 Welcome to hapijs university.
-This is a community learning experiment keeping to the values established through the hueniversity distributed classroom. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
+This is a community learning experiment utilizing the distributed classroom. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, where everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics by other people.
 
 Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 
@@ -9,22 +9,30 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 
 ### How the project works
 * An assignment is issued.
+  See [Issues List Here](https://github.com/hapijs/university/issues), in this list look 
+  for the issue labelled "assignment". That issue will describe the requirements of the current assignment.
+  At anytime the issue list will contain: an issued assignment or a discussion about the next assignment.
 * Anyone is welcome to fork the project, write code fulfilling the assignment requirements and submit a PR.
-* After PRs are submitted, we peer review each others PRs and learn from each others critiques.
+* After PRs are submitted, we peer review each others PRs and learn from the critiques.<br/>
+  Look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write examples, update the documentation). 
+  If you see ways in which others can improve their solution, comment on their Pull Request.
 * At the end of an assignment and peer review process, we have a nice refined solution to be merged into the project.
 * Merge in a PR and move on to the next assignment.
+* Before starting the next assignment, make sure [your fork matches the current master](guides/git.md) since only one Pull Request can be accepted.
 
-You are welcome to join! 
+### Getting Started
+You are welcome to join! <br/>To begin: 
+* read the [Getting Started Guide](https://github.com/hapijs/university/blob/master/guides/getstarted.md).
+* and read the rest of this document.
 
 ### Assignment List
-See the [list of assignments](https://github.com/hapijs/university/blob/master/guides/contents.md) for instructions on how to <br/>
-checkout the project in earlier states and work on previous assignments.  
+See the [list of assignments](https://github.com/hapijs/university/blob/master/guides/contents.md) to checkout specific assignments.  
 
 
 ### What are we going to build?
 
-Using hueniversity distributed classroom style of learning and development.
-We are going to build an application with the following features 
+Using the distributed classroom style of learning and development,
+we are going to build an application with the following features: 
 * A public page(s) accessible to all.
 * Route(s) with restricted access. Only authenticated users with correct permissions will have access to restricted routes.
 * Sessions support using "a simple cookie-based session management. The user has to be authenticated with a web form, and upon successful authentication, receive a reply with a session cookie." [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie)
@@ -32,15 +40,14 @@ We are going to build an application with the following features
 * tls / ssl support as described at: [learning objectives]( https://github.com/zoe-1/hapitimes)
 * Combat Cross-Site Request Forgery (CSRF) attacks by using [hapijs / crumb](https://github.com/hapijs/crumb)
 * Configure a plugin to serve static files: css, images, and JavaScript.
-* Render html templates with a configured template engine (handlebars).
+* Render HTML templates with a template engine (handlebars).
 * Configure a plugin to utilize partial html templates and helpers to generate data for html templates.
 
 In the end the application will have the following routes:
-* A home page open to the public (unrestricted) -- home.
-* A login page with login HTML form (unrestricted) -- login.
-* A logged in landing page (restricted) -- loggedin
-* The above routes would be in the "home" plugin. .<br/>
-If desired we can make the loggedin route be it's own plugin with a prefix configured.
+* A home page open to the public (unrestricted).
+* A login page with login HTML form (unrestricted).
+* A logged in landing page (restricted). 
+* An admin page (restricted user with admin privileges). 
 [See plugins tutorial](http://www.hapijs.com/tutorials/plugins) for more about prefixes.
 
 
@@ -59,24 +66,10 @@ We'll start from the basics and make our way to the most advanced topics. The wa
 
 The assignment will include just enough information to get you going, but you will need to do most of the learning on your own by using the wide range of online resources available. However, the real benefit of this process will come from the code review of your Pull Request. This is where expert developers will review your work and provide you specific and actionable feedback.
 
-### How does it work?
-
-First, read the [Code of Conduct](https://github.com/hapijs/university/blob/master/COC.md)!
-
-Simple, you start by forking this repo.
-
-Every few days a new issue will be posted with an [`assignment` label](https://github.com/hapijs/university/labels/assignment). If you would like to participate in the assignment, try to solve it and when you are done, submit a Pull Request back to this repo. Make sure your code complies with the **hapi** community [Style Guide](https://github.com/hapijs/contrib/blob/master/Style.md).
-
-While you wait for the assignment to close, take a look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write examples, update the documentation). If you see ways in which others can improve their solution, comment on their Pull Request.
-
-Each assignment will have a close date. When the issue expires, one of the Pull Requests submitted will be picked and merged. Any follow up assignments will be based on the merged code.
-
-Before starting the next assignment, make sure [your fork matches the current master](guides/git.md) since only one Pull Request can be accepted.
-
 ### How can I help?
 
 There are lots of way you can help make hapijs university succeed and help shape a new format for teaching development skills:
-- Submit Pull Requests to improve this readme, add examples, write quick tutorials on how to work with git, etc.
+- Submit Pull Requests to improve this README, add examples, write quick tutorials on how to work with git, etc.
 - Look for issues with a [`help wanted` label](https://github.com/hapijs/university/labels/help%20wanted) or [`new contributor` label](https://github.com/hapijs/university/labels/new%20contributor) and help with those.
 - Randomly pick submitted Pull Request and review them, offering advice and helping others improve their skills.
 

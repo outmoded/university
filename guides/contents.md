@@ -1,41 +1,45 @@
 # Assignments List
 
 Anyone is welcome to join hapijs university :-)
-To start at a earlier assignment follow below `git checkout`
-instructions and create a branch at the appropriate starting point.
+To start at an earlier assignment follow below `git checkout branch_name`
+instructions and to start at the appropriate point.
 
 
 ### 1 Create a basic HTTP server
-* git checkout -b assignment1  81a2158
-* checks out project at project beginning.
+* git checkout assignment1
+* checkout project at beginning.
 * [Assignment1 Requirements](https://github.com/hapijs/university/issues/1)
 
 ### 2 Convert to a plugin
-* git checkout -b assignment2  6cd0281
-* checks out project at start of assignment2.
+* git checkout assignment2
+* checkout project at beginning of assignment2.
 * [Assignment2 Requirements](https://github.com/hapijs/university/issues/43)
 
 ### 3 100% coverage
-* git checkout -b assignment3  74f042a
-* checks out project at start of assignment3.
+* git checkout assignment3
+* checkout project at start of assignment3.
 *  [Assignment Instructions](https://github.com/hapijs/university/issues/79)
 
 ### 4 Basic authentication
-git checkout -b assignment4  6f87743
-* checks out project at start of assignment4.
+git checkout assignment4
+* checkout project at start of assignment4.
 * [Assignment Instructions](https://github.com/hapijs/university/issues/118)
 
 ### 5 Glue and HTML views
-* git checkout -b assignment5 0f0abef
-* checks out project at start of assignment5.
+* git checkout assignment5
+* checkout project at start of assignment5.
 * [Assignment Instructions](https://github.com/hapijs/university/issues/136)
 
 ### 6 Static Assets, Partials, and TLS
-* git checkout -b assignment6 bddee2b
-* checks out project at start of assignment6.
+* git checkout assignment6
+* checkout project at start of assignment6.
 * [Assignment Instructions](https://github.com/hapijs/university/issues/144)
 
 ### 7 Validation, Authentication, and Authorization
-* Current assignment start at HEAD of master.
+* git checkout assignment7
+* checkout project at start of assignment7.
 * [Assignment Instructions](https://github.com/hapijs/university/issues/155)
 
+### 8 Crumb, Server Monitoring and Review 
+* Assignment starts at HEAD of master branch. 
+* [Discussion on developing Assignment8](https://github.com/hapijs/university/issues/162)
