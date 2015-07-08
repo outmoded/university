@@ -31,7 +31,7 @@ it('starts server and returns hapi server object', function (done) {
 
 it('starts server on provided port', function (done) {
 
-    University.init({connections: [{port: 5000}]}, {}, function (err, server) {
+    University.init({ connections: [{ port: 5000 }] }, {}, function (err, server) {
 
         expect(err).to.not.exist();
         expect(server.info.port).to.equal(5000);
