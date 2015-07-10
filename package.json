@@ -1,6 +1,6 @@
 {
   "name": "hueniversity",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
@@ -24,7 +24,7 @@
   "scripts": {
     "test": "node_modules/lab/bin/lab --assert code --threshold 100 --lint",
     "test-html": "node_modules/lab/bin/lab --assert code --reporter html -o coverage.html",
-    "start": "node lib/index.js"
+    "start": "node lib/start.js"
   },
   "devDependencies": {
     "lab" : "5.x.x",

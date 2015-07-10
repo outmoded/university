@@ -1,12 +1,26 @@
 var Code = require('code');
 var Lab = require('lab');
 var Pkg = require('../package.json');
-var Server = require('../lib');
-
+var Server = require('../lib/index');
 var lab = exports.lab = Lab.script();
 
-lab.test('returns true when 1 + 1 equals 2', function (done) {
+lab.experiment('/version', function () {
 
-    Code.expect(1 + 1).to.equal(2);
-    done();
+    lab.test('/return package.json version', function (done){
+
+        Server.init(0, function (err, server){
+
+            Code.expect(err).to.not.exist();
+
+            server.inject('/version', function (res) {
+
+                Code.expect(res.statusCode).to.equal(200);
+                Code.expect(res.result).to.deep.equal({ version: Pkg.version });
+
+                server.stop(done);
+            });
+        });
+    });
 });
+
+
