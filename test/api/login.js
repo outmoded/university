@@ -423,11 +423,12 @@ describe('/logout', function () {
                         password: 'foo',
                         crumb: crumb
                     },
-                    headers: { cookie: 'crumb=' + crumb }
+                headers: { 'cookie': 'crumb=' + crumb }
                 };
 
                 // expect(internals.options.headers[0]).to.equal('crumb=' + crumb);
 
+                // expect(internals.options.headers).to.equal('FIRSTCOOKIE');
 
                 var tlserver = server.select('web-tls');
 
@@ -446,7 +447,61 @@ describe('/logout', function () {
 
                     // ./logout authenticated user logout returns success message
 
+                    // Get Both cookie values then put them together.
+                    //var concatenatedCookies =  internals.options.headers.cookie;
+                    // var finalConcat = concatenatedCookies.concat('; ', cookie);
+                    // expect(finalConcat).to.equal('FIRSTCOOKIE');
 
+
+                    // XK internals.options.headers =  { 'cookie': 'crumb=' + crumb, cookie: 'hapi-university=' + cookie[1] };
+                    // internals.options.headers =  { 'cookie': 'crumb=' + crumb + 'hapi-university=' + cookie[1] };
+                    // internals.options.headers =  { 'cookie': ['crumb=' + crumb, 'hapi-university=' + cookie[1] ]};
+                    //internals.options.headers =  { 
+                    //    'hapi-university': 'hapi-university=' + cookie[1] + '; ' ,
+                    //    crumb: 'crumb=' + crumb 
+                    //};
+                    
+                    // OK this passes with crumb off.
+                    // internals.options.headers =  { 
+                    //    cookie: 'hapi-university=' + cookie[1],
+                    // };
+
+                    // OK this fails with 302 which is auth-cookie rejecting.
+                    // internals.options.headers =  { 
+                    //    cookie: 'crumb=' + crumb 
+                    // };
+
+                    // OK this fails with 302 redirect which is auth-cookie rejecting.
+                    // if crumb off this passes, gets 100% coverage
+                    // internals.options.headers =  { 
+                    //    cookie: 'hapi-university=' + cookie[1] + 'crumb=' + internals.crumb  
+                    //};
+
+                    // OK this fails with 403 redirect which is auth-cookie.
+                    // if crumb off this passes, gets 100% coverage
+                    // internals.options.headers =  { 
+                    //     Cookie: 'hapi-university=' + cookie[1],
+                    //     crumb: 'crumb=' + internals.crumb
+                    // };
+
+                    // OK this fails with 302 redirect which is auth-cookie.
+                    // if crumb off this passes, gets 100% coverage
+                    //internals.options.headers =  { 
+                    //    Cookie: 'hapi-university=' + cookie[1],
+                    //    'x-csrf-token': 'crumb=' + internals.crumb
+                    //};
+
+                    // OK this fails with 302 redirect which is auth-cookie.
+                    // if crumb off this passes, gets 100% coverage
+                    internals.options.headers =  { 
+                        cookie: 'hapi-university=' + cookie[1]
+                    };
+
+                    //internals.options.headers['set-cookie'] = 'crumb=' + internals.crumb;
+                    // internals.options.headers += { cookie: 'crumb=' + crumb };
+                    // internals.options.headers.push({ cookie: 'hapi-university=' + cookie[1] });
+
+                    // headers: { 'cookie': 'crumb=' + crumb, boost: 'boom=' + crumb }
                     // Hack
                     //internals.options.url = '/logoutb';
                     // internals.options.method = 'GET';
@@ -454,12 +509,14 @@ describe('/logout', function () {
                     internals.options.method = 'POST';
                     delete internals.options.payload.username;
                     delete internals.options.payload.password;
-                    internals.options.headers.cookie = 'hapi-university=' + cookie[1];
+                    // expect(internals.options).to.equal('FIRSTCOOKIE');
+                    //internals.options.headers.cookie = 'hapi-university=' + cookie[1];
+                    // internals.options.headers.cookie = finalConcat ;
                     // internals.options.headers = {
                     //     cookie: internals.options.headers.cookie = 'hapi-university=' + cookie[1]
                     // };
 
-                    var request2 = { method: 'GET', url: '/logout', headers: { cookie: 'hapi-university=' + cookie[1] } };
+                    // var request2 = { method: 'GET', url: '/logout', headers: { cookie: 'hapi-university=' + cookie[1] } };
 
                     tlserver.inject(internals.options, function (res) {
 
