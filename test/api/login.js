@@ -445,55 +445,39 @@ describe('/logout', function () {
                     var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                    // ./logout authenticated user logout returns success message
-
-                    // Get Both cookie values then put them together.
-                    //var concatenatedCookies =  internals.options.headers.cookie;
-                    // var finalConcat = concatenatedCookies.concat('; ', cookie);
-                    // expect(finalConcat).to.equal('FIRSTCOOKIE');
-
-
-                    // XK internals.options.headers =  { 'cookie': 'crumb=' + crumb, cookie: 'hapi-university=' + cookie[1] };
-                    // internals.options.headers =  { 'cookie': 'crumb=' + crumb + 'hapi-university=' + cookie[1] };
-                    // internals.options.headers =  { 'cookie': ['crumb=' + crumb, 'hapi-university=' + cookie[1] ]};
-                    //internals.options.headers =  { 
-                    //    'hapi-university': 'hapi-university=' + cookie[1] + '; ' ,
-                    //    crumb: 'crumb=' + crumb 
-                    //};
-                    
-                    // OK this passes with crumb off.
-                    // internals.options.headers =  { 
+                    // This passes with crumb off.
+                    // internals.options.headers =  {
                     //    cookie: 'hapi-university=' + cookie[1],
                     // };
 
-                    // OK this fails with 302 which is auth-cookie rejecting.
-                    // internals.options.headers =  { 
-                    //    cookie: 'crumb=' + crumb 
+                    // This fails with 302 which is auth-cookie rejecting.
+                    // internals.options.headers =  {
+                    //    cookie: 'crumb=' + crumb
                     // };
 
-                    // OK this fails with 302 redirect which is auth-cookie rejecting.
+                    // This fails with 302 redirect which is auth-cookie rejecting.
                     // if crumb off this passes, gets 100% coverage
-                    // internals.options.headers =  { 
-                    //    cookie: 'hapi-university=' + cookie[1] + 'crumb=' + internals.crumb  
+                    // internals.options.headers =  {
+                    //    cookie: 'hapi-university=' + cookie[1] + 'crumb=' + internals.crumb
                     //};
 
-                    // OK this fails with 403 redirect which is auth-cookie.
+                    // This fails with 403 redirect which is auth-cookie.
                     // if crumb off this passes, gets 100% coverage
-                    // internals.options.headers =  { 
+                    // internals.options.headers =  {
                     //     Cookie: 'hapi-university=' + cookie[1],
                     //     crumb: 'crumb=' + internals.crumb
                     // };
 
-                    // OK this fails with 302 redirect which is auth-cookie.
+                    // This fails with 302 redirect which is auth-cookie.
                     // if crumb off this passes, gets 100% coverage
-                    //internals.options.headers =  { 
+                    //internals.options.headers =  {
                     //    Cookie: 'hapi-university=' + cookie[1],
                     //    'x-csrf-token': 'crumb=' + internals.crumb
                     //};
 
                     // OK this fails with 302 redirect which is auth-cookie.
                     // if crumb off this passes, gets 100% coverage
-                    internals.options.headers =  { 
+                    internals.options.headers = {
                         cookie: 'hapi-university=' + cookie[1]
                     };
 
