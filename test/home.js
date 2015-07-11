@@ -8,6 +8,7 @@ var Config = require('../lib/config');
 var Cheerio = require('cheerio');
 var Auth = require('hapi-auth-cookie');
 var Hoek = require('hoek');
+var GenerateCrumb = require('./crumb');
 
 // Declare internals
 
@@ -77,36 +78,51 @@ describe('/home', function () {
 
             // Successfull Login
 
+            GenerateCrumb(server, function (crumb){
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+                internals.crumb = crumb;
 
-            internals.server = server;
+                internals.options = {
+                    url: '/login',
+                    method: 'POST',
+                    payload: {
+                        username: 'foo',
+                        password: 'foo',
+                        crumb: crumb
+                    },
+                    headers: { cookie: 'crumb=' + crumb }
+                };
 
-            internals.server.select('api').inject(request, function (res) {
+                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result.username).to.equal('Foo Foo');
+                internals.server = server;
 
-                var header = res.headers['set-cookie'];
+                internals.server.select('api').inject(internals.options, function (res) {
 
-                expect(header.length).to.equal(1);
-                expect(header[0]).to.contain('Max-Age=60');
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    expect(res.result.username).to.equal('Foo Foo');
 
-                var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+                    var header = res.headers['set-cookie'];
+
+                    expect(header.length).to.equal(1);
+                    expect(header[0]).to.contain('Max-Age=60');
+
+                    var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./home greets authenticated user
+                    // ./home greets authenticated user
 
 
-                var request2 = { method: 'GET', url: '/home', headers: { cookie: 'hapi-university=' + cookie[1] } };
+                    var request2 = { method: 'GET', url: '/home', headers: { cookie: 'hapi-university=' + cookie[1] } };
 
-                internals.server.select('web-tls').inject(request2, function (res) {
+                    internals.server.select('web-tls').inject(request2, function (res) {
 
-                    var $ = Cheerio.load(res.result);
-                    var result = ($('h1', 'body').text());
+                        var $ = Cheerio.load(res.result);
+                        var result = ($('h1', 'body').text());
 
-                    expect(result).to.equal('Foo Foo');
-                    internals.server.stop(done);
+                        expect(result).to.equal('Foo Foo');
+                        internals.server.stop(done);
+                    });
                 });
             });
         });
@@ -124,37 +140,50 @@ describe('./account', function () {
 
             // Successfull Login
 
+            GenerateCrumb(server, function (crumb) {
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+                internals.options = {
+                    url: '/login',
+                    method: 'POST',
+                    payload: {
+                        username: 'foo',
+                        password: 'foo',
+                        crumb: crumb
+                    },
+                    headers: { cookie: 'crumb=' + crumb }
+                };
 
-            internals.server = server;
+                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
 
-            internals.server.select('api').inject(request, function (res) {
+                internals.server = server;
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result.username).to.equal('Foo Foo');
+                internals.server.select('api').inject(internals.options, function (res) {
 
-                var header = res.headers['set-cookie'];
-                expect(header.length).to.equal(1);
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    expect(res.result.username).to.equal('Foo Foo');
 
-                expect(header[0]).to.contain('Max-Age=60');
+                    var header = res.headers['set-cookie'];
+                    expect(header.length).to.equal(1);
 
-                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+                    expect(header[0]).to.contain('Max-Age=60');
+
+                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./account greets authenticated admin user
+                    // ./account greets authenticated admin user
 
 
-                var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+                    var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
-                internals.server.select('web-tls').inject(request2, function (res) {
+                    internals.server.select('web-tls').inject(request2, function (res) {
 
-                    var $ = Cheerio.load(res.result);
-                    var result = ($('h3', 'body').text());
+                        var $ = Cheerio.load(res.result);
+                        var result = ($('h3', 'body').text());
 
-                    expect(result).to.equal('Foo Foo Account');
+                        expect(result).to.equal('Foo Foo Account');
 
-                    internals.server.stop(done);
+                        internals.server.stop(done);
+                    });
                 });
             });
         });
@@ -170,36 +199,50 @@ describe('./account', function () {
             // Successfull Login non-admin user
 
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('bar', 'bar') };
+            GenerateCrumb(server, function (crumb) {
 
-            internals.server = server;
+                internals.options = {
+                    url: '/login',
+                    method: 'POST',
+                    payload: {
+                        username: 'bar',
+                        password: 'bar',
+                        crumb: crumb
+                    },
+                    headers: { cookie: 'crumb=' + crumb }
+                };
 
-            internals.server.select('api').inject(request, function (res) {
+                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result.username).to.equal('Bar Head');
+                internals.server = server;
 
-                var header = res.headers['set-cookie'];
+                internals.server.select('api').inject(internals.options, function (res) {
 
-                expect(header.length).to.equal(1);
-                expect(header[0]).to.contain('Max-Age=60');
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    expect(res.result.username).to.equal('Bar Head');
 
-                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+                    var header = res.headers['set-cookie'];
+
+                    expect(header.length).to.equal(1);
+                    expect(header[0]).to.contain('Max-Age=60');
+
+                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./account greets authenticated non-admin user
+                    // ./account greets authenticated non-admin user
 
 
-                var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+                    var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
-                internals.server.select('web-tls').inject(request2, function (res) {
+                    internals.server.select('web-tls').inject(request2, function (res) {
 
-                    var $ = Cheerio.load(res.result);
-                    var result = ($('h3', 'body').text());
+                        var $ = Cheerio.load(res.result);
+                        var result = ($('h3', 'body').text());
 
-                    expect(result).to.equal('Bar Head Account');
+                        expect(result).to.equal('Bar Head Account');
 
-                    internals.server.stop(done);
+                        internals.server.stop(done);
+                    });
                 });
             });
         });
@@ -218,35 +261,49 @@ describe('./account', function () {
             // Admin user successfull Login
 
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foo', 'foo') };
+            GenerateCrumb(server, function (crumb) {
 
-            internals.server = server;
+                internals.options = {
+                    url: '/login',
+                    method: 'POST',
+                    payload: {
+                        username: 'foo',
+                        password: 'foo',
+                        crumb: crumb
+                    },
+                    headers: { cookie: 'crumb=' + crumb }
+                };
 
-            internals.server.select('api').inject(request, function (res) {
+                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result.username).to.equal('Foo Foo');
+                internals.server = server;
 
-                var header = res.headers['set-cookie'];
+                internals.server.select('api').inject(internals.options, function (res) {
 
-                expect(header.length).to.equal(1);
-                expect(header[0]).to.contain('Max-Age=60');
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    expect(res.result.username).to.equal('Foo Foo');
 
-                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+                    var header = res.headers['set-cookie'];
+
+                    expect(header.length).to.equal(1);
+                    expect(header[0]).to.contain('Max-Age=60');
+
+                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./admin route greets authenticated admin user
+                    // ./admin route greets authenticated admin user
 
 
-                var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+                    var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
-                internals.server.select('web-tls').inject(request2, function (res) {
+                    internals.server.select('web-tls').inject(request2, function (res) {
 
-                    var $ = Cheerio.load(res.result);
-                    var result = ($('h3', 'body').text());
+                        var $ = Cheerio.load(res.result);
+                        var result = ($('h3', 'body').text());
 
-                    expect(result).to.equal('Success, you accessed the admin page!');
-                    internals.server.stop(done);
+                        expect(result).to.equal('Success, you accessed the admin page!');
+                        internals.server.stop(done);
+                    });
                 });
             });
         });
@@ -316,7 +373,8 @@ internals.manifest = {
             'select': ['api']
         }],
         './auth-cookie': {},
-        'hapi-auth-cookie': {}
+        'hapi-auth-cookie': {},
+        './crummy': {}
     }
 };
 
