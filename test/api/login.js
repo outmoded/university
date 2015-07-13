@@ -24,7 +24,7 @@ var it = lab.test;
 
 describe('/login', function () {
 
-    it('GET request access login page', function (done) {
+    it('access login page', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -43,7 +43,7 @@ describe('/login', function () {
         });
     });
 
-    it('CRUMB -- POST successful login', function (done) {
+    it('successful login', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -86,7 +86,7 @@ describe('/login', function () {
 
     });
 
-    it('no CRUMB POST login attempt fails', function (done) {
+    it('no CRUMB login attempt fails', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -114,7 +114,7 @@ describe('/login', function () {
         });
     });
 
-    it('CRUMB POST successfully login, access home page, and get redirect if logged in', function (done) {
+    it('successfully login, access home page, and authenticated user gets redirect', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -192,7 +192,7 @@ describe('/login', function () {
         });
     });
 
-    it('POST logged in user gets redirected', function (done) {
+    it('logged in user gets redirected', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -268,7 +268,7 @@ describe('/login', function () {
     // @todo  split below into tests
 
 
-    it('Login Failures', function (done) {
+    it('login Failures', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -346,7 +346,7 @@ describe('/login', function () {
         });
     });
 
-    it('Bad Routes and Auth Failure', function (done) {
+    it('bad routes and auth failure', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -401,7 +401,7 @@ describe('/login', function () {
 
 describe('/logout', function () {
 
-    it('Ensure logout works', function (done) {
+    it('ensure logout works', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
@@ -475,10 +475,11 @@ describe('/logout', function () {
                     //    'x-csrf-token': 'crumb=' + internals.crumb
                     //};
 
-                    // OK this fails with 302 redirect which is auth-cookie.
-                    // if crumb off this passes, gets 100% coverage
+                    // Successful logout.
+
+                    // Pass two cookies in headers
                     internals.options.headers = {
-                        cookie: 'hapi-university=' + cookie[1]
+                        cookie: 'crumb=' + crumb + '; hapi-university=' + cookie[1]
                     };
 
                     //internals.options.headers['set-cookie'] = 'crumb=' + internals.crumb;
@@ -521,7 +522,7 @@ describe('/logout', function () {
         });
     });
 
-    it('Unregistered user tried to access restricted ./logout on api', function (done) {
+    it('unregistered fails to access restricted ./logout on api', function (done) {
 
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
