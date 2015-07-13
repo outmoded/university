@@ -7,7 +7,7 @@ var University = require('../lib');
 var Version = require('../lib/version');
 var Path = require('path');
 var Config = require('../lib/config');
-var GenerateCrumb = require('./crumb');
+var GenerateCrumb = require('./generateCrumb');
 
 //declare internals
 

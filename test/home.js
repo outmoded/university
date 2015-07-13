@@ -8,7 +8,7 @@ var Config = require('../lib/config');
 var Cheerio = require('cheerio');
 var Auth = require('hapi-auth-cookie');
 var Hoek = require('hoek');
-var GenerateCrumb = require('./crumb');
+var GenerateCrumb = require('./generateCrumb');
 
 // Declare internals
 

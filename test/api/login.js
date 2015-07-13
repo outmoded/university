@@ -5,7 +5,7 @@ var University = require('../../lib');
 var Path = require('path');
 var Config = require('../../lib/config');
 var Cheerio = require('cheerio');
-var GenerateCrumb = require('../crumb');
+var GenerateCrumb = require('../generateCrumb');
 var Crumb = require('crumb');
 
 // Declare internals
@@ -48,13 +48,12 @@ describe('/login', function () {
         University.init(internals.manifest, internals.composeOptions, function (err, server) {
 
 
-            /*
-             * @todo Build this out
-             * helpful links
-             * https://github.com/npm/newww/blob/2bc02c7558c7a3b8bdb34858ff99cd77d7c7c06a/test/handlers/crumb.js
-             * https://github.com/npm/newww/blob/2bc02c7558c7a3b8bdb34858ff99cd77d7c7c06a/test/handlers/user/login.js
-             * https://github.com/npm/newww/blob/master/routes/public.js
-             */
+            //  *****  HELPS  *****
+            //  Helpful links to build out crumb tests
+            //  https://github.com/npm/newww/blob/2bc02c7558c7a3b8bdb34858ff99cd77d7c7c06a/test/handlers/crumb.js
+            //  https://github.com/npm/newww/blob/2bc02c7558c7a3b8bdb34858ff99cd77d7c7c06a/test/handlers/user/login.js
+            //  https://github.com/npm/newww/blob/master/routes/public.js
+
             GenerateCrumb(server, function (crumb) {
 
                 var options = {
@@ -67,17 +66,14 @@ describe('/login', function () {
                     },
                     headers: { cookie: 'crumb=' + crumb }
                 };
-                // var target = options.headers.cookie.replace('crumb=', '')
-                // var target = options.headers.cookie.replace('crumb=', '');
-                // var target = options.headers.cookie.replace('crumb=', '');
-                //expect(options).to.equal('Foo Foo');
 
+                expect(crumb).string().length(43);
+                expect(options.payload.crumb).string().length(43);
                 expect(options.headers.cookie).to.equal('crumb=' + crumb);
 
                 server.select('api').inject(options, function (res) {
 
                     expect(res.statusCode).to.equal(200);
-                    // expect(resp.headers.location).to.equal('/~bob');
                     done();
                 });
             });
@@ -216,6 +212,7 @@ describe('/login', function () {
                     headers: { cookie: 'crumb=' + crumb }
                 };
 
+                expect(crumb).string().length(43);
                 expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
 
                 internals.server = server;
