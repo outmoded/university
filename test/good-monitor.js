@@ -19,7 +19,7 @@ var expect = Code.expect;
 var it = lab.test;
 
 
-describe('good-monitor', function () {
+describe('good', function () {
 
     it('monitor registration failed', { parallel: false }, function (done) {
 
