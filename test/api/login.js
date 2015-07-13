@@ -222,12 +222,13 @@ describe('/login', function () {
 
                 internals.server.select('api').inject(internals.options, function (res) {
 
+                    // User successfully authenticated
+
                     expect(res.statusCode, 'Status code').to.equal(200);
                     expect(res.result.username).to.equal('Foo Foo');
 
 
-
-                    // ./home greets authenticated user
+                    // Greet authenticated user at ./home route.
 
 
                     var header = res.headers['set-cookie'];
@@ -240,13 +241,16 @@ describe('/login', function () {
 
                     internals.server.select('web-tls').inject(request2, function (res) {
 
+                        // authenticated user succesfully authenticated
+
                         var $ = Cheerio.load(res.result);
                         var result = ($('h1', 'body').text());
 
                         expect(result).to.equal('Foo Foo');
 
 
-                        // ./login GET redirects previously authenticated user to /account route.
+                        // authenticated user tries to re-access ./login page but gets redirected
+                        // to /account route. we d/n allow users to login twice.
 
 
                         var request3 = { method: 'GET', url: '/login', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
@@ -265,7 +269,7 @@ describe('/login', function () {
     });
 
 
-    // @todo  split below into tests
+    // @todo  split below into seperate tests
 
 
     it('login Failures', function (done) {
@@ -327,7 +331,6 @@ describe('/login', function () {
 
                     expect(res.statusCode, 'Status code').to.equal(401);                 // lib/api/login.js POST ./login issue Boom error.
                     expect(res.result.message).to.equal('Invalid password or username'); // message set in Boom.unauthorized(message)
-                    // internals.server.stop(done);
                 });
 
                 // User exists but crumb fails
@@ -338,7 +341,7 @@ describe('/login', function () {
 
                 internals.server.select('api').inject(internals.options, function (res) {
 
-                    expect(res.statusCode, 'Status code').to.equal(403);                 // lib/api/login.js POST ./login issue Boom error.
+                    expect(res.statusCode, 'Status code').to.equal(403);          // lib/api/login.js POST ./login issue Boom error.
                     expect(res.result.message).to.equal('What Are You Doing!!!'); // message set in Boom.unauthorized(message)
                     internals.server.stop(done);
                 });
@@ -423,97 +426,41 @@ describe('/logout', function () {
                         password: 'foo',
                         crumb: crumb
                     },
-                headers: { 'cookie': 'crumb=' + crumb }
+                    headers: { 'cookie': 'crumb=' + crumb }
                 };
-
-                // expect(internals.options.headers[0]).to.equal('crumb=' + crumb);
-
-                // expect(internals.options.headers).to.equal('FIRSTCOOKIE');
 
                 var tlserver = server.select('web-tls');
 
                 tlserver.inject(internals.options, function (res) {
 
+                    // login was successful
+
                     expect(res.statusCode, 'Status code').to.equal(200);
                     expect(res.result.username).to.equal('Foo Foo');
 
+                    // Get auth-cookie value
                     var header = res.headers['set-cookie'];
-
                     expect(header.length).to.equal(1);
                     expect(header[0]).to.contain('Max-Age=60');
-
                     var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                    // This passes with crumb off.
-                    // internals.options.headers =  {
-                    //    cookie: 'hapi-university=' + cookie[1],
-                    // };
-
-                    // This fails with 302 which is auth-cookie rejecting.
-                    // internals.options.headers =  {
-                    //    cookie: 'crumb=' + crumb
-                    // };
-
-                    // This fails with 302 redirect which is auth-cookie rejecting.
-                    // if crumb off this passes, gets 100% coverage
-                    // internals.options.headers =  {
-                    //    cookie: 'hapi-university=' + cookie[1] + 'crumb=' + internals.crumb
-                    //};
-
-                    // This fails with 403 redirect which is auth-cookie.
-                    // if crumb off this passes, gets 100% coverage
-                    // internals.options.headers =  {
-                    //     Cookie: 'hapi-university=' + cookie[1],
-                    //     crumb: 'crumb=' + internals.crumb
-                    // };
-
-                    // This fails with 302 redirect which is auth-cookie.
-                    // if crumb off this passes, gets 100% coverage
-                    //internals.options.headers =  {
-                    //    Cookie: 'hapi-university=' + cookie[1],
-                    //    'x-csrf-token': 'crumb=' + internals.crumb
-                    //};
-
                     // Successful logout.
 
-                    // Pass two cookies in headers
+
+                    // Re-configure server.inject options
+
+                    // Pass two cookies in headers to logout
                     internals.options.headers = {
                         cookie: 'crumb=' + crumb + '; hapi-university=' + cookie[1]
                     };
-
-                    //internals.options.headers['set-cookie'] = 'crumb=' + internals.crumb;
-                    // internals.options.headers += { cookie: 'crumb=' + crumb };
-                    // internals.options.headers.push({ cookie: 'hapi-university=' + cookie[1] });
-
-                    // headers: { 'cookie': 'crumb=' + crumb, boost: 'boom=' + crumb }
-                    // Hack
-                    //internals.options.url = '/logoutb';
-                    // internals.options.method = 'GET';
                     internals.options.url = '/logout';
                     internals.options.method = 'POST';
                     delete internals.options.payload.username;
                     delete internals.options.payload.password;
-                    // expect(internals.options).to.equal('FIRSTCOOKIE');
-                    //internals.options.headers.cookie = 'hapi-university=' + cookie[1];
-                    // internals.options.headers.cookie = finalConcat ;
-                    // internals.options.headers = {
-                    //     cookie: internals.options.headers.cookie = 'hapi-university=' + cookie[1]
-                    // };
-
-                    // var request2 = { method: 'GET', url: '/logout', headers: { cookie: 'hapi-university=' + cookie[1] } };
 
                     tlserver.inject(internals.options, function (res) {
 
-                        //
-                        // @todo this is failing.
-                        // Need to write fixes to cancel crumb at logout out.
-                        // skip is the function to use. !!
-                        // request.headers or info or path or url.
-                        //
-
-                        // redirects to login because needs auth set too
-                        // expect(res.headers.location).to.include('/login');
                         expect(res.statusCode).to.equal(200);
                         server.stop(done);
                     });
@@ -534,6 +481,8 @@ describe('/logout', function () {
 
 
                 //  Unauthenticated user redirected to login page.
+                //  @todo api should not redirect to web page.
+                //        need different error handling here.
 
 
                 expect(res.statusCode, 'Status code').to.equal(302);
