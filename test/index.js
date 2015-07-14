@@ -202,7 +202,7 @@ internals.manifest = {
         }],
         './auth-cookie': {},
         'hapi-auth-cookie': {},
-        './crummy': {}
+        'crumb': Config.crumb
     }
 };
 
