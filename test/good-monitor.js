@@ -4,7 +4,6 @@ var University = require('../lib');
 var Path = require('path');
 var Config = require('../lib/config');
 var Good = require('good');
-var GoodMonitor = require('../lib/good-monitor');
 
 // Declare internals
 
@@ -59,7 +58,7 @@ internals.manifest = {
         }
     ],
     plugins: {
-        './good-monitor': {}
+        'good': Config.monitor
     }
 };
 
