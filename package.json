@@ -1,0 +1,14 @@
+{
+  "name": "myAssignment1",
+  "version": "0.0.1",
+  "description": "A basic HTTP server",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hapijs/university.git"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "hapi": "^8.8.0"
+  },
+  "license": "BSD-3-Clause"
+}
