@@ -1,0 +1,26 @@
+{
+  "name": "university",
+  "version": "0.0.1",
+  "description": "HapiJS University",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hapijs/university.git"
+  },
+  "keywords": [
+    "HapiJS"
+  ],
+  "author": "John Manko",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/johnmanko/university/issues"
+  },
+  "homepage": "https://github.com/johnmanko/university#readme",
+  "dependencies": {
+    "hapi": "^8.8.0",
+    "hoek": "^2.14.0"
+  }
+}
