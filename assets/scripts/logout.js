@@ -1,5 +1,6 @@
 
 
+
 var internals = {};
 
 
@@ -92,8 +93,9 @@ document.onreadystatechange = function () {
             event.preventDefault();
 
 
-            // Get submitted form data
-            var requestData = '{ request: \'logout\' }';
+            // Get page crumb data
+            var crumb = document.getElementsByName('crumb')[0].content;
+            var requestData = { request: 'logout', crumb: crumb };
 
 
 

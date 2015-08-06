@@ -7,6 +7,7 @@ var University = require('../lib');
 var Version = require('../lib/version');
 var Path = require('path');
 var Config = require('../lib/config');
+var GenerateCrumb = require('./generateCrumb');
 
 //declare internals
 
@@ -104,34 +105,50 @@ describe('server.ext() request cycle handles', function () {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('bar', 'bar') };
+            GenerateCrumb(server, function (crumb) {
 
-            // Successfull Login
+                internals.options = {
+                    url: '/login',
+                    method: 'POST',
+                    payload: {
+                        username: 'bar',
+                        password: 'bar',
+                        crumb: crumb
+                    },
+                    headers: { cookie: 'crumb=' + crumb }
+                };
 
-            internals.server = server;
+                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
 
-            internals.server.select('api').inject(request, function (res) {
+                internals.server = server;
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result.username).to.equal('Bar Head');
+                // Successfull Login
 
-                var header = res.headers['set-cookie'];
-                expect(header.length).to.equal(1);
+                internals.server = server;
 
-                expect(header[0]).to.contain('Max-Age=60');
+                internals.server.select('api').inject(internals.options, function (res) {
 
-                internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    expect(res.result.username).to.equal('Bar Head');
+
+                    var header = res.headers['set-cookie'];
+                    expect(header.length).to.equal(1);
+
+                    expect(header[0]).to.contain('Max-Age=60');
+
+                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
 
 
-                // ./home greets authenticated user
+                    // ./home greets authenticated user
 
-                var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
+                    var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
 
-                internals.server.select('web-tls').inject(request2, function (res) {
+                    internals.server.select('web-tls').inject(request2, function (res) {
 
-                    expect(res.statusCode, 'Status code').to.equal(301);
-                    expect(res.headers.location).to.equal('https://localhost:8001/home');
-                    internals.server.stop(done);
+                        expect(res.statusCode, 'Status code').to.equal(301);
+                        expect(res.headers.location).to.equal('https://localhost:8001/home');
+                        internals.server.stop(done);
+                    });
                 });
             });
         });
@@ -157,28 +174,6 @@ describe('server.ext() request cycle handles', function () {
             });
         });
     });
-
-    it('joi validation error transformed', function (done) {
-
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
-
-            expect(err).to.not.exist();
-
-
-            internals.server = server;
-
-
-            var request = { method: 'POST', url: '/login', payload: internals.loginCredentials('foowakawaka', 'bamo') };  // This fails loggin in event w. correct credentials..
-
-            internals.server.select('web-tls').inject(request, function (res) {
-
-                expect(res.statusCode, 'Status code').to.equal(400);
-                expect(res.result.message).to.equal('Malformed Data Entered');
-                internals.server.stop(done);
-            });
-        });
-    });
-
 });
 
 
@@ -206,7 +201,8 @@ internals.manifest = {
             'select': ['api']
         }],
         './auth-cookie': {},
-        'hapi-auth-cookie': {}
+        'hapi-auth-cookie': {},
+        'crumb': Config.crumb
     }
 };
 

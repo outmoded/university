@@ -110,7 +110,8 @@ document.onreadystatechange = function () {
 
             var username = document.getElementsByName('username')[0].value;
             var password = document.getElementsByName('password')[0].value;
-            var requestData = { username: username, password: password };
+            var crumb = document.getElementsByName('crumb')[0].value;
+            var requestData = { username: username, password: password, crumb: crumb };
 
 
             internals.executeAJAX('/login', requestData, function (request) {
