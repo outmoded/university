@@ -180,11 +180,11 @@ describe('server.ext() request cycle handles', function () {
 
 internals.manifest = {
     connections: [
-    {
-        host: 'localhost',
-        port: 0,
-        labels: ['web']
-    },
+        {
+            host: 'localhost',
+            port: 0,
+            labels: ['web']
+        },
         {
             host: 'localhost',
             port: 0,
