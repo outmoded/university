@@ -1,0 +1,27 @@
+{
+  "name": "hapi-university",
+  "version": "0.0.1",
+  "description": "Community learning experiment",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hapijs/university.git"
+  },
+  "keywords": [
+    "hapi",
+    "learn",
+    "community"
+  ],
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/hapijs/university/issues"
+  },
+  "homepage": "https://github.com/hapijs/university",
+  "dependencies": {
+    "hapi": "12.x.x",
+    "hoek": "3.x.x"
+  },
+  "scripts": {
+    "start": "node lib/index.js"
+  }
+}
