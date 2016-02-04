@@ -41,6 +41,7 @@ it('starts server on provided port', (done) => {
 it('handles register plugin errors', { parallel: false }, (done) => {
 
     const orig = Version.register;
+    
     Version.register = function (server, options, next) {
 
         Version.register = orig;
