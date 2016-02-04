@@ -1,0 +1,8 @@
+{
+	"foo": {
+		"password": "foo"
+	},
+	"bar": {
+		"password": "bar"
+	}
+}
