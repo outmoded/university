@@ -5,7 +5,7 @@
 const Code = require('code');
 const Lab = require('lab');
 const Package = require('../package.json');
-const Server = require('../lib');
+const University = require('../lib');
 
 
 // Test shortcuts
@@ -20,7 +20,7 @@ describe('/version', () => {
 
     it('returns the version from package.json', (done) => {
 
-        Server.init(0, (err, server) => {
+        University.init(0, (err, server) => {
 
             expect(err).to.not.exist();
 

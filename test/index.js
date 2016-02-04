@@ -5,7 +5,7 @@
 const Hapi = require('hapi');
 const Code = require('code');
 const Lab = require('lab');
-const Server = require('../lib');
+const University = require('../lib');
 const Version = require('../lib/version');
 
 
@@ -18,7 +18,7 @@ const it = lab.test;
 
 it('starts server and returns hapi server object', (done) => {
 
-    Server.init(0, (err, server) => {
+    University.init(0, (err, server) => {
 
         expect(err).to.not.exist();
         expect(server).to.be.instanceof(Hapi.Server);
@@ -29,10 +29,10 @@ it('starts server and returns hapi server object', (done) => {
 
 it('starts server on provided port', (done) => {
 
-    Server.init(5000, (err, server) => {
+    University.init(5000, (err, server) => {
 
         expect(err).to.not.exist();
-        expect(server.info.port).to.be.equal(5000);
+        expect(server.info.port).to.equal(5000);
 
         server.stop(done);
     });
@@ -52,7 +52,7 @@ it('handles register plugin errors', { parallel: false }, (done) => {
         name: 'fake version'
     };
 
-    Server.init(0, (err, server) => {
+    University.init(0, (err, server) => {
 
         expect(err).to.exist();
         expect(err.message).to.equal('register version failed');
