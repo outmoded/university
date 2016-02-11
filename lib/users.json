@@ -1,0 +1,11 @@
+{
+    "joe": {
+        "password": "dumb password"
+    },
+    "mike": {
+        "password": "smart password"
+    },
+    "david": {
+        "password": "genius password"
+    }
+}
