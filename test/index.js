@@ -60,25 +60,3 @@ it('handles register plugin errors', { parallel: false }, (done) => {
         done();
     });
 });
-
-it('handles register private plugin errors', { parallel: false }, function (done) {
-
-    var orig = Private.register;
-    Private.register = function (server, options, next) {
-
-        Private.register = orig;
-        return next(new Error('register private failed'));
-    };
-
-    Private.register.attributes = {
-        name: 'fake private'
-    };
-
-    Hueniversity.init(0, function (err, server) {
-
-        expect(err).to.exist();
-        expect(err.message).to.equal('register private failed');
-
-        done();
-    });
-});
