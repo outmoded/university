@@ -1,110 +1,96 @@
+'use strict';
+
 // Load modules
 
-var Hapi = require('hapi');
-var Code = require('code');
-var Lab = require('lab');
-var Hueniversity = require('../lib');
-var Users = require('../lib/users.json');
-var Basic = require('hapi-auth-basic');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Users = require('../lib/users.json');
+const Basic = require('hapi-auth-basic');
+
+
+// Declare internals
+
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
 
-// Declare Internals
+describe('/private', () => {
 
-var internals = {};
+    it('returns a greeting for the authenticated user', (done) => {
 
-
-describe('/private end point authentication', function () {
-
-    it('returns a greeting to authenticated user', function (done) {
-
-        Hueniversity.init(0, function (err, server) {
+        University.init(0, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.john.username, Users.john.password) } };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
+            server.inject(request, (res) => {
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal('<div>Hello john</div>');
+                expect(res.statusCode, 'Status Code').to.equal(200);
+                expect(res.result, 'result').to.equal('<div>Hello foo</div>');
 
                 server.stop(done);
             });
         });
     });
 
+    it('errors on wrong password', (done) => {
 
-    it('Auth attempt failed bad username', function (done) {
-
-        Hueniversity.init(0, function (err, server) {
+        University.init(0, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('Bad name', Users.john.password) } };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
+            server.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
+
                 server.stop(done);
             });
         });
     });
 
+    it('errors on failed auth', (done) => {
 
-    it('Auth attempt failed bad pw', function (done) {
-
-        Hueniversity.init(0, function (err, server) {
+        University.init(0, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header(Users.john.username, 'badpw') } };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
+            server.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
+
                 server.stop(done);
             });
         });
     });
 
+    it('errors on failed registering of auth', { parallel: false }, (done) => {
 
-    it('Auth attempt failed bad username and pw.', function (done) {
+        const orig = Basic.register;
 
-        Hueniversity.init(0, function (err, server) {
-
-            expect(err).to.not.exist();
-
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('bad-username', 'bad-pw') } };
-            server.inject(request, function (res) {
-
-                expect(res.statusCode, 'Status code').to.equal(401);
-                server.stop(done);
-            });
-        });
-    });
-
-    it('hapi-auth-basic plugin failed to load', { parallel: false }, function (done) {
-
-        var orig = Basic.register;
-        Basic.register = function (server, options, next) {
+        Basic.register = function (plugin, options, next) {
 
             Basic.register = orig;
-            return next(new Error('require hapi-auth-basic failed'));
+            return next(new Error('fail'));
         };
 
         Basic.register.attributes = {
-            name: 'fake private'
+            name: 'fake hapi-auth-basic'
         };
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(0, (err) => {
 
             expect(err).to.exist();
-            expect(err.message).to.equal('require hapi-auth-basic failed');
+
             done();
         });
     });
