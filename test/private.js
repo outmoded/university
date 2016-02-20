@@ -1,37 +1,40 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var Hueniversity = require('../lib');
-var Users = require('../lib/users.json');
-var Basic = require('hapi-auth-basic');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Users = require('../lib/users.json');
+const Basic = require('hapi-auth-basic');
+const Path = require('path');
 
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
 
-describe('/private', function () {
+describe('/private', () => {
 
-    it('returns a greeting for the authenticated user', function (done) {
+    it('returns a greeting for the authenticated user', (done) => {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', Users.foo.password) } };
+            server.inject(request, (res) => {
 
-                expect(res.statusCode, 'Status code').to.equal(200);
+                expect(res.statusCode, 'Status Code').to.equal(200);
                 expect(res.result, 'result').to.equal('<div>Hello foo</div>');
 
                 server.stop(done);
@@ -39,14 +42,14 @@ describe('/private', function () {
         });
     });
 
-    it('errors on wrong password', function (done) {
+    it('errors on wrong password', (done) => {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/private', headers: { authorization: internals.header('foo', '') } };
+            server.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -55,14 +58,14 @@ describe('/private', function () {
         });
     });
 
-    it('errors on failed auth', function (done) {
+    it('errors on failed auth', (done) => {
 
-        Hueniversity.init(0, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/private', headers: { authorization: internals.header('I do not exist', '') } };
+            server.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(401);
 
@@ -71,9 +74,9 @@ describe('/private', function () {
         });
     });
 
-    it('errors on failed registering of auth', { parallel: false }, function (done) {
+    it('errors on failed registering of auth', { parallel: false }, (done) => {
 
-        var orig = Basic.register;
+        const orig = Basic.register;
 
         Basic.register = function (plugin, options, next) {
 
@@ -85,7 +88,7 @@ describe('/private', function () {
             name: 'fake hapi-auth-basic'
         };
 
-        Hueniversity.init(0, function (err) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.exist();
 
@@ -98,4 +101,38 @@ describe('/private', function () {
 internals.header = function (username, password) {
 
     return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+// glue manifest
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: {
+                register: './private',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: 'hapi-auth-basic',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: './university-auth',
+                options: {}
+            }
+        }
+    ]
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
 };

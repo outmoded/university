@@ -1,8 +1,6 @@
 {
-    "extends": "./node_modules/lab/lib/linters/eslint/.eslintrc",
+    "extends": "hapi",
     "rules": {
-        // Override any settings from the "parent" configuration
-        "hapi/no-shadow-relaxed": [1, { "ignore": ["err", "done", "server", "next", "res"] }],
+        "no-shadow": [1, { "allow": ["err", "done", "server", "next", "res", "response"] }],
     }
 }
-
