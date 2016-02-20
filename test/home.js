@@ -1,38 +1,39 @@
+'use strict';
 
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var University = require('../lib');
-var Path = require('path');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Path = require('path');
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
+describe('/home', () => {
 
+    it('returns home page containing relative path from root to home template', (done) => {
 
-describe('/home', function () {
-
-    it('returns home page containing relative path from root to home template', function (done) {
-
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/home' };
-            server.inject(request, function (res) {
+            const request = { method: 'GET', url: '/home' };
+
+            server.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html\n')));  // Why do I have \n in res.result??
+                console.log(res.result);
+                expect(res.result).to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html\n')));
 
                 server.stop(done);
             });
@@ -42,16 +43,33 @@ describe('/home', function () {
 
 internals.manifest = {
     connections: [
-    {
-        port: 0
-    }
+        {
+            port: 0
+        }
     ],
-    plugins: {
-        './home': {}
-    }
+    registrations: [
+        {
+            plugin: {
+                register: './home',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: 'vision',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: 'inert',
+                options: {}
+            }
+        }
+    ]
 };
+
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
 };
-

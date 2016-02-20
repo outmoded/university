@@ -1,30 +1,30 @@
+'use strict';
+
 // Load modules
 
-var Hapi = require('hapi');
-var Code = require('code');
-var Lab = require('lab');
-var University = require('../lib');
-var Version = require('../lib/version');
-var Path = require('path');
+const Hapi = require('hapi');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Version = require('../lib/version');
+const Path = require('path');
 
-// Internals
-
-var internals = {};
-
+const internals = {};
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var expect = Code.expect;
-var it = lab.test;
-var describe = lab.experiment;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
 
-describe('/index', function () {
+describe('/index', () => {
 
-    it('starts server and returns hapi server object', function (done) {
+    it('starts server and returns hapi server object', (done) => {
 
-        University.init({}, {}, function (err, server) {
+        University.init(internals.manifest,  internals.composeOptions, (err, server) => {
+
 
             expect(err).to.not.exist();
             expect(server).to.be.instanceof(Hapi.Server);
@@ -33,10 +33,13 @@ describe('/index', function () {
         });
     });
 
-    it('starts server on provided port', function (done) {
+    it('starts server on provided port', (done) => {
 
-        University.init({connections: [{port: 5000}]}, {}, function (err, server) {
+        internals.manifest.connections[0].port = 5000;
 
+        University.init(internals.manifest,  internals.composeOptions, (err, server) => {
+
+            internals.manifest.connections[0].port = 0;
             expect(err).to.not.exist();
             expect(server.info.port).to.equal(5000);
 
@@ -44,9 +47,10 @@ describe('/index', function () {
         });
     });
 
-    it('handles register plugin errors', { parallel: false }, function (done) {
+    it('handles register plugin errors', { parallel: false }, (done) => {
 
-        var orig = Version.register;
+        const orig = Version.register;
+
         Version.register = function (server, options, next) {
 
             Version.register = orig;
@@ -57,7 +61,7 @@ describe('/index', function () {
             name: 'fake version'
         };
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest,  internals.composeOptions, (err, server) => {
 
             expect(err).to.exist();
             expect(err.message).to.equal('register version failed');
@@ -67,15 +71,22 @@ describe('/index', function () {
     });
 });
 
+// glue manifest
+
 internals.manifest = {
     connections: [
-    {
-        port: 0
-    }
-    ],
-        plugins: {
-            './version': {}
+        {
+            port: 0
         }
+    ],
+    registrations: [
+        {
+            plugin: {
+                register: './version',
+                options: {}
+            }
+        }
+    ]
 };
 
 internals.composeOptions = {
