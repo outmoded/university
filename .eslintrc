@@ -1,0 +1,6 @@
+{
+    "extends": "hapi",
+    "rules": {
+        "no-shadow": [1, { "allow": ["err", "done", "server", "next", "res", "response"] }],
+    }
+}

@@ -7,6 +7,7 @@ const Lab = require('lab');
 const University = require('../lib');
 const Users = require('../lib/users.json');
 const Basic = require('hapi-auth-basic');
+const Path = require('path');
 
 
 // Declare internals
@@ -26,7 +27,7 @@ describe('/private', () => {
 
     it('returns a greeting for the authenticated user', (done) => {
 
-        University.init(0, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -43,7 +44,7 @@ describe('/private', () => {
 
     it('errors on wrong password', (done) => {
 
-        University.init(0, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -59,7 +60,7 @@ describe('/private', () => {
 
     it('errors on failed auth', (done) => {
 
-        University.init(0, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -87,7 +88,7 @@ describe('/private', () => {
             name: 'fake hapi-auth-basic'
         };
 
-        University.init(0, (err) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.exist();
 
@@ -100,4 +101,38 @@ describe('/private', () => {
 internals.header = function (username, password) {
 
     return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+// glue manifest
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: {
+                register: './private',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: 'hapi-auth-basic',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: './university-auth',
+                options: {}
+            }
+        }
+    ]
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
 };

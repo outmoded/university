@@ -4,10 +4,8 @@
 
 const Code = require('code');
 const Lab = require('lab');
-const Package = require('../package.json');
 const University = require('../lib');
 const Path = require('path');
-
 
 // Declare internals
 
@@ -21,27 +19,27 @@ const describe = lab.experiment;
 const expect = Code.expect;
 const it = lab.test;
 
+describe('/home', () => {
 
-describe('/version', () => {
-
-    it('returns the version from package.json', (done) => {
+    it('returns home page containing relative path from root to home template', (done) => {
 
         University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            server.inject('/version', (res) => {
+            const request = { method: 'GET', url: '/home' };
 
-                expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ version: Package.version });
+            server.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+                console.log(res.result);
+                expect(res.result).to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html\n')));
 
                 server.stop(done);
             });
         });
     });
 });
-
-// glue manifest
 
 internals.manifest = {
     connections: [
@@ -52,12 +50,25 @@ internals.manifest = {
     registrations: [
         {
             plugin: {
-                register: './version',
+                register: './home',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: 'vision',
+                options: {}
+            }
+        },
+        {
+            plugin: {
+                register: 'inert',
                 options: {}
             }
         }
     ]
 };
+
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
