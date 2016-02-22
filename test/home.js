@@ -1,38 +1,191 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var University = require('../lib');
-var Path = require('path');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Home = require('../lib/home');
+const Vision = require('vision');
+const Path = require('path');
+const Inert = require('inert');
+const Hoek = require('hoek');
+const Config = require('../lib/config');
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
-describe('/home', function () {
 
-    it('returns home page containing relative path from root to home template', function (done) {
+describe('/home', () => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+    it('ensures that /login is always redirected to https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/home' };
-            server.inject(request, function (res) {
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
 
-                expect(res.statusCode, 'Status code').to.equal(200);
-                expect(res.result, 'result').to.equal(Path.relative(Path.resolve('__dirname', '../'), Path.resolve('__dirname', '../views/home.html')));
+            const request = {
+                method: 'GET',
+                url: '/login'
+            };
+            web.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal(webTls.info.uri + '/login');
 
                 server.stop(done);
             });
+        });
+    });
+
+    it('returns a login page via https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/login'
+            };
+            webTls.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('ensures that /home is always redirected to https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/home'
+            };
+            web.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal(webTls.info.uri + '/home');
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('returns a home page via https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/home'
+            };
+            webTls.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('errors on failed registering of vision', { parallel: false }, (done) => {
+
+        const orig = Vision.register;
+
+        Vision.register = function (plugin, options, next) {
+
+            Vision.register = orig;
+            return next(new Error('fail'));
+        };
+
+        Vision.register.attributes = {
+            name: 'fake vision'
+        };
+
+        University.init(internals.manifest, internals.composeOptions, (err) => {
+
+            expect(err).to.exist();
+
+            done();
+        });
+    });
+
+    it('errors on missing vision plugin', (done) => {
+
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(1, 1);
+
+        University.init(manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Home.register.attributes.name + ' missing dependency ' + Vision.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web').info.uri);
+
+            done();
+        });
+    });
+
+    it('errors on failed registering of inert', { parallel: false }, (done) => {
+
+        const orig = Inert.register;
+
+        Inert.register = function (plugin, options, next) {
+
+            Inert.register = orig;
+            return next(new Error('fail'));
+        };
+
+        Inert.register.attributes = {
+            name: 'fake inert'
+        };
+
+        University.init(internals.manifest, internals.composeOptions, (err) => {
+
+            expect(err).to.exist();
+
+            done();
+        });
+    });
+
+    it('errors on missing inert plugin', (done) => {
+
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(2, 1);
+
+        University.init(manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Home.register.attributes.name + ' missing dependency ' + Inert.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web').info.uri);
+
+            done();
         });
     });
 });
@@ -40,12 +193,28 @@ describe('/home', function () {
 internals.manifest = {
     connections: [
         {
-            port: 0
+            host: 'localhost',
+            port: 0,
+            labels: ['web']
+        },
+        {
+            host: 'localhost',
+            port: 0,
+            labels: ['web-tls'],
+            tls: Config.tls
         }
     ],
-    plugins: {
-        './home': {}
-    }
+    registrations: [
+        {
+            plugin: './home'
+        },
+        {
+            plugin: 'vision'
+        },
+        {
+            plugin: 'inert'
+        }
+    ]
 };
 
 internals.composeOptions = {
