@@ -9,6 +9,11 @@ const University = require('../lib');
 const Path = require('path');
 
 
+// Declare internals
+
+const internals = {};
+
+
 // Test shortcuts
 
 const lab = exports.lab = Lab.script();
@@ -21,24 +26,7 @@ describe('/version', () => {
 
     it('returns the version from package.json', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './version'
-                }
-            ]
-        };
-
-        const options = {
-            relativeTo: Path.resolve(__dirname, '../lib')
-        };
-
-        University.init(manifest, options, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -52,3 +40,21 @@ describe('/version', () => {
         });
     });
 });
+
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: './version'
+        }
+    ]
+};
+
+internals.composeOptions = {
+    relativeTo: Path.resolve(__dirname, '../lib')
+};

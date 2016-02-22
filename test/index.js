@@ -58,19 +58,6 @@ it('starts server on provided port', (done) => {
 
 it('handles register plugin errors', { parallel: false }, (done) => {
 
-    const manifest = {
-        connections: [
-            {
-                port: 0
-            }
-        ],
-        registrations: [
-            {
-                plugin: './version'
-            }
-        ]
-    };
-
     const orig = Version.register;
     Version.register = function (server, options, next) {
 
@@ -82,7 +69,7 @@ it('handles register plugin errors', { parallel: false }, (done) => {
         name: 'fake version'
     };
 
-    University.init(manifest, internals.composeOptions, (err, server) => {
+    University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
         expect(err).to.exist();
         expect(err.message).to.equal('register version failed');
@@ -91,6 +78,19 @@ it('handles register plugin errors', { parallel: false }, (done) => {
     });
 });
 
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: './version'
+        }
+    ]
+};
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')

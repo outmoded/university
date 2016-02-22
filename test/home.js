@@ -8,6 +8,8 @@ const University = require('../lib');
 const Home = require('../lib/home');
 const Vision = require('vision');
 const Path = require('path');
+const Hoek = require('hoek');
+
 
 // Declare internals
 
@@ -26,23 +28,7 @@ describe('/home', () => {
 
     it('returns home page containing relative path from root to home template', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './home'
-                },
-                {
-                    plugin: 'vision'
-                }
-            ]
-        };
-
-        University.init(manifest, internals.composeOptions, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -62,22 +48,6 @@ describe('/home', () => {
 
     it('errors on failed registering of vision', { parallel: false }, (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './home'
-                },
-                {
-                    plugin: 'vision'
-                }
-            ]
-        };
-
         const orig = Vision.register;
 
         Vision.register = function (plugin, options, next) {
@@ -90,7 +60,7 @@ describe('/home', () => {
             name: 'fake vision'
         };
 
-        University.init(manifest, internals.composeOptions, (err) => {
+        University.init(internals.manifest, internals.composeOptions, (err) => {
 
             expect(err).to.exist();
 
@@ -100,18 +70,8 @@ describe('/home', () => {
 
     it('errors on missing vision plugin', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './home'
-                }
-            ]
-        };
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(1, 1);
 
         University.init(manifest, internals.composeOptions, (err, server) => {
 
@@ -124,6 +84,22 @@ describe('/home', () => {
     });
 });
 
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: './home'
+        },
+        {
+            plugin: 'vision'
+        }
+    ]
+};
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')

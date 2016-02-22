@@ -8,6 +8,7 @@ const University = require('../lib');
 const Basic = require('hapi-auth-basic');
 const Auth = require('../lib/auth');
 const Path = require('path');
+const Hoek = require('hoek');
 
 
 // Declare internals
@@ -27,22 +28,6 @@ describe('/auth', () => {
 
     it('errors on failed registering of hapi-auth-basic', { parallel: false }, (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './auth'
-                },
-                {
-                    plugin: 'hapi-auth-basic'
-                }
-            ]
-        };
-
         const orig = Basic.register;
 
         Basic.register = function (plugin, options, next) {
@@ -55,7 +40,7 @@ describe('/auth', () => {
             name: 'fake hapi-auth-basic'
         };
 
-        University.init(manifest, internals.composeOptions, (err) => {
+        University.init(internals.manifest, internals.composeOptions, (err) => {
 
             expect(err).to.exist();
 
@@ -65,18 +50,8 @@ describe('/auth', () => {
 
     it('errors on missing hapi-auth-basic plugin', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './auth'
-                }
-            ]
-        };
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(1, 1);
 
         University.init(manifest, internals.composeOptions, (err, server) => {
 
@@ -89,6 +64,22 @@ describe('/auth', () => {
     });
 });
 
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: './auth'
+        },
+        {
+            plugin: 'hapi-auth-basic'
+        }
+    ]
+};
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')

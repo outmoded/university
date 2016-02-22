@@ -9,6 +9,7 @@ const Users = require('../lib/users.json');
 const Auth = require('../lib/auth');
 const Private = require('../lib/private');
 const Path = require('path');
+const Hoek = require('hoek');
 
 
 // Declare internals
@@ -28,26 +29,7 @@ describe('/private', () => {
 
     it('returns a greeting for the authenticated user', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './auth'
-                },
-                {
-                    plugin: './private'
-                },
-                {
-                    plugin: 'hapi-auth-basic'
-                }
-            ]
-        };
-
-        University.init(manifest, internals.composeOptions, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -71,26 +53,7 @@ describe('/private', () => {
 
     it('errors on wrong password', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './auth'
-                },
-                {
-                    plugin: './private'
-                },
-                {
-                    plugin: 'hapi-auth-basic'
-                }
-            ]
-        };
-
-        University.init(manifest, internals.composeOptions, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -113,26 +76,7 @@ describe('/private', () => {
 
     it('errors on failed auth', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './auth'
-                },
-                {
-                    plugin: './private'
-                },
-                {
-                    plugin: 'hapi-auth-basic'
-                }
-            ]
-        };
-
-        University.init(manifest, internals.composeOptions, (err, server) => {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
@@ -155,25 +99,6 @@ describe('/private', () => {
 
     it('errors on failed registering of auth', { parallel: false }, (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './auth'
-                },
-                {
-                    plugin: './private'
-                },
-                {
-                    plugin: 'hapi-auth-basic'
-                }
-            ]
-        };
-
         const orig = Auth.register;
 
         Auth.register = function (plugin, options, next) {
@@ -186,7 +111,7 @@ describe('/private', () => {
             name: 'fake Auth'
         };
 
-        University.init(manifest, internals.composeOptions, (err) => {
+        University.init(internals.manifest, internals.composeOptions, (err) => {
 
             expect(err).to.exist();
 
@@ -196,18 +121,8 @@ describe('/private', () => {
 
     it('errors on missing auth plugin', (done) => {
 
-        const manifest = {
-            connections: [
-                {
-                    port: 0
-                }
-            ],
-            registrations: [
-                {
-                    plugin: './private'
-                }
-            ]
-        };
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(0, 1);
 
         University.init(manifest, internals.composeOptions, (err, server) => {
 
@@ -224,6 +139,25 @@ describe('/private', () => {
 internals.header = function (username, password) {
 
     return 'Basic ' + (new Buffer(username + ':' + password, 'utf8')).toString('base64');
+};
+
+internals.manifest = {
+    connections: [
+        {
+            port: 0
+        }
+    ],
+    registrations: [
+        {
+            plugin: './auth'
+        },
+        {
+            plugin: './private'
+        },
+        {
+            plugin: 'hapi-auth-basic'
+        }
+    ]
 };
 
 internals.composeOptions = {
