@@ -33,6 +33,6 @@
   },
   "devDependencies": {
     "code": "2.x.x",
-    "lab": "8.x.x"
+    "lab": "9.x.x"
   }
 }
