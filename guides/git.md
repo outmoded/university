@@ -13,13 +13,13 @@ There are two main ways to get back to sync and one way to avoid this problem in
 
 This is the simplest. You just go to your fork on GitHub, go to **settings** and at the bottom
 click on **Delete this repository**. Once deleted, go back to
-[the official repository](https://github.com/hapijs/university) and fork it again. All set.
+[the official repository](https://github.com/hueniverse/hueniversity) and fork it again. All set.
 Remember to also delete your local directory and then to clone your new fork all over again.
 
 ### Replace your master branch with the remote branch.
 
 ```
-git remote add upstream https://github.com/hapijs/university
+git remote add upstream https://github.com/hueniverse/hueniversity
 git fetch upstream
 git branch backup
 git checkout upstream/master -B master

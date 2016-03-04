@@ -1,31 +1,37 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var University = require('../lib');
-var Basic = require('hapi-auth-basic');
-var Path = require('path');
-var Hoek = require('hoek');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Basic = require('hapi-auth-basic');
+const Auth = require('../lib/auth');
+const Path = require('path');
+const Hoek = require('hoek');
+const Config = require('../lib/config');
+
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
-describe('/auth', function () {
 
-    it('errors on failed registering of hapi-basic-auth', { parallel: false }, function (done) {
+describe('/auth', () => {
 
-        var orig = Basic.register;
+    it('errors on failed registering of hapi-auth-basic', { parallel: false }, (done) => {
 
-        Basic.register = function (plugin, options, next) {
+        const orig = Basic.register;
+
+        Basic.register = (plugin, options, next) => {
 
             Basic.register = orig;
             return next(new Error('fail'));
@@ -35,7 +41,7 @@ describe('/auth', function () {
             name: 'fake hapi-auth-basic'
         };
 
-        University.init(internals.manifest, internals.composeOptions, function (err) {
+        University.init(internals.manifest, internals.composeOptions, (err) => {
 
             expect(err).to.exist();
 
@@ -43,19 +49,19 @@ describe('/auth', function () {
         });
     });
 
-    it('errors on missing hapi-auth-basic plugin', function (done) {
+    it('errors on missing hapi-auth-basic plugin', (done) => {
 
-        var manifest = Hoek.clone(internals.manifest);
-        delete manifest.plugins['hapi-auth-basic'];
+        const manifest =  Hoek.clone(internals.manifest);
+        manifest.registrations.splice(1, 1);
 
-        var failingInit = University.init.bind(University, manifest, internals.composeOptions, function (err) {
+        University.init(manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Auth.register.attributes.name + ' missing dependency ' + Basic.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web').info.uri);
 
             done();
         });
-
-        expect(failingInit).to.throw();
-
-        done();
     });
 });
 
@@ -63,13 +69,25 @@ describe('/auth', function () {
 internals.manifest = {
     connections: [
         {
-            port: 0
+            host: 'localhost',
+            port: 0,
+            labels: ['web']
+        },
+        {
+            host: 'localhost',
+            port: 0,
+            labels: ['web-tls'],
+            tls: Config.tls
         }
     ],
-    plugins: {
-        './auth': {},
-        'hapi-auth-basic': {}
-    }
+    registrations: [
+        {
+            plugin: './auth'
+        },
+        {
+            plugin: 'hapi-auth-basic'
+        }
+    ]
 };
 
 internals.composeOptions = {
