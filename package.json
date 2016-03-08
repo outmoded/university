@@ -1,6 +1,6 @@
 {
   "name": "hapi-university",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Community learning experiment",
   "main": "lib/index.js",
   "repository": {
@@ -12,29 +12,42 @@
     "learn",
     "community"
   ],
+  "engines": {
+    "node": ">= 4.x.x",
+    "npm": ">= 3.x"
+  },
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/hapijs/university/issues"
   },
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
-    "bluebird": "2.x.x",
-    "boom": "2.x.x",
-    "cheerio": "^0.19.0",
-    "glue": "2.x.x",
-    "handlebars": "3.x.x",
-    "hapi": "8.x.x",
-    "hapi-auth-cookie": "3.x.x",
-    "hoek": "2.x.x",
-    "joi": "^6.x.x"
+    "async": "^1.5.2",
+    "boom": "3.x.x",
+    "crumb": "6.x.x",
+    "glue": "3.x.x",
+    "good": "6.x.x",
+    "good-console": "5.x.x",
+    "good-file": "5.x.x",
+    "handlebars": "4.x.x",
+    "hapi": "13.x.x",
+    "hapi-auth-basic": "4.x.x",
+    "hapi-auth-cookie": "6.x.x",
+    "hoek": "3.x.x",
+    "inert": "3.x.x",
+    "items": "^2.0.0",
+    "joi": "8.x.x",
+    "vision": "4.x.x"
   },
   "scripts": {
-    "test": "node node_modules/lab/bin/lab -a code -t 100 -L -v",
-    "test-cov-html": "node node_modules/lab/bin/lab -a code -r html -o coverage.html",
+    "test": "lab -a code -t 100 -L -v",
+    "one": "lab test/api/user.js -a code -t 100 -L -v",
+    "test-cov-html": "lab -a code -L -r html -o coverage.html",
     "start": "node lib/start.js"
   },
   "devDependencies": {
-    "code": "1.x.x",
-    "lab": "5.x.x"
+    "code": "2.x.x",
+    "lab": "9.x.x",
+    "lout": "9.x.x"
   }
 }

@@ -1,45 +1,42 @@
-# Assignments List
+# Assignments and Solutions
 
-Anyone is welcome to join hapijs university :-)
-To start at an earlier assignment follow below `git checkout branch_name`
-instructions to start at the appropriate point.
+`git checkout assignmentName` to see a solution.<br/>
+`git checkout previousAssignment` starting point for current assignment.
 
+### Starting Point 
+* `git checkout start`
+* Starting point to fulfill assignment1.
+* Note: to work on an assignment checkout the previous assignment's branch.
 
-### 1 Create a basic HTTP server
-* git checkout assignment1
-* checkout project at beginning.
-* [Assignment1 Requirements](https://github.com/hapijs/university/issues/1)
+### 1 Create a basic HTTP Server
+* [Assignment1 Requirements](../assignments/a0.0.1.md)
+* solution `git checkout assignment1`
 
-### 2 Convert to a plugin
-* git checkout assignment2
-* checkout project at beginning of assignment2.
-* [Assignment2 Requirements](https://github.com/hapijs/university/issues/43)
+### 2 Convert to a Plugin
+* [Assignment2 Requirements](../assignments/a0.0.2.md)
+* solution `git checkout assignment2`
 
-### 3 100% coverage
-* git checkout assignment3
-* checkout project at start of assignment3.
-*  [Assignment Instructions](https://github.com/hapijs/university/issues/79)
+### 3 100% Coverage
+* [Assignment3 Requirements](../assignments/a0.0.3.md)
+* solution `git checkout assignment3`
 
-### 4 Basic authentication
-git checkout assignment4
-* checkout project at start of assignment4.
-* [Assignment Instructions](https://github.com/hapijs/university/issues/118)
+### 4 Basic Authentication
+* [Assignment4 Requirements](../assignments/a0.0.4.md)
+* solution `git checkout assignment4`
 
 ### 5 Glue and HTML views
-* git checkout assignment5
-* checkout project at start of assignment5.
-* [Assignment Instructions](https://github.com/hapijs/university/issues/136)
+* [Assignment5 Requirements](../assignments/a0.0.5.md)
+* solution `git checkout assignment5`
 
 ### 6 Static Assets, Partials, and TLS
-* git checkout assignment6
-* checkout project at start of assignment6.
-* [Assignment Instructions](https://github.com/hapijs/university/issues/144)
+* [Assignment6 Requirements](../assignments/a0.0.6.md)
+* solution `git checkout assignment6`
 
 ### 7 Validation, Authentication, and Authorization
-* git checkout assignment7
-* checkout project at start of assignment7.
-* [Assignment Instructions](https://github.com/hapijs/university/issues/155)
+* [Assignment7 Requirements](../assignments/a0.0.7.md)
+* solution `git checkout assignment7`
 
 ### 8 Crumb, Server Monitoring and Review 
-* Assignment starts at HEAD of master branch. 
-* [Discussion on developing Assignment8](https://github.com/hapijs/university/issues/162)
+* [Assignment8 Requirements](../assignments/a0.0.8.md)
+* solution `git checkout assignment8`
+
