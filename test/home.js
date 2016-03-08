@@ -1,54 +1,367 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var University = require('../lib');
-var Path = require('path');
-var Config = require('../lib/config');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Home = require('../lib/home');
+const Vision = require('vision');
+const Path = require('path');
+const Inert = require('inert');
+const Hoek = require('hoek');
+const Config = require('../lib/config');
+const GenerateSession = require('./generateSession');
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
-describe('/home', function () {
 
-    it('ensures that /home is always redirected to https', function (done) {
+describe('/home', () => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+    it('ensures that /login is always redirected to https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/home' };
-            server.select('web').inject(request, function (res) {
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/login'
+            };
+            web.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(301);
-                expect(res.headers.location).to.equal('https://localhost:8001/home');
+                expect(res.headers.location).to.equal(webTls.info.uri + '/login');
 
                 server.stop(done);
             });
         });
     });
 
-    it('returns an home page via https', function (done) {
+    it('returns a login page via https', (done) => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/home' };
-            server.select('web-tls').inject(request, function (res) {
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/login'
+            };
+            webTls.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
 
                 server.stop(done);
+            });
+        });
+    });
+
+    it('ensures that /home is always redirected to https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/home'
+            };
+            web.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal(webTls.info.uri + '/home');
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('returns a home page via https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/home'
+            };
+
+            webTls.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(200);
+
+                server.stop(done);
+            });
+        });
+    });
+
+    it('errors on failed registering of vision', { parallel: false }, (done) => {
+
+        const orig = Vision.register;
+
+        Vision.register = function (plugin, options, next) {
+
+            Vision.register = orig;
+            return next(new Error('fail'));
+        };
+
+        Vision.register.attributes = {
+            name: 'fake vision'
+        };
+
+        University.init(internals.manifest, internals.composeOptions, (err) => {
+
+            expect(err).to.exist();
+
+            done();
+        });
+    });
+
+    it('errors on missing vision plugin', (done) => {
+
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(1, 1);
+
+        University.init(manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Home.register.attributes.name + ' missing dependency ' + Vision.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web-tls').info.uri);
+
+            done();
+        });
+    });
+
+    it('errors on failed registering of inert', { parallel: false }, (done) => {
+
+        const orig = Inert.register;
+
+        Inert.register = function (plugin, options, next) {
+
+            Inert.register = orig;
+            return next(new Error('fail'));
+        };
+
+        Inert.register.attributes = {
+            name: 'fake inert'
+        };
+
+        University.init(internals.manifest, internals.composeOptions, (err) => {
+
+            expect(err).to.exist();
+
+            done();
+        });
+    });
+
+    it('errors on missing inert plugin', (done) => {
+
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(2, 1);
+
+        University.init(manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Home.register.attributes.name + ' missing dependency ' + Inert.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web-tls').info.uri);
+
+            done();
+        });
+    });
+
+    it('account access redirects', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/account'
+            };
+            webTls.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(302);
+                expect(res.headers.location, 'headers.location').to.equal('/home');
+                server.stop(done);
+            });
+        });
+    });
+
+    it('user attempts access to /admin resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            // const webTls = server.select('web-tls');
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'bar',
+                    password: 'bar'
+                }
+            };
+
+            GenerateSession(server, 'web-tls', options, (err, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/admin',
+                    method: 'GET',
+                    headers: { 'cookie': 'sid-example=' + sessionCookie }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(302); // unauthorized.
+                    expect(res.headers.location, 'headers.location').to.equal(webTls.info.uri + '/home');
+                    server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('admin accesses the /admin resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'foo',
+                    password: 'foo'
+                }
+            };
+
+            GenerateSession(server, 'web-tls', options, (err, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/home',
+                    method: 'GET',
+                    headers: { 'cookie': 'sid-example=' + sessionCookie }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(200); // unauthorized.
+                    // expect(res.headers.location, 'headers.location').to.equal(webTls.info.uri + '/home');
+                    server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('admin accesses the /account resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'foo',
+                    password: 'foo'
+                }
+            };
+
+            GenerateSession(server, 'web-tls', options, (err, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/account',
+                    method: 'GET',
+                    headers: { 'cookie': 'sid-example=' + sessionCookie }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(200); // unauthorized.
+                    // expect(res.headers.location, 'headers.location').to.equal(webTls.info.uri + '/home');
+                    server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('non-admin accesses the /account resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'bar',
+                    password: 'bar'
+                }
+            };
+
+            GenerateSession(server, 'web-tls', options, (err, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/account',
+                    method: 'GET',
+                    headers: { 'cookie': 'sid-example=' + sessionCookie }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(200); // unauthorized.
+                    // expect(res.headers.location, 'headers.location').to.equal(webTls.info.uri + '/home');
+                    server.stop(done);
+                });
             });
         });
     });
@@ -68,9 +381,35 @@ internals.manifest = {
             tls: Config.tls
         }
     ],
-    plugins: {
-        './home': {}
-    }
+    registrations: [
+        {
+            plugin: './home',
+            options: {
+                select: ['web-tls']
+            }
+        },
+        {
+            plugin: 'vision'
+        },
+        {
+            plugin: 'inert'
+        },
+        {
+            plugin: './api/user',
+            options: {
+                select: ['web-tls']
+            }
+        },
+        {
+            plugin: './cookie-auth',
+            options: {
+                select: ['web-tls']
+            }
+        },
+        {
+            plugin: 'hapi-auth-cookie'
+        }
+    ]
 };
 
 internals.composeOptions = {

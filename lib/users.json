@@ -1,8 +1,16 @@
 {
 	"foo": {
-		"password": "foo"
+        "id": 1,
+        "username": "Foo Foo",
+        "password": "foo",
+        "email": "foo@hapiu.com",
+        "scope": ["admin", "user"]
 	},
 	"bar": {
-		"password": "bar"
+        "id": 2,
+        "username": "Barica",
+		"password": "bar",
+        "email": "bar@hapiu.com",
+        "scope": ["user"]
 	}
 }

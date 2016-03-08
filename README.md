@@ -7,20 +7,6 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 
 [![Join the chat at https://gitter.im/hapijs/university](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hapijs/university?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-### How the project works
-* An assignment is issued.
-* Anyone is welcome to fork the project, write code fulfilling the assignment requirements and submit a PR.
-* After PRs are submitted, we peer review each others PRs and learn from each others critiques.
-* At the end of an assignment and peer review process, we have a nice refined solution to be merged into the project.
-* Merge in a PR and move on to the next assignment.
-
-You are welcome to join! 
-
-### Assignment List
-See the [list of assignments](https://github.com/hapijs/university/blob/master/guides/contents.md) for instructions on how to <br/>
-checkout the project in earlier states and work on previous assignments.  
-
-
 ### What are we going to build?
 
 Using hueniversity distributed classroom style of learning and development.
