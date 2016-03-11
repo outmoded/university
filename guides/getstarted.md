@@ -39,9 +39,19 @@ hapijs/university. Also, they are essential to collaborate remotely on distribut
     * `git checkout -b myAssignment8` <br/>
       Creates branch named myAssignment8 from the head of the assignment7 branch.<br/>
     * Write code fulfilling assignment8 requirements on branch myAssignment8.<br/>
-       - periodically commit your work to myAssignment8 branch.<br/>
-          * `git add .`<br/>
-          * `git commit`<br/>
+      * periodically commit your work to myAssignment8 branch.<br/>
+         * `git add .`<br/>
+         * `git commit`<br/>
+      * Important, always start an assignment with the community's branch as the starting point. 
+        - Do not use a branch with your solution written for a previous assignment as the starting point.
+        - Ensure the branch you are checking out as a starting point, matches the community's branch for the assignment. 
+        For example, suppose you just completed assignment5 on your myAssignment5 branch and want to start assigment6. 
+        Do not start your work for assignment6 on the branch containing your solution written for assignment5 (myAssignment5).  
+        - If you follow the above instructions and always commit your work to a myAssignment# branch and do not modify the 
+        community branches for each assignment you will be fine.
+        - Using community branches as starting points wil keep the project consistent and manageable. 
+        Plus, participants will stay in touch with where the community project is going.
+
 * **push your work to your fork of the university**</br>
   - Ensure the remote origin is properly configured.</br>
     * git remote -v  </br>
@@ -58,7 +68,10 @@ hapijs/university. Also, they are essential to collaborate remotely on distribut
       You cannot merge work into the hapijs/university assignment8 branch because the assignment8 branch already has the 
       solution. The work will conflict with the assignment8 solution and warning messages will display saying there are merge conflicts.
       This means we will always merge (make PRs) into the previous assignment's branch when making a PR.
-      So, when fulfilling an assignment you always want to start at the previous assignments branch as described earlier. And, we will make PRs to merge into the prevsiou assignments branch.
+    - In a typical PR, if everything is good it is merged into the project. However, if a PR is made fulfilling an assignment which already has a solution,  
+      the community will make comments on the PR and then close it. It will not be merged into the project.   
+
+    - So, when fulfilling an assignment you always want to start at the previous assignments branch as described earlier. And, we will make PRs to merge into the previous assignments branch.
 
 
 ## Assignments List

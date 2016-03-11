@@ -406,7 +406,7 @@ internals.manifest = {
             }
         },
         {
-            plugin: './cookie-auth',
+            plugin: './auth-cookie',
             options: {
                 select: ['web-tls']
             }

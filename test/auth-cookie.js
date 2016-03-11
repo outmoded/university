@@ -6,7 +6,7 @@ const Code = require('code');
 const Lab = require('lab');
 const University = require('../lib');
 const Users = require('../lib/users.json');
-const Auth = require('../lib/cookie-auth');
+const Auth = require('../lib/auth-cookie');
 const ApiUser = require('../lib/api/user');
 const Hoek = require('hoek');
 const Path = require('path');
@@ -26,9 +26,9 @@ const describe = lab.experiment;
 const expect = Code.expect;
 const it = lab.test;
 
-describe('/cookie-auth', () => {
+describe('/auth-cookie', () => {
 
-    it('cookie-auth server.app.cache.get coverage.', { parallel: false }, (done) => {
+    it('auth-cookie server.app.cache.get coverage.', { parallel: false }, (done) => {
 
         University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
@@ -136,7 +136,7 @@ describe('/cookie-auth', () => {
         });
     });
 
-    it('errors on failed registering of cookie-auth', { parallel: false }, (done) => {
+    it('errors on failed registering of auth-cookie', { parallel: false }, (done) => {
 
         const orig = Auth.register;
 
@@ -202,7 +202,7 @@ internals.manifest = {
             }
         },
         {
-            plugin: './cookie-auth',
+            plugin: './auth-cookie',
             options: {
                 select: ['web-tls']
             }
