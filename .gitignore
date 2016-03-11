@@ -13,5 +13,5 @@ config.json
 */._*
 */*/._*
 coverage.*
-*/*~
-.emacs*
+.settings
+test/fixtures/awesomeLog
