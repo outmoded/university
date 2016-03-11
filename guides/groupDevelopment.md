@@ -15,6 +15,12 @@ To do this, we will periodically:
 * After PRs are submitted, we peer review each others PRs and learn from the critiques.<br/>
   Look at what others are submitting and see if you can improve your own solution (borrow ideas, add tests, write examples, update the documentation). 
   If you see ways in which others can improve their solution, comment on their Pull Request.
-* At the end of an assignment and peer review process, we have a nice refined solution that may be merged into the project.
+  - If you have your own solution to an assignment which another PR with good discussion already exists for, do your best to keep discussion relating to the assignment  
+    in the PR with active discussion.  This will allow for those coming later to benefit from the discussion. Plus, it will make it easier for expert developers
+    to keep pace with the discussion and add input with minimal effort.  
+* At the end of an assignment and peer review process, we will have a nice refined solution that may be merged into the project.
+  Discussion about which PR to accept as the solution is welcome. If there is no agreement the university maintainer will decide.
+  Of course, if there is an expert developer who wants to determine the best solution they are always welcome. Hint, hint.... [hapi team](https://github.com/orgs/hapijs/people) your
+  input is welcome :-)
 * Merge in a PR and move on to the next assignment.
 * Before starting the next assignment, make sure [your fork matches the current master](guides/git.md) since only one Pull Request can be accepted.
