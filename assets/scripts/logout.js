@@ -1,10 +1,8 @@
 
-
-
 var internals = {};
 
 
-internals.executeAJAX = function (url, data, callback) {
+internals.executeAJAX = function (url, headers, data, callback) {
 
     var request = new XMLHttpRequest();
 
@@ -24,6 +22,15 @@ internals.executeAJAX = function (url, data, callback) {
         if (request.readyState === 4 && callback) {
             return callback(request);
         }
+    };
+
+    // load headers
+
+    var headerKeys = Object.keys(headers);
+
+    for (var i = 0; i < headerKeys.length; ++i) {
+    
+        request.setRequestHeader(headerKeys[i] , headers[headerKeys[i]]);
     };
 
     request.setRequestHeader('Content-Type', 'application/json');
@@ -57,9 +64,7 @@ internals.errorMessage = function (message) {
 
 internals.successMessage = function (request) {
 
-
     // Success clear and display authenticated users links.
-
 
     var parent1 = document.getElementsByTagName('body');
 
@@ -67,12 +72,10 @@ internals.successMessage = function (request) {
 
     var data = JSON.parse(request.response);
 
-
     // Add links
 
-
     parent1[0].innerHTML = data.message + '<br/>' +
-            '<a href="/home">Home</a><br/>';
+        '<a href="/home">Home</a><br/>';
 
     return;
 };
@@ -80,42 +83,45 @@ internals.successMessage = function (request) {
 
 document.onreadystatechange = function () {
 
-
     if (document.readyState === 'complete') {
 
+        if (document.getElementById('btnLogout')) {
+        
+            // Add click event handler
 
-        // Add click event handler
+            document.getElementById('btnLogout').addEventListener('click', function (event) {
 
-        document.getElementById('btnLogout').addEventListener('click', function (event) {
+                event.preventDefault();
 
+                // Get submitted form data
 
-            console.log('logout request');
-            event.preventDefault();
+                var requestData = '{ request: \'logout\' }';
 
+                var crumb = document.getElementsByTagName('meta')[0].getAttribute("content");
 
-            // Get page crumb data
-            var crumb = document.getElementsByName('crumb')[0].content;
-            var requestData = { request: 'logout', crumb: crumb };
-
-
-
-            internals.executeAJAX('/logout', requestData, function (request) {
-
-                if (request.status === 200) {
-
-                    internals.successMessage(request);
-
-                } else {
-
-                    // Oh no! request aborted
-
-                    if (request.timedOut === true) {
-                        internals.errorMessage('Your request timed out.  Most likely you have a slow internet connection.');
-                    } else {
-                        internals.errorMessage('[Error] Failed to load resource: Could not connect to the server.');
-                    }
+                var headers = { 
+                    'x-csrf-token': crumb
                 }
+
+                internals.executeAJAX('/logout', headers, requestData, function (request) {
+
+                    if (request.status === 200) {
+
+                        internals.successMessage(request);
+
+                    } else {
+
+                        // Oh no! request aborted
+
+                        if (request.timedOut === true) {
+                            internals.errorMessage('Your request timed out.  Most likely you have a slow internet connection.');
+                        } else {
+                            internals.errorMessage('[Error] Failed to load resource: Could not connect to the server.');
+                        }
+                    }
+                });
             });
-        });
+        }
+
     }
 };
