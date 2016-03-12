@@ -1,332 +1,135 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var University = require('../lib');
-var Path = require('path');
-var Config = require('../lib/config');
-var Cheerio = require('cheerio');
-var Auth = require('hapi-auth-cookie');
-var Hoek = require('hoek');
-var GenerateCrumb = require('./generateCrumb');
+const Code = require('code');
+const Lab = require('lab');
+const University = require('../lib');
+const Home = require('../lib/home');
+const Vision = require('vision');
+const Path = require('path');
+const Inert = require('inert');
+const Hoek = require('hoek');
+const Config = require('../lib/config');
+const GenerateSessionCrumb = require('./generateSessionCrumb');
 
 // Declare internals
 
-var internals = {};
-
+const internals = {};
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
+describe('/home', () => {
 
-describe('/home', function () {
+    it('ensures that GET /login is always redirected to https', (done) => {
 
-    it('ensures that /home is always redirected to https', function (done) {
-
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            var request = { method: 'GET', url: '/home' };
-            server.select('web').inject(request, function (res) {
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/login'
+            };
+            web.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(301);
-                expect(res.headers.location).to.equal('https://localhost:8001/home');
+                expect(res.headers.location).to.equal(webTls.info.uri + '/login');
 
                 server.stop(done);
             });
         });
     });
 
-    it('returns an home page via https', function (done) {
+    it('returns a login page via https', (done) => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            // #### Debugging https testing conclusion is must use nock  #### //
-            // var request = { method: 'GET', url: '/home', headers: { Host: 'https', location: 'https://localhost:8001/home' } };
-            // @arb's recommendations
-            // i've used nock() before as you can probably guess by the issues i opened up
-            // it's good another thing you could do would be to stand up a dummy server that responds with JSON fixtures
-            // also you can look at request.url that should tell you if the request is https or not
-            var request = { method: 'GET', url: '/home' };
+            const webTls = server.select('web-tls');
 
-            server.select('web-tls').inject(request, function (res) {
+            const request = {
+                method: 'GET',
+                url: '/login'
+            };
+            webTls.inject(request, (res) => {
 
                 expect(res.statusCode, 'Status code').to.equal(200);
 
-                // expect(res.raw.req.headers.location).to.equal('https://localhost:8001/home');
+                server.stop(done);
+            });
+        });
+    });
 
-                //expect(res.raw.req.result).to.equal('result');
+    it('ensures that /home is always redirected to https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/home'
+            };
+            web.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(301);
+                expect(res.headers.location).to.equal(webTls.info.uri + '/home');
 
                 server.stop(done);
             });
         });
     });
 
-    it('Authenticated user info is displayed', function (done) {
+    it('returns a home page via https', (done) => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
-
-            expect(err).to.not.exist();
-
-
-            // Successfull Login
-
-            GenerateCrumb(server, function (crumb){
-
-                internals.crumb = crumb;
-
-                internals.options = {
-                    url: '/login',
-                    method: 'POST',
-                    payload: {
-                        username: 'foo',
-                        password: 'foo',
-                        crumb: crumb
-                    },
-                    headers: { cookie: 'crumb=' + crumb }
-                };
-
-                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
-
-                internals.server = server;
-
-                internals.server.select('api').inject(internals.options, function (res) {
-
-                    expect(res.statusCode, 'Status code').to.equal(200);
-                    expect(res.result.username).to.equal('Foo Foo');
-
-                    var header = res.headers['set-cookie'];
-
-                    expect(header.length).to.equal(1);
-                    expect(header[0]).to.contain('Max-Age=60');
-
-                    var cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-
-
-                    // ./home greets authenticated user
-
-
-                    var request2 = { method: 'GET', url: '/home', headers: { cookie: 'hapi-university=' + cookie[1] } };
-
-                    internals.server.select('web-tls').inject(request2, function (res) {
-
-                        var $ = Cheerio.load(res.result);
-                        var result = ($('h1', 'body').text());
-
-                        expect(result).to.equal('Foo Foo');
-                        internals.server.stop(done);
-                    });
-                });
-            });
-        });
-    });
-});
-
-describe('./account', function () {
-
-    it('logged in (admin) user has admin information loaded.', function (done) {
-
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
+            const webTls = server.select('web-tls');
 
-            // Successfull Login
+            const request = {
+                method: 'GET',
+                url: '/home'
+            };
 
-            GenerateCrumb(server, function (crumb) {
+            webTls.inject(request, (res) => {
 
-                internals.options = {
-                    url: '/login',
-                    method: 'POST',
-                    payload: {
-                        username: 'foo',
-                        password: 'foo',
-                        crumb: crumb
-                    },
-                    headers: { cookie: 'crumb=' + crumb }
-                };
+                expect(res.statusCode, 'Status code').to.equal(200);
 
-                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
-
-                internals.server = server;
-
-                internals.server.select('api').inject(internals.options, function (res) {
-
-                    expect(res.statusCode, 'Status code').to.equal(200);
-                    expect(res.result.username).to.equal('Foo Foo');
-
-                    var header = res.headers['set-cookie'];
-                    expect(header.length).to.equal(1);
-
-                    expect(header[0]).to.contain('Max-Age=60');
-
-                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-
-
-                    // ./account greets authenticated admin user
-
-
-                    var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
-
-                    internals.server.select('web-tls').inject(request2, function (res) {
-
-                        var $ = Cheerio.load(res.result);
-                        var result = ($('h3', 'body').text());
-
-                        expect(result).to.equal('Foo Foo Account');
-
-                        internals.server.stop(done);
-                    });
-                });
+                server.stop(done);
             });
         });
     });
 
-    it('logged in (non-admin) user has information loaded.', function (done) {
+    it('errors on failed registering of vision', { parallel: false }, (done) => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        const orig = Vision.register;
 
-            expect(err).to.not.exist();
+        Vision.register = function (plugin, options, next) {
 
-
-            // Successfull Login non-admin user
-
-
-            GenerateCrumb(server, function (crumb) {
-
-                internals.options = {
-                    url: '/login',
-                    method: 'POST',
-                    payload: {
-                        username: 'bar',
-                        password: 'bar',
-                        crumb: crumb
-                    },
-                    headers: { cookie: 'crumb=' + crumb }
-                };
-
-                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
-
-                internals.server = server;
-
-                internals.server.select('api').inject(internals.options, function (res) {
-
-                    expect(res.statusCode, 'Status code').to.equal(200);
-                    expect(res.result.username).to.equal('Bar Head');
-
-                    var header = res.headers['set-cookie'];
-
-                    expect(header.length).to.equal(1);
-                    expect(header[0]).to.contain('Max-Age=60');
-
-                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-
-
-                    // ./account greets authenticated non-admin user
-
-
-                    var request2 = { method: 'GET', url: '/account', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
-
-                    internals.server.select('web-tls').inject(request2, function (res) {
-
-                        var $ = Cheerio.load(res.result);
-                        var result = ($('h3', 'body').text());
-
-                        expect(result).to.equal('Bar Head Account');
-
-                        internals.server.stop(done);
-                    });
-                });
-            });
-        });
-    });
-});
-
-describe('./account', function () {
-
-    it('logged in (admin) user accesses /admin page.', function (done) {
-
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
-
-            expect(err).to.not.exist();
-
-
-            // Admin user successfull Login
-
-
-            GenerateCrumb(server, function (crumb) {
-
-                internals.options = {
-                    url: '/login',
-                    method: 'POST',
-                    payload: {
-                        username: 'foo',
-                        password: 'foo',
-                        crumb: crumb
-                    },
-                    headers: { cookie: 'crumb=' + crumb }
-                };
-
-                expect(internals.options.headers.cookie).to.equal('crumb=' + crumb);
-
-                internals.server = server;
-
-                internals.server.select('api').inject(internals.options, function (res) {
-
-                    expect(res.statusCode, 'Status code').to.equal(200);
-                    expect(res.result.username).to.equal('Foo Foo');
-
-                    var header = res.headers['set-cookie'];
-
-                    expect(header.length).to.equal(1);
-                    expect(header[0]).to.contain('Max-Age=60');
-
-                    internals.cookie = header[0].match(/(?:[^\x00-\x20\(\)<>@\,;\:\\"\/\[\]\?\=\{\}\x7F]+)\s*=\s*(?:([^\x00-\x20\"\,\;\\\x7F]*))/);
-
-
-                    // ./admin route greets authenticated admin user
-
-
-                    var request2 = { method: 'GET', url: '/admin', headers: { cookie: 'hapi-university=' + internals.cookie[1] } };
-
-                    internals.server.select('web-tls').inject(request2, function (res) {
-
-                        var $ = Cheerio.load(res.result);
-                        var result = ($('h3', 'body').text());
-
-                        expect(result).to.equal('Success, you accessed the admin page!');
-                        internals.server.stop(done);
-                    });
-                });
-            });
-        });
-    });
-});
-
-describe('hapi-auth-cookie', function () {
-
-    it('errors on failed registering of auth-cookie', { parallel: false }, function (done) {
-
-        var orig = Auth.register;
-
-        Auth.register = function (plugin, options, next) {
-
-            Auth.register = orig;
+            Vision.register = orig;
             return next(new Error('fail'));
         };
 
-        Auth.register.attributes = {
-            name: 'fake hapi-auth-cookie'
+        Vision.register.attributes = {
+            name: 'fake vision'
         };
 
-        University.init(internals.manifest, internals.composeOptions, function (err) {
+        University.init(internals.manifest, internals.composeOptions, (err) => {
 
             expect(err).to.exist();
 
@@ -334,20 +137,238 @@ describe('hapi-auth-cookie', function () {
         });
     });
 
-    it('errors on missing Auth cookie plugin', function (done) {
+    it('errors on missing vision plugin', (done) => {
 
-        var manifest = Hoek.clone(internals.manifest);
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(1, 1);
 
-        delete manifest.plugins['./auth-cookie'];
-
-        var failingInit = University.init.bind(University, manifest, internals.composeOptions, function (err) {
+        University.init(manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Home.register.attributes.name + ' missing dependency ' + Vision.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web-tls').info.uri);
+
             done();
         });
+    });
 
-        expect(failingInit).to.throw();
-        done();
+    it('errors on failed registering of inert', { parallel: false }, (done) => {
+
+        const orig = Inert.register;
+
+        Inert.register = function (plugin, options, next) {
+
+            Inert.register = orig;
+            return next(new Error('fail'));
+        };
+
+        Inert.register.attributes = {
+            name: 'fake inert'
+        };
+
+        University.init(internals.manifest, internals.composeOptions, (err) => {
+
+            expect(err).to.exist();
+
+            done();
+        });
+    });
+
+    it('errors on missing inert plugin', (done) => {
+
+        const manifest = Hoek.clone(internals.manifest);
+        manifest.registrations.splice(2, 1);
+
+        University.init(manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.exist();
+            expect(err.message).to.equal('Plugin ' + Home.register.attributes.name + ' missing dependency ' + Inert.register.attributes.pkg.name +
+                                         ' in connection: ' + server.select('web-tls').info.uri);
+
+            done();
+        });
+    });
+
+    it('account access redirects', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const webTls = server.select('web-tls');
+
+            const request = {
+                method: 'GET',
+                url: '/account'
+            };
+            webTls.inject(request, (res) => {
+
+                expect(res.statusCode, 'Status code').to.equal(302);
+                expect(res.headers.location, 'headers.location').to.equal('/home');
+                server.stop(done);
+            });
+        });
+    });
+
+    it('user attempts access to /admin resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'bar',
+                    password: 'bar'
+                }
+            };
+
+            GenerateSessionCrumb(server, 'web-tls', options, (err, crumbCookie, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/admin',
+                    method: 'GET',
+                    headers: {
+                        'x-csrf-token': crumbCookie,
+                        cookie: 'crumb=' + crumbCookie + '; sid-example=' + sessionCookie
+                    }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(302); // unauthorized redirect.
+                    expect(res.headers.location, 'headers.location').to.equal(webTls.info.uri + '/home');
+                    server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('admin accesses the /admin resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'foo',
+                    password: 'foo'
+                }
+            };
+
+            GenerateSessionCrumb(server, 'web-tls', options, (err, crumbCookie, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/home',
+                    method: 'GET',
+                    headers: {
+                        'x-csrf-token': crumbCookie,
+                        cookie: 'crumb=' + crumbCookie + '; sid-example=' + sessionCookie
+                    }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('admin accesses the /account resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'foo',
+                    password: 'foo'
+                }
+            };
+
+            GenerateSessionCrumb(server, 'web-tls', options, (err, crumbCookie, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/account',
+                    method: 'GET',
+                    headers: {
+                        'x-csrf-token': crumbCookie,
+                        cookie: 'crumb=' + crumbCookie + '; sid-example=' + sessionCookie
+                    }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    server.stop(done);
+                });
+            });
+        });
+    });
+
+    it('non-admin accesses the /account resource', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            const options = {
+                url: '/login',
+                method: 'POST',
+                payload: {
+                    username: 'bar',
+                    password: 'bar'
+                }
+            };
+
+            GenerateSessionCrumb(server, 'web-tls', options, (err, crumbCookie, sessionCookie) => {
+
+                expect(sessionCookie.length).to.equal(228);
+                expect(err).to.not.exist();
+
+                const webTls = server.select('web-tls');
+
+                const request = {
+                    url: '/account',
+                    method: 'GET',
+                    headers: {
+                        'x-csrf-token': crumbCookie,
+                        cookie: 'crumb=' + crumbCookie + '; sid-example=' + sessionCookie
+                    }
+                };
+
+                webTls.inject(request, (res) => {
+
+                    expect(res.statusCode, 'Status code').to.equal(200);
+                    server.stop(done);
+                });
+            });
+        });
     });
 });
 
@@ -361,28 +382,47 @@ internals.manifest = {
         {
             host: 'localhost',
             port: 0,
-            labels: ['web-tls', 'api'],
+            labels: ['web-tls'],
             tls: Config.tls
         }
     ],
-    plugins: {
-        './home': [{
-            'select': ['web', 'web-tls']
-        }],
-        './api/login': [{
-            'select': ['api']
-        }],
-        './auth-cookie': {},
-        'hapi-auth-cookie': {},
-        'crumb': Config.crumb
-    }
+    registrations: [
+        {
+            plugin: './home',
+            options: {
+                select: ['web-tls']
+            }
+        },
+        {
+            plugin: 'vision'
+        },
+        {
+            plugin: 'inert'
+        },
+        {
+            plugin: './api/user',
+            options: {
+                select: ['web-tls']
+            }
+        },
+        {
+            plugin: './auth-cookie',
+            options: {
+                select: ['web-tls']
+            }
+        },
+        {
+            plugin: 'hapi-auth-cookie'
+        },
+        {
+            plugin: './crumbit',
+            options: {
+                select: ['web-tls']
+            }
+        }
+    ]
 };
 
 internals.composeOptions = {
     relativeTo: Path.resolve(__dirname, '../lib')
-};
-
-internals.loginCredentials = function (username, password) {
-
-    return JSON.stringify({ username: username, password: password });
 };

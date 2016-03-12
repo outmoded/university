@@ -1,9 +1,20 @@
+'use strict';
+
+document.onreadystatechange = function () {
+
+    if (document.readyState === 'complete') {
+        document.getElementById('btnLogin').addEventListener('click', function (event) {
+
+            event.preventDefault();
+        });
+    }
+};
 
 
 var internals = {};
 
 
-internals.executeAJAX = function (url, data, callback) {
+internals.executeAJAX = function (url, headers, data, callback) {
 
     internals.clearErrors();
 
@@ -25,6 +36,17 @@ internals.executeAJAX = function (url, data, callback) {
         if (request.readyState === 4 && callback) {
             return callback(request);
         }
+    };
+
+    // load headers
+
+    var headerKeys = Object.keys(headers);
+
+    for (var i = 0; i < headerKeys.length; ++i) {
+    
+        // assumes headers.key equals header name
+
+        request.setRequestHeader(headerKeys[i] , headers[headerKeys[i]]);
     };
 
     request.setRequestHeader('Content-Type', 'application/json');
@@ -61,7 +83,7 @@ internals.clearErrors = function () {
 
     if (errorMessages.length > 0) {
 
-        console.log('Has Errors');
+        // console.log('Has Errors');
         errorMessages[0].parentNode.removeChild(errorMessages[0]);
     }
 };
@@ -70,7 +92,6 @@ internals.successMessage = function (request) {
 
 
     // Success clear and display authenticated users links.
-
 
     var form = document.getElementsByTagName('form')[0];
     var parent1 = form.parentNode;
@@ -85,7 +106,7 @@ internals.successMessage = function (request) {
 
 
     parent1.innerHTML = 'Welcome: ' + data.username + ' <br/>' +
-            '<a href="/account">' + data.username + '\'s Account </a><br/>';
+        '<a href="/account">' + data.username + '\'s Account </a><br/>';
 
     return;
 };
@@ -107,14 +128,20 @@ document.onreadystatechange = function () {
 
             // Get submitted form data
 
-
             var username = document.getElementsByName('username')[0].value;
             var password = document.getElementsByName('password')[0].value;
-            var crumb = document.getElementsByName('crumb')[0].value;
-            var requestData = { username: username, password: password, crumb: crumb };
+            var crumb = document.getElementsByTagName('meta')[0].getAttribute("content");
 
+            var requestData = { 
+                username: username, 
+                password: password 
+            };
 
-            internals.executeAJAX('/login', requestData, function (request) {
+            var headers = { 
+                'x-csrf-token': crumb
+            }
+
+            internals.executeAJAX('/login', headers, requestData, function (request) {
 
                 if (request.status === 200) {
 

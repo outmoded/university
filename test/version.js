@@ -1,51 +1,57 @@
+'use strict';
+
 // Load modules
 
-var Code = require('code');
-var Lab = require('lab');
-var Pkg = require('../package.json');
-var University = require('../lib');
-var Path = require('path');
-var Config = require('../lib/config');
+const Code = require('code');
+const Lab = require('lab');
+const Package = require('../package.json');
+const University = require('../lib');
+const Path = require('path');
+const Config = require('../lib/config');
 
 // Declare internals
 
-var internals = {};
+const internals = {};
 
 // Test shortcuts
 
-var lab = exports.lab = Lab.script();
-var describe = lab.experiment;
-var expect = Code.expect;
-var it = lab.test;
+const lab = exports.lab = Lab.script();
+const describe = lab.experiment;
+const expect = Code.expect;
+const it = lab.test;
 
-describe('/version', function () {
 
-    it('ensures /version always redirected to use https', function (done) {
+describe('/version', () => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+    it('ensures /version always redirected to use https', (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            server.select('web').inject('/version', function (res) {
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            web.inject('/version', (res) => {
 
                 expect(res.statusCode).to.equal(301);
-                expect(res.headers.location).to.equal('https://localhost:8001/version');
+                expect(res.headers.location).to.equal(webTls.info.uri + '/version');
 
                 server.stop(done);
             });
         });
     });
 
-    it('returns the version from package.json', function (done) {
+    it('returns the version from package.json', (done) => {
 
-        University.init(internals.manifest, internals.composeOptions, function (err, server) {
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
             expect(err).to.not.exist();
 
-            server.select('web-tls').inject('/version', function (res) {
+            server.select('web-tls').inject('/version', (res) => {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ version: Pkg.version });
+                expect(res.result).to.deep.equal({ version: Package.version });
 
                 server.stop(done);
             });
@@ -63,13 +69,15 @@ internals.manifest = {
         {
             host: 'localhost',
             port: 0,
-            labels: ['web-tls', 'api'],
+            labels: ['web-tls'],
             tls: Config.tls
         }
     ],
-    plugins: {
-        './version': {}
-    }
+    registrations: [
+        {
+            plugin: './version'
+        }
+    ]
 };
 
 internals.composeOptions = {
