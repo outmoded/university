@@ -263,7 +263,7 @@ internals.manifest = {
             plugin: 'inert'
         },
         {
-            plugin: './cookie-auth',
+            plugin: './auth-cookie',
             options: {
                 select: ['web-tls']
             }
