@@ -1,0 +1,32 @@
+{
+  "name": "hapijs_uni_assignment1",
+  "version": "0.0.1",
+  "description": "first assignment of hapijs university",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "lab -c -v -L",
+    "start": "node ./lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/university.git"
+  },
+  "keywords": [
+    "hapijs"
+  ],
+  "author": "Robin Rush",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/kernkonzentrat/university/issues"
+  },
+  "homepage": "https://github.com/kernkonzentrat/university#readme",
+  "dependencies": {
+    "hapi": "^13.2.2",
+    "hoek": "^3.0.4"
+  },
+  "devDependencies": {
+    "code": "^2.1.1",
+    "eslint-plugin-markdown": "^1.0.0-beta.1",
+    "lab": "^10.3.0"
+  }
+}
