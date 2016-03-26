@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/kernkonzentrat/university#readme",
   "dependencies": {
-    "hapi": "^13.2.2"
+    "hapi": "^13.2.2",
+    "hoek": "^3.0.4"
   },
   "devDependencies": {
     "code": "^2.1.1",
