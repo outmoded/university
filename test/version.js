@@ -1,4 +1,4 @@
-const Init = require('./')
+const Init = require('../lib/index');
 const Code = require('code');
 const Lab = require('lab');
 const lab = exports.lab = Lab.script();
@@ -9,7 +9,11 @@ const expect = Code.expect;
 
 describe('version', () => {
 
-    it('returns a correct verion content', (done) => {
+    it('returns a correct verion from pakage.json', (done) => {
+
+        Init(0, (err, server) => {
+
+        });
 
         done();
     });
