@@ -1,4 +1,4 @@
-const Version = require('../lib/version');
+const Init = require('./')
 const Code = require('code');
 const Lab = require('lab');
 const lab = exports.lab = Lab.script();
