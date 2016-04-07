@@ -26,6 +26,7 @@
     "start": "node lib/index.js"
   },
   "devDependencies": {
+    "code": "^2.2.0",
     "lab": "^10.3.1"
   }
 }
