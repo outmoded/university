@@ -17,16 +17,17 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 * <b>Individually</b>  
   Anyone is welcome to work individually on university assignments. Checkout solutions and study them at your own pace.
   * **Assignments & Solutions**    
-    Read the [list of assignments](guides/contents.md) to find specific subjects your would like to work on.  
+    Read the [list of assignments](guides/contents.md) to find specific subjects you would like to work on.  
+    Solutions are provided for each assignment.
   * **Getting Started**  
     Read the [Getting Started Guide](guides/getstarted.md) to understand how to work on assignments.  
     Solutions provided for each assignment. 
   * Write code fulfilling assignment requirements and submit a PR.
-    Read [pull requests](https://help.github.com/articles/using-pull-requests/) if unsure how to make a PR. 
-  * After a PR is submitted, we peer review the PR and learn from the critiques.<br/>
+    Read [pull requests](https://help.github.com/articles/using-pull-requests/) if you are unsure how to make a PR. 
+  * After a PR is submitted, the community peer reviews the PR allowing us to learn from each other.
 
 * <b>Community Assignments</b>   
-  Watch the [issues list](https://github.com/hapijs/university/issues) for discussion about next stages
+  Watch the [issues list](https://github.com/hapijs/university/issues) for discussion about the next stages
   of group development. You are welcome to participate. Group assignments will be tagged with the assignment label
   in the issues list.  Read more about [group assignments here.](guides/groupDevelopment.md)  
 
@@ -36,10 +37,13 @@ You will learn essential components needed to build hapi applicatons:  authentic
 This will be done by building an application with the following features: 
 * A public page(s) accessible to all.
 * Route(s) with restricted access. Only authenticated & authorized users will have access to restricted routes.
-* Sessions support using "simple cookie-based session management. The user has to be authenticated by POSTing an AJAX request.  
-  Upon successful authentication, user receives a reply with a session cookie." [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie)
+* Sessions support using [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie).  
+  > simple cookie-based session management.  
+  > The user has to be authenticated by POSTing an AJAX request.  
+  > Upon successful authentication, user receives a reply with a session cookie.  
+  [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie)   
 * POST request data validation using [joi](https://github.com/hapijs/joi).
-* A server that composes using [glue](https://github.com/hapijs/glue) to load plugins.
+* A server that is composed by using [glue](https://github.com/hapijs/glue) to load plugins.
 * tls / ssl support as described at: [learning objectives]( https://github.com/zoe-1/hapitimes)
 * Combat Cross-Site Request Forgery (CSRF) attacks by using [hapijs / crumb](https://github.com/hapijs/crumb)
 * Configure a plugin to serve static files: css, images, and JavaScript.
@@ -56,7 +60,7 @@ In the end, the application will have the following resource points (routes):
 * An account page (restricted) to authenticated users. 
 * An admin page (restricted user with admin privileges). 
 * [lout](https://github.com/hapijs/lout) will be used to generate documentation for all existing resources.
-* The university is still developing.  
+* And more to come. The university is still under active development.   
   Watch the [issues list](https://github.com/hapijs/university/issues) for details about futher development.
 
 ### Completed Application 
