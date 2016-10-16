@@ -415,11 +415,14 @@ internals.manifest = {
             plugin: 'hapi-auth-cookie'
         },
         {
-            plugin: './crumbit',
+            plugin: {
+                register: './crumbit',
+                options: Config.crumbOptions,
+            },
             options: {
                 select: ['web-tls']
             }
-        }
+        },
     ]
 };
 
