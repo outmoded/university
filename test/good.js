@@ -24,19 +24,9 @@ const lab = exports.lab = Lab.script();
 const describe = lab.experiment;
 const expect = Code.expect;
 const it = lab.test;
-const beforeEach = lab.beforeEach;
+const afterEach = lab.afterEach;
 
 describe('/good', () => {
-
-    // Leave log file around till next test run for manual inspection
-    beforeEach((done) => {
-
-        Fs.truncate(internals.goodFilePath, (err) => {
-
-            Hoek.assert(!err, 'There was an error cleaning up the test log file. In order for future tests to pass, ensure you delete ' + internals.goodFilePath);
-            done();
-        });
-    });
 
     it('errors on failed registering good registration plugin', { parallel: false }, (done) => {
 
@@ -85,6 +75,19 @@ describe('/good', () => {
         University.init(internals.manifest, internals.composeOptions, (err) => {
 
             expect(err).to.not.exist();
+            done();
+        });
+    });
+});
+
+describe('/good integration', () => {
+
+    // We use a seperate describe block so we can ensure we cleanup as this test creates a real log file
+    afterEach((done) => {
+
+        Fs.truncate(internals.goodFilePath, (err) => {
+
+            Hoek.assert(!err, err);
             done();
         });
     });
