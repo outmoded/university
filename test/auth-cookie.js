@@ -126,7 +126,7 @@ describe('/auth-cookie', () => {
                         expect(res.statusCode).to.equal(302);
                         callback();
                     });
-                }], (err, results) => {
+                }], (err/*, results*/) => {
 
                     Auth.options = internals.original;
                     expect(err).to.not.exist();
@@ -213,7 +213,7 @@ internals.manifest = {
         {
             plugin: {
                 register: './crumbit',
-                options: Config.crumbOptions,
+                options: Config.crumbOptions
             },
             options: {
                 select: ['web-tls']

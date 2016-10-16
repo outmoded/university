@@ -29,10 +29,11 @@ const beforeEach = lab.beforeEach;
 describe('/good', () => {
 
     // Leave log file around till next test run for manual inspection
-    beforeEach(done => {
+    beforeEach((done) => {
+
         Fs.truncate(internals.goodFilePath, (err) => {
 
-            Hoek.assert(!err, 'There was an error cleaning up the test log file. In order for future tests to pass, ensure you delete '+internals.goodFilePath);
+            Hoek.assert(!err, 'There was an error cleaning up the test log file. In order for future tests to pass, ensure you delete ' + internals.goodFilePath);
             done();
         });
     });
@@ -113,6 +114,7 @@ describe('/good', () => {
 
             // Single event is coalesced from the 2 we fired b/c we did them in same event loop turn
             server.on('log', (/*event, tags*/) => {
+
                 Fs.readFile(internals.goodFilePath, { encoding: 'utf8' }, (err, contents) => {
 
                     expect(err).to.not.exist();
@@ -159,7 +161,7 @@ internals.manifest = {
                         myFileReporter: [{
                             module: 'good-squeeze',
                             name: 'Squeeze',
-                            args: [{ log: '*', }] // Required for `server.log`. There are many log events that are important, check out the good docs for more :)
+                            args: [{ log: '*' }] // Required for `server.log`. There are many log events that are important, check out the good docs for more :)
                         }, {
                             module: 'good-squeeze',
                             name: 'SafeJson'

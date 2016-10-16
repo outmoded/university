@@ -345,7 +345,7 @@ internals.manifest = {
         {
             plugin: {
                 register: './crumbit',
-                options: Config.crumbOptions,
+                options: Config.crumbOptions
             },
             options: {
                 select: ['web-tls']
