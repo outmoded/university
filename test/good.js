@@ -9,10 +9,14 @@ const Path = require('path');
 const Config = require('../lib/config');
 const Good = require('../lib/good');
 const GoodPlugin = require('good');
+const Hoek = require('hoek');
+const Fs = require('fs');
 
 // Declare internals
 
 const internals = {};
+
+internals.goodFilePath = './test/fixtures/awesomeLog.json';
 
 // Test shortcuts
 
@@ -20,6 +24,7 @@ const lab = exports.lab = Lab.script();
 const describe = lab.experiment;
 const expect = Code.expect;
 const it = lab.test;
+const afterEach = lab.afterEach;
 
 describe('/good', () => {
 
@@ -73,7 +78,66 @@ describe('/good', () => {
             done();
         });
     });
-    return;
+});
+
+describe('/good integration', () => {
+
+    // We use a seperate describe block so we can ensure we cleanup as this test creates a real log file
+    afterEach((done) => {
+
+        Fs.truncate(internals.goodFilePath, (err) => {
+
+            Hoek.assert(!err, err);
+            done();
+        });
+    });
+
+    it('options should be correctly passed through to good itself when registering our `good registration plugin`', { parallel: false }, (done) => {
+
+        University.init(internals.manifest, internals.composeOptions, (err, server) => {
+
+            expect(err).to.not.exist();
+
+            // select each connection
+            const web = server.select('web');
+            const webTls = server.select('web-tls');
+
+            // log these to connection web
+            const actualWebLogMsg = 'A: ' + web.info.uri;
+            const actualWebLogTags = ['my-web-tag', 'another-tag'];
+            server.log(actualWebLogTags, actualWebLogMsg);
+            // Expect this is found from logging on previous line
+            const expectedWebDataPart = 'A: http';
+
+            // rinse/repeat for webTls connection
+            const actualWebTlsLogMsg = 'B: ' + webTls.info.uri;
+            const actualWebTlsLogTags = ['my-web-tls-tag', 'fourth-tag'];
+            server.log(actualWebTlsLogTags, actualWebTlsLogMsg);
+            const expectedWebTlsDataPart = 'B: https';
+
+            // Single event is coalesced from the 2 we fired b/c we did them in same event loop turn
+            server.on('log', (/*event, tags*/) => {
+
+                Fs.readFile(internals.goodFilePath, { encoding: 'utf8' }, (err, contents) => {
+
+                    expect(err).to.not.exist();
+
+                    const lines = contents.trim().split('\n');
+
+                    const webLogJson = JSON.parse(lines[0]);
+                    const webTlsLogJson = JSON.parse(lines[1]);
+
+                    expect(webLogJson.data).to.include(expectedWebDataPart);
+                    expect(webLogJson.tags).to.equal(actualWebLogTags);
+
+                    expect(webTlsLogJson.data).to.include(expectedWebTlsDataPart);
+                    expect(webTlsLogJson.tags).to.equal(actualWebTlsLogTags);
+
+                    done();
+                });
+            });
+        });
+    });
 });
 
 internals.manifest = {
@@ -92,9 +156,25 @@ internals.manifest = {
     ],
     registrations: [
         {
-            plugin: './good',
-            options: {
-                select: ['web-tls']
+            plugin: {
+                register: './good',
+                options: {
+                    ops: { interval: 1000 },
+                    reporters: {
+                        myFileReporter: [{
+                            module: 'good-squeeze',
+                            name: 'Squeeze',
+                            args: [{ log: '*' }] // Required for `server.log`. There are many log events that are important, check out the good docs for more :)
+                        }, {
+                            module: 'good-squeeze',
+                            name: 'SafeJson'
+                        }, {
+                            module: 'good-file',
+                            args: [internals.goodFilePath]
+                        }]
+                    }
+
+                }
             }
         }
     ]
