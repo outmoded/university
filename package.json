@@ -18,17 +18,16 @@
   },
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
-    "async": "^1.5.2",
-    "boom": "3.x.x",
-    "glue": "3.x.x",
+    "async": "2.x.x",
+    "boom": "4.x.x",
+    "glue": "4.x.x",
     "handlebars": "4.x.x",
-    "hapi": "13.x.x",
+    "hapi": "15.x.x",
     "hapi-auth-basic": "4.x.x",
     "hapi-auth-cookie": "6.x.x",
-    "hoek": "3.x.x",
-    "inert": "3.x.x",
-    "items": "^2.0.0",
-    "joi": "8.x.x",
+    "hoek": "4.x.x",
+    "inert": "4.x.x",
+    "joi": "9.x.x",
     "vision": "4.x.x"
   },
   "scripts": {
@@ -38,7 +37,7 @@
     "start": "node lib/start.js"
   },
   "devDependencies": {
-    "code": "2.x.x",
-    "lab": "9.x.x"
+    "code": "4.x.x",
+    "lab": "11.x.x"
   }
 }
