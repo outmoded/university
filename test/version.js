@@ -53,7 +53,7 @@ describe('/version', () => {
             server.select('web-tls').inject('/version', (res) => {
 
                 expect(res.statusCode).to.equal(200);
-                expect(res.result).to.deep.equal({ version: Package.version });
+                expect(res.result).to.equal({ version: Package.version });
 
                 server.stop(done);
             });
