@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/hapijs/university",
   "dependencies": {
-    "hapi": "12.x.x",
-    "hoek": "3.x.x"
+    "hapi": "15.x.x",
+    "hoek": "4.x.x"
   },
   "scripts": {
     "start": "node lib/index.js"
