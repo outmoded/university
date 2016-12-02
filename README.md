@@ -1,5 +1,7 @@
 <img src='images/logo.png' />
 
+by zhenghua
+
 Welcome to hapijs university.  A community learning experiment utilizing the distributed classroom. The idea is simple - use GitHub as a platform for teaching people coding skills as a group, 
 everyone is both a student and a teacher. The goal is to learn how to operate such a distributed classroom and then apply that pattern to other topics.
 
