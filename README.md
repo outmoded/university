@@ -95,3 +95,5 @@ There are lots of way you can help make hapijs university succeed and help shape
 ### Anything else?
 
 [Open an issue](https://github.com/hapijs/university/issues/new), it's free.
+
+by zhenghua
