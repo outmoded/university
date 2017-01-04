@@ -31,13 +31,13 @@
     "good-file": "6.x.x",
     "good-squeeze": "5.x.x",
     "handlebars": "4.x.x",
-    "hapi": "15.x.x",
+    "hapi": "16.x.x",
     "hapi-auth-basic": "4.x.x",
     "hapi-auth-cookie": "6.x.x",
     "hoek": "4.x.x",
     "inert": "4.x.x",
     "items": "2.x.x",
-    "joi": "9.x.x",
+    "joi": "10.x.x",
     "vision": "4.x.x"
   },
   "scripts": {
