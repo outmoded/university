@@ -118,6 +118,10 @@ describe('/good integration', () => {
             server.on('log', (/*event, tags*/) => {
 
                 // Single event is coalesced from the 2 we fired b/c we did them in same event loop turn
+                // @note travis fixes
+                // For some reason when .travis executed tests on github only the first
+                // server.log made it into internals.goodFilePath.  Hence broke the one test into
+                // two. And, only tested one server.log() in each test.  travis was ok with that.
                 Fs.readFile(internals.goodFilePath, { encoding: 'utf8' }, (err, contents) => {
 
                     expect(err).to.not.exist();
@@ -129,31 +133,6 @@ describe('/good integration', () => {
                     done();
                 });
             });
-
-            // Single event is coalesced from the 2 we fired b/c we did them in same event loop turn
-            // server.on('log', (/*event, tags*/) => {
-
-            //     Fs.readFile(internals.goodFilePath, { encoding: 'utf8' }, (err, contents) => {
-
-            //         expect(err).to.not.exist();
-
-            //         console.log('##watch## ' + contents);
-            //         const lines = contents.trim().split('\n');
-
-            //         console.log('##watch line[0]## ' + lines[0]);
-            //         console.log('##watch line[1]## ' + lines[1]); // undefined..
-            //         const webLogJson = JSON.parse(lines[0]);
-            //         const webTlsLogJson = JSON.parse(lines[1]);
-
-            //         expect(webLogJson.data).to.include(expectedWebDataPart);
-            //         expect(webLogJson.tags).to.equal(actualWebLogTags);
-
-            //         expect(webTlsLogJson.data).to.include(expectedWebTlsDataPart);
-            //         expect(webTlsLogJson.tags).to.equal(actualWebTlsLogTags);
-
-            //         done();
-            //     });
-            // });
         });
     });
 
