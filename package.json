@@ -20,7 +20,7 @@
   "dependencies": {
     "glue": "4.x.x",
     "handlebars": "4.x.x",
-    "hapi": "15.x.x",
+    "hapi": "16.x.x",
     "hapi-auth-basic": "4.x.x",
     "hoek": "4.x.x",
     "inert": "4.x.x",
