@@ -15,7 +15,7 @@ to work on assignments. Understanding these commands is necessary to participate
 hapijs/university. Also, they are essential to collaborate remotely on distributed projects using git or github. <br/>
 
 * **fork and clone the university repository** <br/> 
-    * See [this tuturial](https://help.github.com/articles/fork-a-repo/) to understand how to fork a project.
+    * See [this tutorial](https://help.github.com/articles/fork-a-repo/) to understand how to fork a project.
       Then, go fork the hapijs/university repository.
     * `git clone https://github.com/your_repo_name/university.git`
       Clones the fork your just made into your local machine.
