@@ -19,8 +19,8 @@ To do this, we will periodically:
 will have a direct result on how much you learn. It is called: "learning sideways". Everyone is a teacher and a learner. Studying someone else's code will improve your code. And, your critique of another's code will improve their code.<br/><br/>
   There are *three types of PRs* the university is concerned with:
   * *personalPR*<br/>
-    Often, many PRs are sumbitted as a potential solution for an assignment. These PRs are called "personalPRs".  
-    Everyone is encouraged to submit a personalPR and provide peer reviews of PRs sumbitted by others.  
+    Often, many PRs are submitted as a potential solution for an assignment. These PRs are called "personalPRs".  
+    Everyone is encouraged to submit a personalPR and provide peer reviews of PRs submitted by others.  
     Specific explanations and hints can be given inside someone's personalPR. Much learning is accomplished
     through this peer review process. Additionally, one of the personalPRs submitted will be selected and labelled as the "communityPR". 
 
@@ -31,7 +31,7 @@ will have a direct result on how much you learn. It is called: "learning sideway
     - a high quality solution for the assignment. 
     - discussion related to the thought process behind the solution.  
 
-    Having a "communityPR" allows for assignment dicussion and notes to be kept in one place. This provides a form of 
+    Having a "communityPR" allows for assignment discussion and notes to be kept in one place. This provides a form of 
     living documentation for each assignment.  Participants can see a high quality solution and notes regarding it. 
     Importantly, having a "communityPR" also allows for experienced developers to keep pace with the most important discussion topics and 
     contribute with minimal effort.  

@@ -18,7 +18,7 @@ local machine are older than what travis is using with the github university rep
 * `npm update --depth=100`
 * Or, delete ./node_modules and then reinstall all packages with `npm install`
 
-The goal is to ensure you are using the same pacakge versions that travis is using.
+The goal is to ensure you are using the same package versions that travis is using.
 Then, if tests pass on your local machine they will pass on travis too.
 
 

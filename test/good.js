@@ -82,7 +82,7 @@ describe('/good', () => {
 
 describe('/good integration', () => {
 
-    // We use a seperate describe block so we can ensure we cleanup as this test creates a real log file
+    // We use a separate describe block so we can ensure we cleanup as this test creates a real log file
     afterEach((done) => {
 
         Fs.truncate(internals.goodFilePath, (err) => {

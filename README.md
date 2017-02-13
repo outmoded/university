@@ -33,7 +33,7 @@ Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
 
 ### What you will learn
 
-You will learn essential components needed to build hapi applicatons:  authentication, validation, application architecture, testing, and more. 
+You will learn essential components needed to build hapi applications:  authentication, validation, application architecture, testing, and more. 
 This will be done by building an application with the following features: 
 * A public page(s) accessible to all.
 * Route(s) with restricted access. Only authenticated & authorized users will have access to restricted routes.
@@ -61,7 +61,7 @@ In the end, the application will have the following resource points (routes):
 * An admin page (restricted user with admin privileges). 
 * [lout](https://github.com/hapijs/lout) will be used to generate documentation for all existing resources.
 * And more to come. The university is still under active development.   
-  Watch the [issues list](https://github.com/hapijs/university/issues) for details about futher development.
+  Watch the [issues list](https://github.com/hapijs/university/issues) for details about further development.
 
 ### Completed Application 
 * See completed application meeting above requirements: `git checkout assignment8`. 

@@ -24,7 +24,7 @@ const it = lab.test;
 
 describe('api/user', () => {
 
-    it('successfull login.', (done) => {
+    it('successful login.', (done) => {
 
         University.init(internals.manifest, internals.composeOptions, (err, server) => {
 
