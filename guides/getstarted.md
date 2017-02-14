@@ -45,7 +45,7 @@ hapijs/university. Also, they are essential to collaborate remotely on distribut
       * Important, always start an assignment with the community's branch as the starting point. 
         - Do not use a branch with your solution written for a previous assignment as the starting point.
         - Ensure the branch you are checking out as a starting point, matches the community's branch for the assignment. 
-        For example, suppose you just completed assignment5 on your myAssignment5 branch and want to start assigment6. 
+        For example, suppose you just completed assignment5 on your myAssignment5 branch and want to start assignment6. 
         Do not start your work for assignment6 on the branch containing your solution written for assignment5 (myAssignment5).  
         - If you follow the above instructions and always commit your work to a myAssignment# branch and do not modify the 
         community branches for each assignment you will be fine.

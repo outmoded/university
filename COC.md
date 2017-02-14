@@ -1,6 +1,6 @@
 # Code of Conduct
 
-Learning in plain sight can be an intimidating experience. Your code, mistakes, and community feedback are all publically displayed for everyone to see. While this is true for any open source project, course participants are here to learn and can feel a lot more vulnerable.
+Learning in plain sight can be an intimidating experience. Your code, mistakes, and community feedback are all publicly displayed for everyone to see. While this is true for any open source project, course participants are here to learn and can feel a lot more vulnerable.
 
 It is absolutely crucial that any interaction is done with respect, care, and without judgment, and that any feedback is provided gently. We want to teach and learn from each other, and for that to happen, we must treat each other with care.
 

@@ -1,7 +1,7 @@
 'use strict';
 
 // ./test/generateSession.js
-// Use to get hapi-auth-cookie session id cookie value inorder to test restricted routes.
+// Use to get hapi-auth-cookie session id cookie value in order to test restricted routes.
 // Only works if crumb is not registered on the application.
 // If crumb registered, use ./test/generateSessionCrumb.js.
 

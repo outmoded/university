@@ -9,7 +9,7 @@ const internals = {};
 // first:   gets a valid crumb to post requests.
 // second:  adds the crumb headers to the request.
 // third:   generate a hapi-auth-cookie session cookie user session.
-// fourth:  returns the crum and hapi-auth-cookie for the session.
+// fourth:  returns the crumb and hapi-auth-cookie for the session.
 
 module.exports = function (server, connectionLabel, injectOptions, callback) {
 
