@@ -106,7 +106,6 @@ hapi extending!
     caused me to write this introduction to the request lifecycle. assignment9 assumes a basic understanding of the the request lifecycle.
   - Matt Harrison @mtharrison<br/>
     * Explanation on [plugin-level and route-level extensions](https://stackoverflow.com/questions/37424079/how-to-apply-a-hapi-js-plugin-to-specific-routes) was helpful.
-    * His book [hapijs in action](https://www.manning.com/books/hapi-js-in-action) I believe is the source for the graphic used in @AdrVanHoudt 's proposal which
-      inpired the creation of [assignment9](../assignments/a0.0.9.md).  Have not read the book but looked over the section on tests in a Barns and Noble once. 
-      This graphic partially inspired me to make the graphics in this document. (@todo confirm & clarify this issue) 
-      
+    * His book [hapijs in action](https://www.manning.com/books/hapi-js-in-action) I believe is the source for the graphic used in @AdrVanHoudt 's proposal. As mentioned above, 
+      this proposal inspired the creation of [assignment9](../assignments/a0.0.9.md). And, this graphic partially inspired the graphics of this document. 
+      Have not read this book but looked over the introduction and the section on tests in a Barns and Noble once.  
