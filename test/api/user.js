@@ -149,7 +149,7 @@ describe('api/user', () => {
 
                 webTls.inject(request, (res) => {
 
-                    expect(res.result.message, 'message').to.equal('Malformed Data Entered');
+                    expect(res.result.message, 'message').to.equal('/login Malformed Data Entered');
                     expect(res.statusCode, 'Status code').to.equal(400);
                     server.stop(done);
                 });

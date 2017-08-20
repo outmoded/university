@@ -3,7 +3,7 @@
 `git checkout assignmentName` to see a solution.<br/>
 `git checkout previousAssignment` starting point for current assignment.
 
-### Starting Point 
+### Starting Point
 * `git checkout start`
 * Starting point to fulfill assignment1.
 * Note: to work on an assignment checkout the previous assignment's branch.
@@ -36,7 +36,11 @@
 * [Assignment7 Requirements](../assignments/a0.0.7.md)
 * solution `git checkout assignment7`
 
-### 8 Crumb, Server Monitoring and Review 
+### 8 Crumb, Server Monitoring and Review
 * [Assignment8 Requirements](../assignments/a0.0.8.md)
 * solution `git checkout assignment8`
+
+### 9 request lifecycle and *route level* extensions
+* [Assignment9 Requirements](../assignments/a0.0.9.md)
+* solution `git checkout assignment9`
 
