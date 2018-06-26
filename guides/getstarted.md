@@ -1,12 +1,7 @@
 # Getting Started 
 
+DEPRECATED RE-WRITING for hapi v17
 
-## Read Below Before Starting
-* [Code of Conduct](https://github.com/hapijs/university/blob/master/COC.md)
-* [hapijs Style Guide](https://github.com/hapijs/contrib/blob/master/Style.md)
-  Each assignment must abide by this style guide. 
-* Make sure [your fork matches the current master](./git.md)
-* [What is Travis?](./travis.md)
 
 ## Git -- How to get started 
 [hapijs/university](https://github.com/hapijs/university) is organized to allow you to <br/>
