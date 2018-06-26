@@ -21,8 +21,8 @@ have a basic familiarity with node, and be able to pick up new subjects by readi
 
 * <b>Individually</b>
   Anyone is welcome to work individually on university assignments.  See list of assignments below.
-  To Study solutions github provides [a great feature](https://help.github.com/articles/comparing-commits-across-time/) which allows
-  the comparison of commits, branches, or tags across time. This will be used to compare assignments and solutions.
+  To study solutions github provides [a great feature](https://help.github.com/articles/comparing-commits-across-time/) to
+  compare commits, branches, or tags across time. This will be used to compare assignments and solutions.
   Click on a solution link to see a comparison between the previous assignment solution and the current.
   Besides viewing solutions on github, you may checkout solutions on your computer and use a text editor to study them at your own pace.
 
