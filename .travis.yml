@@ -1,6 +1,17 @@
 language: node_js
 
 node_js:
-  - 0.10
-  - 0.12
-  - iojs
+    - "8"
+    - "10"
+    - "11"
+    - "node"
+
+sudo: false
+
+install:
+    - "npm install"
+
+before_script:
+    - redis-server &
+    - redis-server --unixsocket /tmp/redis.sock &
+    - sleep 2
