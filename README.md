@@ -1,12 +1,13 @@
 
-Welcome to hapijs university.  A community learning experiment utilizing the distributed classroom.
-The idea is simple - use GitHub as a platform to teach group coding skills and use JavaScript (w. [hapijs](https://hapijs.com))
-to build web applications.  The goal is to operate such a distributed classroom then apply the pattern
-to other topics.
+### Welcome to hapijs university
+
+A community learning experiment utilizing the distributed classroom.
+The idea is simple - use GitHub as a platform to teach group coding skills. Plus, use JavaScript and [hapijs](https://hapijs.com)
+to build web applications.  Then, operate such a distributed classroom and apply the pattern to other topics.
 
 The university is being re-written because JavaScript, nodejs, and hapi have evolved.
-hapi v17 is out and fully async/await end-to-end.  "It combines the latest technologies with a
-proven core that has been powering some of the world largest sites."
+hapi v17 is out and fully [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) end-to-end.
+"It combines the latest technologies with a proven core that has been powering some of the world largest sites."
 See [hapi v17 release notes](https://github.com/hapijs/hapi/issues/3658) for all details.
 
 Lead Maintainer - [Jon Swenson](https://github.com/zoe-1)
@@ -19,13 +20,11 @@ have a basic familiarity with node, and be able to pick up new subjects by readi
 ### How to participate
 
 * <b>Individually</b>
-  Anyone is welcome to work individually on university assignments.
-  * **Assignments & Solutions**
-    See list of assignments below.
-    To Study solutions github provides [a great feature](https://help.github.com/articles/comparing-commits-across-time/) which allows
-    us to compare commits, branches, or tags across time. We will use this feature to compare assignments and solutions.
-    When you click on a solution link you will see a github comparison between the previous assignment solution and the current.
-    Beside viewing solutions on github, you may checkout solutions on your computer and use a text editor to study them at your own pace.
+  Anyone is welcome to work individually on university assignments.  See list of assignments below.
+  To Study solutions github provides [a great feature](https://help.github.com/articles/comparing-commits-across-time/) which allows
+  the comparison of commits, branches, or tags across time. This will be used to compare assignments and solutions.
+  Click on a solution link to see a comparison between the previous assignment solution and the current.
+  Besides viewing solutions on github, you may checkout solutions on your computer and use a text editor to study them at your own pace.
 
 * <b>Community Assignments</b>
   Besides working individually on assignments. You are welcome
