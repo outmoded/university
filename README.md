@@ -58,7 +58,11 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 
 [rewrite Assignment1 solution](https://github.com/zoe-1/university-rewrite/commit/25a6639113f69b7ce5e7057642e78b183d11dd16)<br/>
 
-### pre-assignment2 reading
+[assignment1 solution](https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Above link is to: `https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1`.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;This utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
+
+#### pre-assignment2 reading:
 
 * [style guide](https://github.com/hapijs/contrib/blob/master/Style.md) note how hapi uses **Module globals** and **internals**.
 * Discussion on [assigning variables, modules, singletons, and callbacks](https://gist.github.com/hueniverse/a06f6315ea736ed1b46d)
