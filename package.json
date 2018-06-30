@@ -1,0 +1,33 @@
+{
+  "name": "hapijs-university",
+  "version": "0.1.1",
+  "description": "learning experiment",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node lib/index.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hapijs/university.git"
+  },
+  "keywords": [
+    "hapijs",
+    "hapi",
+    "javascript",
+    "learn",
+    "learning"
+  ],
+  "author": "Jon Swenson",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/hapijs/university/issues"
+  },
+  "homepage": "https://github.com/hapijs/university#readme",
+  "dependencies": {
+    "hapi": "17.x.x"
+  }
+}
