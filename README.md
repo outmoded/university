@@ -1,11 +1,11 @@
 
-### Welcome to hapijs university
+### hapijs university
 
 A community learning experiment utilizing the distributed classroom.
-The idea is simple - use GitHub as a platform to teach group coding skills. Plus, use JavaScript and [hapijs](https://hapijs.com)
-to build web applications.  Then, operate such a distributed classroom and apply the pattern to other topics.
+The idea is simple: use GitHub as a platform to teach group coding skills, use JavaScript and [hapijs](https://hapijs.com)
+to build web applications, operate such a distributed classroom and apply the pattern to other topics.
 
-The university is being re-written because JavaScript, nodejs, and hapi have evolved.
+University re-write in process because JavaScript, nodejs, and hapi have evolved.
 hapi v17 is out and fully [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) end-to-end.
 "It combines the latest technologies with a proven core that has been powering some of the world largest sites."
 See [hapi v17 release notes](https://github.com/hapijs/hapi/issues/3658) for all details.
