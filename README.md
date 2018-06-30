@@ -43,18 +43,27 @@ You will learn the essential components needed to build hapi applications: authe
 Plus, we will delve into deeper topics like: bearer-tokens, caching, configuring for multiple environments,
 hapi process monitoring, the request lifecycle, and conclude with integrating graphql into a hapi application.
 
-## Assignemnts and Solutions
+## Assignments and Solutions
 
 ### [Assignment1] Let's get started!
 
 First, we need some basic structure: a lib folder, a package.json file, and an initial ./lib/index.js.
 Since we will be using hapi, we need to include that in the project dependencies.
-Second, create a basic hapi server on port 8000 which responds to /version requests and replies with a simple `{ "version": "0.0.1" }` JSON payload.  The version data in the response should come from the package.json file.
+Second, create a basic hapi server on port 8000 which responds to /version requests and replies with a simple `{ "version": "0.0.1" }` JSON payload.  The version data in the response should come from the package.json file.<br/><br/>
 
-[Original Assignment1](https://github.com/hapijs/university/issues/1)
+`npm init`<br/>
+`npm install --save hapi`<br/>
 
-[Assignment1 solution](https://github.com/zoe-1/university-rewrite/commit/25a6639113f69b7ce5e7057642e78b183d11dd16)
+[Original Assignment1](https://github.com/hapijs/university/issues/1)<br/>
 
+[rewrite Assignment1 solution](https://github.com/zoe-1/university-rewrite/commit/25a6639113f69b7ce5e7057642e78b183d11dd16)<br/>
+
+### pre-assignment2 reading
+
+* [style guide](https://github.com/hapijs/contrib/blob/master/Style.md) note how hapi uses **Module globals** and **internals**.
+* Discussion on [assigning variables, modules, singletons, and callbacks](https://gist.github.com/hueniverse/a06f6315ea736ed1b46d)
+* Github's [comparing commits](https://help.github.com/articles/comparing-commits-across-time/) across time. This feature will
+  be used to compare assignment1 solution with the starting point for the project.
 
 ### [Assignment2] Plugins
 

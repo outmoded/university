@@ -15,9 +15,12 @@ View differences bewteen commits, branches, tags, or stages.
 ## working with tags
 
 ### compare tags
-`git diff tag1 tag2`<br/>
-`git log tag1..tag2`<br/>
-`git diff tag1 tag2 -- some/file/name`  # differences between particular file.<br/>
+* git
+  - `git diff tag1 tag2`<br/>
+  - `git log tag1..tag2`<br/>
+  - `git diff tag1 tag2 -- some/file/name`  # differences between particular file.<br/>
+* github
+  - ``
 
 ### open vim to write message about tag.
 `git tag -a "vTAG_NAME"`<br/><br/>
