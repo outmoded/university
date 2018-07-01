@@ -1,6 +1,6 @@
 {
   "name": "hapijs-university",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "learning experiment",
   "main": "lib/index.js",
   "directories": {

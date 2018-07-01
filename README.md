@@ -49,7 +49,7 @@ hapi process monitoring, the request lifecycle, and conclude with integrating gr
 
 First, we need some basic structure: a lib folder, a package.json file, and an initial ./lib/index.js.
 Since we will be using hapi, we need to include that in the project dependencies.
-Second, create a basic hapi server on port 8000 which responds to /version requests and replies with a simple `{ "version": "0.0.1" }` JSON payload.  The version data in the response should come from the package.json file.<br/><br/>
+Second, create a basic hapi server on port 8000 which responds to /version requests and replies with a simple `{ "version": "0.1.1" }` JSON payload.  The version data in the response should come from the package.json file.<br/><br/>
 
 `npm init`<br/>
 `npm install --save hapi`<br/>
@@ -68,6 +68,7 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 * Discussion on [assigning variables, modules, singletons, and callbacks](https://gist.github.com/hueniverse/a06f6315ea736ed1b46d)
 * Github's [comparing commits](https://help.github.com/articles/comparing-commits-across-time/) across time. This feature will
   be used to compare assignment1 solution with the starting point for the project.
+* hapi documentation on [server options](https://hapijs.com/api#server.options)
 
 ### [Assignment2] Plugins
 
@@ -77,23 +78,35 @@ different combinations or deploy them in different configurations. While some pl
 you should think of plugins as a way to break your code into pieces.
 
 Now that we have a basic server with one endpoint, we want to move the creation of the endpoint to a plugin,
-and then register that plugin with the server. Creating a new file `lib/version.js` and move the `/version` endpoint there,
-wrapped in the plugin `register()` function.
-
-Then change our current `lib/index.js` to require the new file and register the version plugin with our server.
+and then register that plugin with the server. Create a new file `lib/version.js` and move the `/version` endpoint there.
+Then, change our current `lib/index.js` to require the new plugin file and register the version plugin with our server.
+The `server.register()` function is used to register the plugin.
 
 Remember to follow the [style guide](https://github.com/hapijs/contrib/blob/master/Style.md), and ask any questions in the comments of the
 issue created for the assignment.  If you are not sure how to get your fork back in sync with the current updated code, use the
 [git guide](https://github.com/hapijs/university-client/blob/master/guides/git.md).
 
+`/version` end point should reply with a simple JSON payload:
+```
+{ 
+    version: Package.version,
+    message: options.message
+}
+```
 
-### Helps
+#### Highlights
+
+* Notice that `const plugins = []` is an array.  An array is used to register the Version plugin because more plugins are to be registered in later assignments.
+* Notice how options are passed to the plugin: `{ message: 'assignment2' }`. 
+  The `/version` point returns the message value.
+* In contrast to plugins options, notice how `server.register` options are passed: `{ once: true }`. 
+
+#### Helps
 
 * `require('./version') should be declared at the top and assigned to `Version`.
-* no need to wrap the plugin in `{ register: Version }`. It is enough to just pass Version directly to the `register()` function.
 * no need for specifying the plugin version in the attributes. This is an internal plugin, not a publicly published one.
 
-source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) between @hueniverse and @TheAlphaNerd.
+source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) between @hueniverse and @TheAlphaNerd.<br/>
 [Original Assignment2](https://github.com/hapijs/university/issues/43)
 
 [Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)
