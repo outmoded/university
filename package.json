@@ -1,0 +1,8 @@
+{
+  "name": "Hapi-server",
+  "version": "0.0.1",
+  "author": "LeonRen",
+  "dependencies": {
+    "hapi": "17.5.2"
+  }
+}
