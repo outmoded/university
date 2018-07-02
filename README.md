@@ -109,7 +109,8 @@ issue created for the assignment.  If you are not sure how to get your fork back
 source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) between @hueniverse and @TheAlphaNerd.<br/>
 [Original Assignment2](https://github.com/hapijs/university/issues/43)
 
-[Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)
+[rewrite Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)
+[assignment2 solution](https://github.com/zoe-1/university-dev/compare/v0.1.1...v0.1.2)<br/>
 
 ### [Assignment3] Testing & 100% coverage
 
