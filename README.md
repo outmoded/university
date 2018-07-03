@@ -21,10 +21,13 @@ have a basic familiarity with node, and be able to pick up new subjects by readi
 
 * <b>Individually</b>
   Anyone is welcome to work individually on university assignments.  See list of assignments below.
-  To study solutions github provides [a great feature](https://help.github.com/articles/comparing-commits-across-time/) to
-  compare commits, branches, or tags across time. This will be used to compare assignments and solutions.
-  Click on a solution link to see a comparison between the previous assignment solution and the current.
-  Besides viewing solutions on github, you may checkout solutions on your computer and use a text editor to study them at your own pace.
+  To study solutions: 
+  - use Github's [compare feature](https://help.github.com/articles/comparing-commits-across-time/) to
+    compare commits, branches, or tags across time. Use it to compare assignments and solutions.
+    Link to to comparison views are provided for each solution. 
+  - Read source code for each solution by clicking on the tagged solution. For example, v0.1.1 is assignment1's solution and
+    v0.1.2 is assignment2's solution. The format is: v0.1.X. 'X' is the assignment number.
+  - Besides viewing solutions on github, clone the project, checkout solutions and study them on your own computer.
 
 * <b>Community Assignments</b>
   Besides working individually on assignments. You are welcome
@@ -58,7 +61,8 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 
 [rewrite Assignment1 solution](https://github.com/zoe-1/university-rewrite/commit/25a6639113f69b7ce5e7057642e78b183d11dd16)<br/>
 
-[assignment1 solution](https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1)<br/>
+[view assignment1 solution](https://github.com/zoe-1/university-dev/tree/v0.1.1)<br/>
+[compare assignment1 solution to start point](https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Above link is to: `https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1`.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;This utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
 
@@ -84,7 +88,7 @@ The `server.register()` function is used to register the plugin.
 
 Remember to follow the [style guide](https://github.com/hapijs/contrib/blob/master/Style.md), and ask any questions in the comments of the
 issue created for the assignment.  If you are not sure how to get your fork back in sync with the current updated code, use the
-[git guide](https://github.com/hapijs/university-client/blob/master/guides/git.md).
+[git guide](https://github.com/hapijs/university/blob/master/guides/git.md).
 
 `/version` end point should reply with a simple JSON payload:
 ```
@@ -109,8 +113,9 @@ issue created for the assignment.  If you are not sure how to get your fork back
 source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) between @hueniverse and @TheAlphaNerd.<br/>
 [Original Assignment2](https://github.com/hapijs/university/issues/43)
 
-[rewrite Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)
-[assignment2 solution](https://github.com/zoe-1/university-dev/compare/v0.1.1...v0.1.2)<br/>
+[rewrite Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)<br/>
+[compare assignment2 solution to assignment1](https://github.com/zoe-1/university-dev/compare/v0.1.1...v0.1.2)<br/>
+[view assignment2 solution](https://github.com/zoe-1/university-dev/tree/v0.1.2)<br/>
 
 ### [Assignment3] Testing & 100% coverage
 
