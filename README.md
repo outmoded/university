@@ -24,9 +24,10 @@ have a basic familiarity with node, and be able to pick up new subjects by readi
   To study solutions: 
   - use Github's [compare feature](https://help.github.com/articles/comparing-commits-across-time/) to
     compare commits, branches, or tags across time. Use it to compare assignments and solutions.
-    Link to to comparison views are provided for each solution. 
+    Links to comparison views are provided for each solution. 
   - Read source code for each solution by clicking on the tagged solution. For example, v0.1.1 is assignment1's solution and
     v0.1.2 is assignment2's solution. The format is: v0.1.X. 'X' is the assignment number.
+    Links to each solution below. 
   - Besides viewing solutions on github, clone the project, checkout solutions and study them on your own computer.
 
 * <b>Community Assignments</b>
