@@ -46,4 +46,4 @@ will have a direct result on how much you learn. It is called: "learning sideway
   Of course, if there is an expert developer who wants to determine the best solution they are always welcome. Hint, hint.... [hapi team](https://github.com/orgs/hapijs/people) your
   input is welcome :-)
 * Merge in the solutionPR and move on to the next assignment.
-* Before starting the next assignment, make sure [your fork matches the current master](guides/git.md) since only one Pull Request can be accepted.
+* Before starting the next assignment, make sure [your fork matches the current master](git.md) since only one Pull Request can be accepted.

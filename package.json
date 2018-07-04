@@ -1,53 +1,33 @@
 {
-  "name": "hapi-university",
-  "version": "0.0.8",
-  "description": "Community learning experiment",
+  "name": "hapijs-university",
+  "version": "0.1.2",
+  "description": "learning experiment",
   "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node lib/index.js",
+    "test": "test"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hapijs/university.git"
+    "url": "git://github.com/hapijs/university.git"
   },
   "keywords": [
+    "hapijs",
     "hapi",
+    "javascript",
     "learn",
-    "community"
+    "learning"
   ],
-  "engines": {
-    "node": ">= 4.x.x",
-    "npm": ">= 3.x"
-  },
+  "author": "Jon Swenson",
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/hapijs/university/issues"
   },
-  "homepage": "https://github.com/hapijs/university",
+  "homepage": "https://github.com/hapijs/university#readme",
   "dependencies": {
-    "async": "2.x.x",
-    "boom": "4.x.x",
-    "crumb": "6.x.x",
-    "glue": "4.x.x",
-    "good": "7.x.x",
-    "good-console": "6.x.x",
-    "good-file": "6.x.x",
-    "good-squeeze": "5.x.x",
-    "handlebars": "4.x.x",
-    "hapi": "16.x.x",
-    "hapi-auth-basic": "4.x.x",
-    "hapi-auth-cookie": "6.x.x",
-    "hoek": "4.x.x",
-    "inert": "4.x.x",
-    "items": "2.x.x",
-    "joi": "10.x.x",
-    "vision": "4.x.x"
-  },
-  "scripts": {
-    "test": "lab -t 100 -L -v",
-    "one": "lab test/api/user.js -L -v",
-    "test-cov-html": "lab -L -r html -o coverage.html",
-    "start": "node lib/start.js"
-  },
-  "devDependencies": {
-    "lab": "14.x.x",
-    "lout": "10.x.x"
+    "hapi": "17.x.x"
   }
 }

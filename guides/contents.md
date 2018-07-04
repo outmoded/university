@@ -1,5 +1,7 @@
 # Assignments and Solutions
 
+DEPRECATED (university is being re-written for v17)
+
 `git checkout assignmentName` to see a solution.<br/>
 `git checkout previousAssignment` starting point for current assignment.
 
