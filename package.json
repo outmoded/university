@@ -4,5 +4,11 @@
   "author": "LeonRen",
   "dependencies": {
     "hapi": "17.5.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.5",
+    "eslint": "^5.0.1",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-react": "^7.10.0"
   }
 }
