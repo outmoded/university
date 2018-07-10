@@ -62,8 +62,8 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 
 [rewrite Assignment1 solution](https://github.com/zoe-1/university-rewrite/commit/25a6639113f69b7ce5e7057642e78b183d11dd16)<br/>
 
-[view assignment1 solution](https://github.com/zoe-1/university-dev/tree/v0.1.1)<br/>
-[compare assignment1 solution to start point](https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1)<br/>
+[view assignment1 solution](https://github.com/hapijs/university/tree/v0.1.1)<br/>
+[compare assignment1 solution to start point](https://github.com/hapijs/university/compare/v0.1.0...v0.1.1)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Above link is to: `https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1`.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;This utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
 
@@ -115,8 +115,8 @@ source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) b
 [Original Assignment2](https://github.com/hapijs/university/issues/43)
 
 [rewrite Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)<br/>
-[compare assignment2 solution to assignment1](https://github.com/zoe-1/university-dev/compare/v0.1.1...v0.1.2)<br/>
-[view assignment2 solution](https://github.com/zoe-1/university-dev/tree/v0.1.2)<br/>
+[compare assignment2 solution to assignment1](https://github.com/hapijs/university/compare/v0.1.1...v0.1.2)<br/>
+[view assignment2 solution](https://github.com/hapijs/university/tree/v0.1.2)<br/>
 
 ### [Assignment3] Testing & 100% coverage
 
