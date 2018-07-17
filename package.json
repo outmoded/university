@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "author": "LeonRen",
   "dependencies": {
-    "hapi": "17.5.2"
+    "hapi": "17.5.2",
+    "eslint-config-google": "^0.9.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.5",
@@ -11,9 +12,8 @@
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-react": "^7.10.0"
   },
-  "scripts":{
-    "lint":"eslint lib\\",
-    "start":"npm lib\\index.js"
-
+  "scripts": {
+    "lint": "eslint lib\\",
+    "start": "npm lib\\index.js"
   }
 }

@@ -1,5 +1,5 @@
 module.exports = {
-    "extends": "google",
+    "extends": "./node_modules/eslint-config-google/index.js",
     "parserOptions": {
       "ecmaVersion":2017
     },
@@ -15,11 +15,8 @@ module.exports = {
         ],
         "linebreak-style": [
             "error",
+          
             "unix"
-        ],
-        "quotes": [
-            "error",
-            "double"
         ],
         "semi": [
             "error",
