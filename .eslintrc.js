@@ -37,6 +37,8 @@ module.exports = {
         ],
         "padded-blocks": [
               "off"
-        ]
+        ],
+        "object-curly-spacing": ["error","always"],
+        "space-before-function-paren": ["error","always"]
     }
 };
