@@ -22,3 +22,4 @@
     2. In function scope declarations
     3. In arrow function declarations using curly braces
 - [x] Always space after { and before } in inlined object
+- [x] One space between function and ( when declaring a function
