@@ -40,3 +40,4 @@ There are lots of way you can help make this experiment succeed and help shape a
 ### Anything else?
 
 [Open an issue](https://github.com/hueniverse/hueniversity/issues/new), it's free.
+

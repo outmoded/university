@@ -10,8 +10,10 @@
     "babel-eslint": "^8.2.5",
     "eslint": "^5.0.1",
     "eslint-config-google": "^0.9.1",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.10.0",
+    "pre-commit": "^1.2.2"
   },
+  "pre-commit":["lint"],
   "scripts": {
     "lint": "eslint lib\\",
     "start": "npm lib\\index.js"

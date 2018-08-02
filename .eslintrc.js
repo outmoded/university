@@ -4,7 +4,7 @@ module.exports = {
       "ecmaVersion":2017
     },
     "env": {
-        "browser": true,
+
         "node": true
     },
 
@@ -14,7 +14,7 @@ module.exports = {
             4
         ],
         "linebreak-style": [
-            "error",
+            "off",
             "unix"
         ],
         "quotes": [
@@ -24,6 +24,19 @@ module.exports = {
         "semi": [
             "error",
             "always"
+        ],
+        "strict": [
+            "error",
+            "global"
+        ],
+        "prefer-const": [
+             "error",
+              {
+                "destructuring": "any"
+              }
+        ],
+        "padded-blocks": [
+              "off"
         ]
     }
 };
