@@ -137,9 +137,11 @@ We will be using the [lab](https://github.com/hapijs/lab) module to perform all 
      when using hapi to build services - soa (service oriented architecture). Sometimes you
      design one computer running several hapi services to collaborate with each other.  
    * It allows for the `start.js` script to start and stop the application.
-2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed.  .travis reports if all tests successfully passed or not.
+2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed.  
+   `.travis` reports if all tests successfully pass or not. Note, you must configure github to excute travis CI upon
+   events (push or PR) to the repository. This is found under: Settings -> Integration & Services.
 3. Add a test folder with two files, `version.js` and `index.js`, each testing the corresponding file under `/lib`.
-4. Modify the `package.json` file to include tests, as well as the dev dependencies lab and code.
+4. Modify the `package.json` file to include tests. Install the dev dependencies `lab` and `code`.
 5. When using lab, enable coverage, require 100% coverage, enable linting with default rules, and install and use [code](https://github.com/hapijs/code) assertion library.
 6. Write a basic test to verify our version endpoint in `version.js`.
 7. Write tests to get 100% coverage.
@@ -159,7 +161,9 @@ For now, avoid using any of the `before()` and `after()` lab features.
 
 As always, ask for help and help others!
 
+
 ### Helps
+
 
 - When stubbing / patching code in a test, mark that test with the `{ parallel: false }` lab option to make it both safe for future parallel testing as well as visual cue.
 - Never return anything other than an actual `Error` as an error (e.g. no strings, plain objects, etc.).
@@ -168,6 +172,16 @@ As always, ask for help and help others!
 - Make arguments / options in `init()` required.
 - When calling `server.inject()` with a GET request, just pass the path string as the first argument instead of an options object. Makes the code much more readable.
 - Use the testing shortcuts boilerplate used in hapi. Makes reading tests easier.
+
+### lab summary 
+
+- elegant [lab](https://github.com/hapijs/lab) and [code](https://github.com/hapijs/lab)
+  good lesson three game plan
+  go test for dirty bugs 
+  * clean up guy on github see [travis agree](https://travis-ci.org)
+  * talk style, value guidance, hapi emotion,
+    [lab](https://github.com/hapijs/lab) enforces all.
+    Seek linting, [Geek leadership](https://github.com/geek) no excuses find lab have fun.  
 
 [Assignment3 Solution - rewrite](https://github.com/zoe-1/university-rewrite/commit/7cd9e6177863c967c9a7804868ca15643642f85e)
 
