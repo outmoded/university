@@ -47,6 +47,8 @@ You will learn the essential components needed to build hapi applications: authe
 Plus, we will delve into deeper topics like: bearer-tokens, caching, configuring for multiple environments,
 hapi process monitoring, the request lifecycle, and conclude with integrating graphql into a hapi application.
 
+[dependencies go show list](https://github.com/hapijs/university/guides/dependencies.md)
+
 ## Assignments and Solutions
 
 ### [Assignment1] Let's get started!
@@ -58,21 +60,19 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 `npm init`<br/>
 `npm install --save hapi`<br/>
 
-[Original Assignment1](https://github.com/hapijs/university/issues/1)<br/>
-
-[rewrite Assignment1 solution](https://github.com/zoe-1/university-rewrite/commit/25a6639113f69b7ce5e7057642e78b183d11dd16)<br/>
 
 [view assignment1 solution](https://github.com/hapijs/university/tree/v0.1.1)<br/>
 [compare assignment1 solution to start point](https://github.com/hapijs/university/compare/v0.1.0...v0.1.1)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Above link is to: `https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1`.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;This utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
+&nbsp;&nbsp;&nbsp;&nbsp;Utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
 
 #### pre-assignment2 reading:
 
 * [style guide](https://github.com/hapijs/contrib/blob/master/Style.md) note how hapi uses **Module globals** and **internals**.
 * Discussion on [assigning variables, modules, singletons, and callbacks](https://gist.github.com/hueniverse/a06f6315ea736ed1b46d)
-* Github's [comparing commits](https://help.github.com/articles/comparing-commits-across-time/) across time. This feature will
-  be used to compare assignment1 solution with the starting point for the project.
+* On Github see [comparing on the commits](https://help.github.com/articles/comparing-commits-across-time/) when across time compare be.
+  That feature comparing on the commits is used alot to compare and view the said solution again with the set beginning.
+  // That feature comparing on the commits is used on the Lesson one solution. It compares the starting point with the solution of lesson one.
 * hapi documentation on [server options](https://hapijs.com/api#server.options)
 
 ### [Assignment2] Plugins
@@ -104,39 +104,48 @@ issue created for the assignment.  If you are not sure how to get your fork back
 * Notice that `const plugins = []` is an array.  An array is used to register the Version plugin because more plugins are to be registered in later assignments.
 * Notice how options are passed to the plugin: `{ message: 'assignment2' }`. 
   The `/version` point returns the message value.
-* In contrast to plugins options, notice how `server.register` options are passed: `{ once: true }`. 
+* In contrast to plugin options, notice how `server.register` options are passed: `{ once: true }`. 
+  Often there is confusion between hapi's `server.register` options and options passed to a plugin being registered.
+  lesson2 clearly shows the difference.  `{ message: 'assingment2' }` illustrates options passed
+  to a plugin. These are options used inside the Version plugin.  And, the `{ once: true }` option is passed to the server
+  when registering plugins: `server.register()`. See `/lib/index.js` for details. 
 
 #### Helps
 
 * `require('./version') should be declared at the top and assigned to `Version`.
 * no need for specifying the plugin version in the attributes. This is an internal plugin, not a publicly published one.
 
-source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) between @hueniverse and @TheAlphaNerd.<br/>
-[Original Assignment2](https://github.com/hapijs/university/issues/43)
-
-[rewrite Assignment2 Solution](https://github.com/zoe-1/university-rewrite/commit/49aeb99def5464ad7f4886d0c27346d9176ca856)<br/>
 [compare assignment2 solution to assignment1](https://github.com/hapijs/university/compare/v0.1.1...v0.1.2)<br/>
-[view assignment2 solution](https://github.com/hapijs/university/tree/v0.1.2)<br/>
+[view assignment2 solution source](https://github.com/hapijs/university/tree/v0.1.2)<br/>
 
 ### [Assignment3] Testing & 100% coverage
-
-- [] cleanup server options validation
 
 Things are getting a bit more interesting...
 
 It's time to add tests, verify coverage, confirm style, and automate all of this with CI.
 We will be using the [lab](https://github.com/hapijs/lab) module to perform all these tasks and automate it with [travis](https://travis-ci.org).
+[code](https://github.com/hapijs/code) will be our test's assertian library. 
 
-1. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed.  .travis reports if all tests successfully passed or not.
-2. Add a test folder with two files, `version.js` and `index.js`, each testing the corresponding file under `/lib`.
-3. Modify the `package.json` file to include the tests, as well as the dev dependency to lab.
-4. When using lab, enable coverage, require 100% coverage, enable linting with default rules, and use the [code](https://github.com/hapijs/code) assertion library.
-5. Write a basic test to verify our version endpoint in `version.js`.
-6. Export `init()` and move the invocation to a new `start.js` file (which will call the exported `init()` function with the `8000` port and a callback outputs the information to the console when started).
-Change `package.json` file to use the `start.js` file as the starting place. `start.js` file is not be covered by tests.
-8. Write a test to get 100% coverage.
-To get 100% test coverage you also need to confirm style. `lab` confirms if the project's code abides by the [hapijs style guide](https://github.com/hapijs/contrib/blob/master/Style.md).
-This is called 'linting'.
+1. Export `init()` and move the invocation to a new `start.js` file.
+   The start.js file calls the exported `init()` function and passes configurations options to it. 
+   The resolved promise function in start.js outputs the server config details to the console.
+   Change `package.json` file to use `start.js` as the start up script. `start.js` file is not covered by tests.
+   Designing the server to be started with an exported `init` function allows other scripts and applications to start and stop the server. 
+   This is important for several reasons: 
+   * It allows testing scripts to start and stop the server to execute tests.
+   * It allows another program to start and stop the application.  This is useful
+     when using hapi to build services - soa (service oriented architecture). Sometimes you
+     design one computer running several hapi services to collaborate with each other.  
+   * It allows for the `start.js` script to start and stop the application.
+2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed.  .travis reports if all tests successfully passed or not.
+3. Add a test folder with two files, `version.js` and `index.js`, each testing the corresponding file under `/lib`.
+4. Modify the `package.json` file to include tests, as well as the dev dependencies lab and code.
+5. When using lab, enable coverage, require 100% coverage, enable linting with default rules, and install and use [code](https://github.com/hapijs/code) assertion library.
+6. Write a basic test to verify our version endpoint in `version.js`.
+7. Write tests to get 100% coverage.
+   To get 100% test coverage you also need to confirm style. 
+   `lab` confirms if the project's code abides by the [hapijs style guide](https://github.com/hapijs/contrib/blob/master/Style.md).
+   This is called 'linting'.
 
 Everything should be pretty straight forward. If you are not sure on how to use lab and code,
 look at other hapi.js modules and copy their test scripts and setup.
@@ -148,10 +157,7 @@ Remember to properly `stop()` your servers when calling the `init()` method in e
 
 For now, avoid using any of the `before()` and `after()` lab features.
 
-
 As always, ask for help and help others!
-
-
 
 ### Helps
 
@@ -163,8 +169,7 @@ As always, ask for help and help others!
 - When calling `server.inject()` with a GET request, just pass the path string as the first argument instead of an options object. Makes the code much more readable.
 - Use the testing shortcuts boilerplate used in hapi. Makes reading tests easier.
 
-[Original assignment3](https://github.com/hapijs/university/issues/79)
-[Assignment3 Solution](https://github.com/zoe-1/university-rewrite/commit/7cd9e6177863c967c9a7804868ca15643642f85e)
+[Assignment3 Solution - rewrite](https://github.com/zoe-1/university-rewrite/commit/7cd9e6177863c967c9a7804868ca15643642f85e)
 
 ### [Assignment4] Authentication
 
