@@ -175,12 +175,12 @@ As always, ask for help and help others!
 
 ### lab summary 
 
-- elegant [lab](https://github.com/hapijs/lab) and [code](https://github.com/hapijs/lab)
-  good lesson three game plan
+- elegant [lab](https://github.com/hapijs/lab) and [code](https://github.com/hapijs/lab)<br/>
+  good lesson three game plan<br/>
   go test for dirty bugs 
   * clean up guy on github see [travis agree](https://travis-ci.org)
-  * talk style, value guidance, hapi emotion,
-    [lab](https://github.com/hapijs/lab) enforces all.
+  * talk style, value guidance, hapi emotion,<br/>
+    [lab](https://github.com/hapijs/lab) enforces all.<br/>
     Seek linting, [Geek leadership](https://github.com/geek) no excuses find lab have fun.  
 
 [Assignment3 Solution - rewrite](https://github.com/zoe-1/university-rewrite/commit/7cd9e6177863c967c9a7804868ca15643642f85e)
