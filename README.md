@@ -1,4 +1,3 @@
-
 ### hapijs university
 
 A community learning experiment utilizing the distributed classroom.
@@ -66,6 +65,11 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 &nbsp;&nbsp;&nbsp;&nbsp;Above link is to: `https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1`.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
 
+#### credits for assignment1
+
+Above assignment based on [original assignment1](https://github.com/hapijs/university/issues/1).
+
+
 #### pre-assignment2 reading:
 
 * [style guide](https://github.com/hapijs/contrib/blob/master/Style.md) note how hapi uses **Module globals** and **internals**.
@@ -118,31 +122,36 @@ issue created for the assignment.  If you are not sure how to get your fork back
 [compare assignment2 solution to assignment1](https://github.com/hapijs/university/compare/v0.1.1...v0.1.2)<br/>
 [view assignment2 solution source](https://github.com/hapijs/university/tree/v0.1.2)<br/>
 
+
+#### Assignment2 Credits
+This assignment based on original assignment2: [convert to plugin](https://github.com/hapijs/university/issues/43)
+
 ### [Assignment3] Testing & 100% coverage
 
 Things are getting a bit more interesting...
 
-It's time to add tests, verify coverage, confirm style, and automate all of this with CI.
-We will be using the [lab](https://github.com/hapijs/lab) module to perform all these tasks and automate it with [travis](https://travis-ci.org).
+It's time to add tests, verify coverage, confirm style, and automate all of this with CI (CI means: [Continuous Integration](guides/ci.md)).
+We will be using the [lab](https://github.com/hapijs/lab) module to perform these tasks and automate them with [travis](https://travis-ci.org).
 [Code](https://github.com/hapijs/code) will be our test's assertian library. 
 
-1. Export `init()` and move the invocation to a new `start.js` file.
-   The start.js file calls the exported `init()` function and passes configurations options to it. 
+1. Export `init()` and move the server invocation to a new `lib/start.js` file.
+   The `lib/start.js` file calls the exported `init()` function and passes configurations options to it. 
    The resolved promise function in start.js outputs the server config details to the console.
    Change `package.json` file to use `start.js` as the start up script. `start.js` file is not covered by tests.
-   Designing the server to be started with an exported `init` function allows other scripts and applications to start and stop the server. 
+   Designing the server to start with an exported `init` function allows other scripts and applications to start and stop the server. 
    This is important for several reasons: 
    * It allows testing scripts to start and stop the server to execute tests.
    * It allows another program to start and stop the application.  This is useful
      when using hapi to build services - soa (service oriented architecture). Sometimes you
-     design one computer running several hapi services to collaborate with each other.  
+     make several hapi services to run on one computer and collaborate with each other.
    * It allows for the `start.js` script to start and stop the application.
-2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed.  
-   `.travis` reports if all tests successfully pass or not. Note, you must configure github to excute travis CI upon
+2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed. `.travis` reports if all tests successfully pass or not.
+   Note, you must configure github to excute travis CI upon
    events (push or PR) to the repository. This is found under: Settings -> Integration & Services.
 3. Add a test folder with two files, `version.js` and `index.js`, each testing the corresponding file under `/lib`.
 4. Modify the `package.json` file to include tests. Install the dev dependencies `lab` and `code`.
 5. When using lab, enable coverage, require 100% coverage, enable linting with default rules, and install and use [code](https://github.com/hapijs/code) assertion library.
+   See `package.json` file to view the test command or see a test command [write up here](https://github.com/zoe-1/university-dev/blob/master/guides/ci.md#lab--ci).
 6. Write a basic test to verify our version endpoint in `version.js`.
 7. Write tests to get 100% coverage.
    To get 100% test coverage you also need to confirm style. 
@@ -186,7 +195,10 @@ As always, ask for help and help others!
 [Compare Assignment3 Solution to Assignment2](https://github.com/hapijs/university/compare/v0.1.2...v0.1.3)<br/>
 [view assignment3 solution source](https://github.com/hapijs/university/tree/v0.1.3)<br/>
 
-### [Assignment4] Authentication
+#### Credits
+Assignment is based on original assignment3: [100% coverage](https://github.com/hapijs/university/issues/79).
+
+### [Assignment4] OK auth bearer tokens fun 
 
 * add [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token)
 * auth strategy is registered in it's own plugin './authtoken.js'
@@ -195,8 +207,16 @@ As always, ask for help and help others!
   - valid token equals `12345678`
 * 100% tests coverage. Adjust tests for token auth.
 
-[Original Assignment4](https://github.com/hapijs/university/issues/118)
+Notice we have not created user authentication yet. Users have no way to log in.
+So, our tests assume the user already has an ok `auth bearer token`.
+The assignment solely focuses on getting the `hapi auth bearer token` plugin installed and working.
+
+Here are some resources related to [auth bearer tokens](guides/authBearerTokens.md).
+Please share if you know of other links and resources related to the subject.
+
+[Original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
 [Assignment4 Solution](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
+
 
 ### [Assignment5]  TLS
 * tls the project.
