@@ -25,3 +25,5 @@ source for Helps: [Discussion](https://github.com/hapijs/university/issues/43) b
 [Original Assignment2](https://github.com/hapijs/university/issues/43)
 
 [Original assignment3](https://github.com/hapijs/university/issues/79)
+[Compare Assignment3 Solution to Assignment2 dev](https://github.com/zoe-1/university-dev/compare/v0.1.2...v0.1.3)<br/>
+[Assignment3 Solution - rewrite](https://github.com/zoe-1/university-rewrite/commit/7cd9e6177863c967c9a7804868ca15643642f85e)

@@ -124,7 +124,7 @@ Things are getting a bit more interesting...
 
 It's time to add tests, verify coverage, confirm style, and automate all of this with CI.
 We will be using the [lab](https://github.com/hapijs/lab) module to perform all these tasks and automate it with [travis](https://travis-ci.org).
-[code](https://github.com/hapijs/code) will be our test's assertian library. 
+[Code](https://github.com/hapijs/code) will be our test's assertian library. 
 
 1. Export `init()` and move the invocation to a new `start.js` file.
    The start.js file calls the exported `init()` function and passes configurations options to it. 
@@ -183,7 +183,8 @@ As always, ask for help and help others!
     [lab](https://github.com/hapijs/lab) enforces all.<br/>
     Seek linting, [Geek leadership](https://github.com/geek) no excuses find lab have fun.  
 
-[Assignment3 Solution - rewrite](https://github.com/zoe-1/university-rewrite/commit/7cd9e6177863c967c9a7804868ca15643642f85e)
+[Compare Assignment3 Solution to Assignment2](https://github.com/hapijs/university/compare/v0.1.2...v0.1.3)<br/>
+[view assignment3 solution source](https://github.com/hapijs/university/tree/v0.1.3)<br/>
 
 ### [Assignment4] Authentication
 
