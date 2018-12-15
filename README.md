@@ -198,20 +198,29 @@ As always, ask for help and help others!
 #### Credits
 Assignment is based on original assignment3: [100% coverage](https://github.com/hapijs/university/issues/79).
 
+### [Assignment4option] refactor resources
+
+Move route resources to ./lib/route-resources/routeName.js
+Resources consumed in routes will be stored here to remove
+route functions from the plugin registering the route.
+Seems this would be cleaner no?
+
 ### [Assignment4] OK auth bearer tokens fun 
 
 * add [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token)
-* auth strategy is registered in it's own plugin './authtoken.js'
+  `npm install --save hapi-auth-bearer-token`
+* Register the authentication strategy in it's own plugin `./lib/authtoken.js`.
 * all routes must have valid token to be accessed
   - currently only one route exists: `/version`.
   - valid token equals `12345678`
 * 100% tests coverage. Adjust tests for token auth.
 
-Notice we have not created user authentication yet. Users have no way to log in.
-So, our tests assume the user already has an ok `auth bearer token`.
-The assignment solely focuses on getting the `hapi auth bearer token` plugin installed and working.
+Notice we have not created user authentication yet -- users have no way to log in.
+Tests for the assignment assume a valid `auth bearer token` for the user already exists.
+The focus is on getting `hapi auth bearer token` plugin installed and working, versus,
+building a complete authentication system.
 
-Here are some resources related to [auth bearer tokens](guides/authBearerTokens.md).
+Here are resources related to [auth bearer tokens](guides/authBearerTokens.md).
 Please share if you know of other links and resources related to the subject.
 
 [Original Assignment4](https://github.com/hapijs/university/issues/118)<br/>

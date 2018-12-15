@@ -11,7 +11,7 @@ hapi projects require the use of the [travis-ci](https://travis-ci.org) to apply
 travis-ci automates the building and testing of all hapi projects on github.  This ensures
 every project has 100% test coverage, abides by the [style guide](https://github.com/hapijs/contrib/blob/master/Style.md), and successfully builds.
 Each time new code is pushed to a github hapi repo, the travis-ci automatically builds the project
-and executes all tests in the project. If the project fails to build, has failed linting checks,
+and executes all tests in the project. If the project: fails to build, has failed linting checks,
 or has failed tests, the travis-ci gives a big warning message. This greatly helps eliminate merging
 `dirty bugs` into a project.
 
@@ -21,7 +21,6 @@ a better understanding of travis CI (continous integeration) and it's uses on gi
 
 Other sources:
 * [wikipedia CI write up](https://en.wikipedia.org/wiki/Continuous_integration)
-
 
 
 ### lab & CI
