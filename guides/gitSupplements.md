@@ -35,7 +35,7 @@ View differences bewteen commits, branches, tags, or stages.
   `git push origin tag_name`
 
 * show commit id for v0.0.3
-  `git rev-list -n 1 v0.0.3`
+  `git rev-list -1 v0.1.3`
 
 * list project tags
   `show-ref --tags || git tag -l`

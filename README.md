@@ -1,4 +1,3 @@
-
 ### hapijs university
 
 A community learning experiment utilizing the distributed classroom.
@@ -21,13 +20,13 @@ have a basic familiarity with node, and be able to pick up new subjects by readi
 
 * <b>Individually</b>
   Anyone is welcome to work individually on university assignments.  See list of assignments below.
-  To study solutions: 
+  To study solutions:
   - use Github's [compare feature](https://help.github.com/articles/comparing-commits-across-time/) to
     compare commits, branches, or tags across time. Use it to compare assignments and solutions.
-    Links to comparison views are provided for each solution. 
+    Links to comparison views are provided for each solution.
   - Read source code for each solution by clicking on the tagged solution. For example, v0.1.1 is assignment1's solution and
     v0.1.2 is assignment2's solution. The format is: v0.1.X. 'X' is the assignment number.
-    Links to each solution below. 
+    Links to each solution below.
   - Besides viewing solutions on github, clone the project, checkout solutions and study them on your own computer.
 
 * <b>Community Assignments</b>
@@ -66,6 +65,11 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 &nbsp;&nbsp;&nbsp;&nbsp;Above link is to: `https://github.com/zoe-1/university-dev/compare/v0.1.0...v0.1.1`.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
 
+#### credits for assignment1
+
+Above assignment based on [original assignment1](https://github.com/hapijs/university/issues/1).
+
+
 #### pre-assignment2 reading:
 
 * [style guide](https://github.com/hapijs/contrib/blob/master/Style.md) note how hapi uses **Module globals** and **internals**.
@@ -93,7 +97,7 @@ issue created for the assignment.  If you are not sure how to get your fork back
 
 `/version` end point should reply with a simple JSON payload:
 ```
-{ 
+{
     version: Package.version,
     message: options.message
 }
@@ -102,13 +106,13 @@ issue created for the assignment.  If you are not sure how to get your fork back
 #### Highlights
 
 * Notice that `const plugins = []` is an array.  An array is used to register the Version plugin because more plugins are to be registered in later assignments.
-* Notice how options are passed to the plugin: `{ message: 'assignment2' }`. 
+* Notice how options are passed to the plugin: `{ message: 'assignment2' }`.
   The `/version` point returns the message value.
-* In contrast to plugin options, notice how `server.register` options are passed: `{ once: true }`. 
+* In contrast to plugin options, notice how `server.register` options are passed: `{ once: true }`.
   Often there is confusion between hapi's `server.register` options and options passed to a plugin being registered.
   lesson2 clearly shows the difference.  `{ message: 'assingment2' }` illustrates options passed
   to a plugin. These are options used inside the Version plugin.  And, the `{ once: true }` option is passed to the server
-  when registering plugins: `server.register()`. See `/lib/index.js` for details. 
+  when registering plugins: `server.register()`. See `/lib/index.js` for details.
 
 #### Helps
 
@@ -118,34 +122,39 @@ issue created for the assignment.  If you are not sure how to get your fork back
 [compare assignment2 solution to assignment1](https://github.com/hapijs/university/compare/v0.1.1...v0.1.2)<br/>
 [view assignment2 solution source](https://github.com/hapijs/university/tree/v0.1.2)<br/>
 
+
+#### Assignment2 Credits
+This assignment based on original assignment2: [convert to plugin](https://github.com/hapijs/university/issues/43)
+
 ### [Assignment3] Testing & 100% coverage
 
 Things are getting a bit more interesting...
 
-It's time to add tests, verify coverage, confirm style, and automate all of this with CI.
-We will be using the [lab](https://github.com/hapijs/lab) module to perform all these tasks and automate it with [travis](https://travis-ci.org).
-[Code](https://github.com/hapijs/code) will be our test's assertian library. 
+It's time to add tests, verify coverage, confirm style, and automate all of this with CI (CI means: [Continuous Integration](guides/ci.md)).
+We will be using the [lab](https://github.com/hapijs/lab) module to perform these tasks and automate them with [travis](https://travis-ci.org).
+[Code](https://github.com/hapijs/code) will be our test's assertian library.
 
-1. Export `init()` and move the invocation to a new `start.js` file.
-   The start.js file calls the exported `init()` function and passes configurations options to it. 
+1. Export `init()` and move the server invocation to a new `lib/start.js` file.
+   The `lib/start.js` file calls the exported `init()` function and passes configurations options to it.
    The resolved promise function in start.js outputs the server config details to the console.
    Change `package.json` file to use `start.js` as the start up script. `start.js` file is not covered by tests.
-   Designing the server to be started with an exported `init` function allows other scripts and applications to start and stop the server. 
-   This is important for several reasons: 
+   Designing the server to start with an exported `init` function allows other scripts and applications to start and stop the server.
+   This is important for several reasons:
    * It allows testing scripts to start and stop the server to execute tests.
    * It allows another program to start and stop the application.  This is useful
      when using hapi to build services - soa (service oriented architecture). Sometimes you
-     design one computer running several hapi services to collaborate with each other.  
+     make several hapi services to run on one computer and collaborate with each other.
    * It allows for the `start.js` script to start and stop the application.
-2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed.  
-   `.travis` reports if all tests successfully pass or not. Note, you must configure github to excute travis CI upon
+2. Add a `.travis.yml` file. When a .travis.yml file exists in a GitHub repository the project is built and all tests are executed. `.travis` reports if all tests successfully pass or not.
+   Note, you must configure github to excute travis CI upon
    events (push or PR) to the repository. This is found under: Settings -> Integration & Services.
 3. Add a test folder with two files, `version.js` and `index.js`, each testing the corresponding file under `/lib`.
 4. Modify the `package.json` file to include tests. Install the dev dependencies `lab` and `code`.
 5. When using lab, enable coverage, require 100% coverage, enable linting with default rules, and install and use [code](https://github.com/hapijs/code) assertion library.
+   See `package.json` file to view the test command or see a test command [write up here](https://github.com/zoe-1/university-dev/blob/master/guides/ci.md#lab--ci).
 6. Write a basic test to verify our version endpoint in `version.js`.
 7. Write tests to get 100% coverage.
-   To get 100% test coverage you also need to confirm style. 
+   To get 100% test coverage you also need to confirm style.
    `lab` confirms if the project's code abides by the [hapijs style guide](https://github.com/hapijs/contrib/blob/master/Style.md).
    This is called 'linting'.
 
@@ -173,30 +182,59 @@ As always, ask for help and help others!
 - When calling `server.inject()` with a GET request, just pass the path string as the first argument instead of an options object. Makes the code much more readable.
 - Use the testing shortcuts boilerplate used in hapi. Makes reading tests easier.
 
-### lab summary 
+### lab summary
 
 - elegant [lab](https://github.com/hapijs/lab) and [code](https://github.com/hapijs/lab)<br/>
   good lesson three game plan<br/>
-  go test for dirty bugs 
+  go test for dirty bugs
   * clean up guy on github see [travis agree](https://travis-ci.org)
   * talk style, value guidance, hapi emotion,<br/>
     [lab](https://github.com/hapijs/lab) enforces all.<br/>
-    Seek linting, [Geek leadership](https://github.com/geek) no excuses find lab have fun.  
+    Seek linting, [Geek leadership](https://github.com/geek) no excuses find lab have fun.
 
 [Compare Assignment3 Solution to Assignment2](https://github.com/hapijs/university/compare/v0.1.2...v0.1.3)<br/>
 [view assignment3 solution source](https://github.com/hapijs/university/tree/v0.1.3)<br/>
 
-### [Assignment4] Authentication
+#### Credits
+Assignment is based on original assignment3: [100% coverage](https://github.com/hapijs/university/issues/79).
+
+### [Assignment4] Use `server.app` properties
+
+* Use the `server.app` property to store the application's `response.version` and `options.message`.
+* Access the `request.server` property in the `./lib/version.js` handler to return the
+  `server.app.version` and server.app.message values.
+* Note: The `server.app` property is useful to set the DB connection in. `server.app` properties
+  are available wherever the `request.server` is exposed.
+
+[Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/03ca7d1ec0f7775f6c15533076e60e5ee19b6c72...5f341383016e44d582ab09911b86371b2ad1f6c5)<br/>
+
+### [Assignment5] Refactor version handler function location
+
+* Create a route resources directory `./lib/route-resources`.
+* Then, create a `version.js` file to contain the version plugin route-resources (functions used by routes) `./lib/route-resources/version.js`
+* Resources used in routes are stored in this directory. This makes plugins containing routes more readable.
+
+### [Assignment6] OK auth bearer tokens fun
 
 * add [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token)
-* auth strategy is registered in it's own plugin './authtoken.js'
+  `npm install --save hapi-auth-bearer-token`
+* Register the authentication strategy in it's own plugin `./lib/authtoken.js`.
 * all routes must have valid token to be accessed
   - currently only one route exists: `/version`.
   - valid token equals `12345678`
 * 100% tests coverage. Adjust tests for token auth.
 
-[Original Assignment4](https://github.com/hapijs/university/issues/118)
+Notice we have not created user authentication yet -- users have no way to log in.
+Tests for the assignment assume a valid `auth bearer token` for the user already exists.
+The focus is on getting `hapi auth bearer token` plugin installed and working, versus,
+building a complete authentication system.
+
+Here are resources related to [auth bearer tokens](guides/authBearerTokens.md).
+Please share if you know of other links and resources related to the subject.
+
+[Original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
 [Assignment4 Solution](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
+
 
 ### [Assignment5]  TLS
 * tls the project.
