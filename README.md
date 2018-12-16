@@ -206,7 +206,7 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 * Note: The `server.app` property is useful to set the DB connection in. `server.app` properties
   are available wherever the `request.server` is exposed.
 
-[Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university-dev/compare/03ca7d1ec0f7775f6c15533076e60e5ee19b6c72...5f341383016e44d582ab09911b86371b2ad1f6c5)<br/>
+[Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/03ca7d1ec0f7775f6c15533076e60e5ee19b6c72...5f341383016e44d582ab09911b86371b2ad1f6c5)<br/>
 
 ### [Assignment5] Refactor version handler function location
 
