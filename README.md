@@ -263,8 +263,8 @@ Please share if you know of other links and resources related to the subject.
 
 [Compare Assignment6 Solution to Assignment5](https://github.com/hapijs/university/compare/v0.1.5...v0.1.6)<br/>
 
-[Original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
-[Assignment4 Solution](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
+[Originally was Assignment4](https://github.com/hapijs/university/issues/118)<br/>
+[Assignment Solution development](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
 
 
 ### !!! below still being developed
