@@ -240,7 +240,6 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 
 [Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/v0.1.4...v0.1.5)<br/>
 
-### !!! below still being developed
 
 ### [Assignment6] OK auth bearer tokens fun
 
@@ -250,7 +249,8 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 * all routes must have valid token to be accessed
   - currently only one route exists: `/version`.
   - valid token equals `1234574`
-* 100% tests coverage. Adjust /version tests for token authentication.
+* 100% tests coverage.<br/>
+  Adjust `/version` tests for token authentication.
   Test for passing and failing tokens. 
   
 Notice we have not created user authentication yet -- users have no way to log in.
@@ -266,6 +266,8 @@ Please share if you know of other links and resources related to the subject.
 [Original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
 [Assignment4 Solution](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
 
+
+### !!! below still being developed
 
 ### [Assignment5]  TLS
 * tls the project.
