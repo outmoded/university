@@ -46,7 +46,7 @@ You will learn the essential components needed to build hapi applications: authe
 Plus, we will delve into deeper topics like: bearer-tokens, caching, configuring for multiple environments,
 hapi process monitoring, the request lifecycle, and conclude with integrating graphql into a hapi application.
 
-[dependencies go show list](https://github.com/hapijs/university/guides/dependencies.md)
+[dependencies go show list](guides/dependencies.md)
 
 ## Assignments and Solutions
 
@@ -240,29 +240,34 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 
 [Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/v0.1.4...v0.1.5)<br/>
 
-### !!! below still being developed
 
 ### [Assignment6] OK auth bearer tokens fun
 
-* add [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token)
+* add [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token)<br/>
   `npm install --save hapi-auth-bearer-token`
 * Register the authentication strategy in it's own plugin `./lib/authtoken.js`.
 * all routes must have valid token to be accessed
   - currently only one route exists: `/version`.
   - valid token equals `1234574`
-* 100% tests coverage. Adjust tests for token auth.
-
+* 100% tests coverage.<br/>
+  Adjust `/version` tests for token authentication.
+  Test for passing and failing tokens. 
+  
 Notice we have not created user authentication yet -- users have no way to log in.
 Tests for the assignment assume a valid `auth bearer token` for the user already exists.
-The focus is on getting `hapi auth bearer token` plugin installed and working, versus,
-building a complete authentication system.
+The focus is on getting `hapi auth bearer token` plugin installed and configured.
+This lesson does not build a complete authentication system.
 
 Here are resources related to [auth bearer tokens](guides/authBearerTokens.md).
 Please share if you know of other links and resources related to the subject.
 
+[Compare Assignment6 Solution to Assignment5](https://github.com/hapijs/university/compare/v0.1.5...v0.1.6)<br/>
+
 [Original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
 [Assignment4 Solution](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
 
+
+### !!! below still being developed
 
 ### [Assignment5]  TLS
 * tls the project.

@@ -11,6 +11,9 @@
     [lab](https://github.com/hapijs/lab) enforces all.
     Seek linting, [Geek leadership](https://github.com/geek) no excuses find lab have fun.  
 
+* [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token)<br/>
+  Added in lesson6
+
 #  hang hapi dev baggage 
 
 [Original Assignment1](https://github.com/hapijs/university/issues/1)<br/>
