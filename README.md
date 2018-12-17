@@ -217,27 +217,26 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
   - There is a limitation to removing route functions from the plugin registering the route.
     The limitation is options passed to the plugin at registration time are not available to functions
     built in files seperate from the plugin.
-  - When a plugin registers multiple routes or has routes with the request-lifecycle extended--executes
-    multiple methods on one route the plugins code can get cluttered.  Moving method / function logic out
-    of the plugin keeps route logic readable.
+  - When a plugin registers multiple routes or has routes with the request-lifecycle extended, plugin code can get cluttered.
+    Moving method / function logic out of the plugin keeps route logic readable.
   - Start to familiarize yourself with hapi's request-lifecycle extensions.  Adding extensions allows for
-    logic to be split up into multiple functions and be executed at specific times when a request is made to  a route.
+    logic to be split up into multiple functions and be executed at specific times when a request is made to a route.
     See docs: [route.opt.ext](https://hapijs.com/api#route.options.ext),
     [request-lifecycle](https://hapijs.com/api#request-lifecycle),
     [route.options.pre](https://hapijs.com/api#-routeoptionspre)
 * Create a route methods directory `./lib/route-methods`.
   Resources used in routes will stored in this directory.
-* Create a `version.js` file in the route-methods directory `./lib/route-resources/version.js`
+* Create a `version.js` file in the route-methods directory `./lib/route-methods/version.js`
   Methods used in the `/version` route will be stored here.
-  Move the `/version` handler to this function.
+  Move the `/version` handler function to this file.
 * Note: this is a personal style preferrence.
-  My preferrence is to make a split screen view with: 
+  Preferrence is to make a split screen view with: 
   - the screen on the left<br/>
     displays the routes `./lib/version.js`
   - the screen on the right<br/>
-    displays the methods executed in the routes `./lib/route-resources/version.js`
-* Run tests. No new tests need to be built. But, executing tests which all pass
-  proves that are changes did not break anything.
+    displays the methods executed in the routes `./lib/route-methods/version.js`
+* Run tests. No new tests need to be built. But, executing passing tests
+  proves changes did not break the application.
 
 ### [Assignment6] OK auth bearer tokens fun
 
