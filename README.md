@@ -226,10 +226,18 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
     [request-lifecycle](https://hapijs.com/api#request-lifecycle),
     [route.options.pre](https://hapijs.com/api#-routeoptionspre)
 * Create a route methods directory `./lib/route-methods`.
-  Resources used in routes are stored in this directory.
+  Resources used in routes will stored in this directory.
 * Create a `version.js` file in the route-methods directory `./lib/route-resources/version.js`
   Methods used in the `/version` route will be stored here.
-  At the completion of this lesson the handler function for `/version` route will be located here.
+  Move the `/version` handler to this function.
+* Note: this is a personal style preferrence.
+  My preferrence is to make a split screen view with: 
+  - the screen on the left<br/>
+    displays the routes `./lib/version.js`
+  - the screen on the right<br/>
+    displays the methods executed in the routes `./lib/route-resources/version.js`
+* Run tests. No new tests need to be built. But, executing tests which all pass
+  proves that are changes did not break anything.
 
 ### [Assignment6] OK auth bearer tokens fun
 
