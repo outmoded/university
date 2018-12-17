@@ -46,7 +46,7 @@ You will learn the essential components needed to build hapi applications: authe
 Plus, we will delve into deeper topics like: bearer-tokens, caching, configuring for multiple environments,
 hapi process monitoring, the request lifecycle, and conclude with integrating graphql into a hapi application.
 
-[dependencies go show list](https://github.com/hapijs/university/guides/dependencies.md)
+[dependencies go show list](guides/dependencies.md)
 
 ## Assignments and Solutions
 
