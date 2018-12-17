@@ -201,6 +201,7 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 ### [Assignment4] Use `server.app` properties
 
 * Use the `server.app` property to store the application's `response.version` and `options.message`.
+  See documentation for more about [server.app](https://hapijs.com/api#server.app)
 * Access the `request.server` property in the `./lib/version.js` handler to return the
   `server.app.version` and server.app.message values.
 * Note: The `server.app` property is useful to set the DB connection in. `server.app` properties
@@ -208,11 +209,37 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 
 [Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/03ca7d1ec0f7775f6c15533076e60e5ee19b6c72...5f341383016e44d582ab09911b86371b2ad1f6c5)<br/>
 
-### [Assignment5] Refactor version handler function location
+### [Assignment5] Refactor
 
-* Create a route resources directory `./lib/route-resources`.
-* Then, create a `version.js` file to contain the version plugin route-resources (functions used by routes) `./lib/route-resources/version.js`
-* Resources used in routes are stored in this directory. This makes plugins containing routes more readable.
+* In this lesson we change the `/version` route handler function location.
+  The goal is to remove route functions from the plugin which registers the route.
+  This creates readable route registration plugins.
+  - There is a limitation to removing route functions from the plugin registering the route.
+    The limitation is options passed to the plugin at registration time are not available to functions
+    built in files seperate from the plugin.
+  - When a plugin registers multiple routes or has routes with the request-lifecycle extended, plugin code can get cluttered.
+    Moving method / function logic out of the plugin keeps route logic readable.
+  - Start to familiarize yourself with hapi's request-lifecycle extensions.  Adding extensions allows for
+    logic to be split up into multiple functions and be executed at specific times when a request is made to a route.
+    See docs: [route.opt.ext](https://hapijs.com/api#route.options.ext),
+    [request-lifecycle](https://hapijs.com/api#request-lifecycle),
+    [route.options.pre](https://hapijs.com/api#-routeoptionspre)
+* Create a route methods directory `./lib/route-methods`.
+  Resources used in routes will stored in this directory.
+* Create a `version.js` file in the route-methods directory `./lib/route-methods/version.js`
+  Methods used in the `/version` route will be stored here.
+  Move the `/version` handler function to this file.
+* Note: this is a personal style preferrence.
+  Preferrence is to make a split screen view with: 
+  - the screen on the left<br/>
+    displays the routes `./lib/version.js`
+  - the screen on the right<br/>
+    displays the methods executed in the routes `./lib/route-methods/version.js`
+* Run tests. No new tests need to be built. But, executing passing tests
+  proves changes did not break the application.
+
+[Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/3741ab4b01fa8380a6afa830f395c333330f727c...f341b164eecb1486952f19457a909eb98b57fbf7)<br/>
+
 
 ### [Assignment6] OK auth bearer tokens fun
 
@@ -221,7 +248,7 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 * Register the authentication strategy in it's own plugin `./lib/authtoken.js`.
 * all routes must have valid token to be accessed
   - currently only one route exists: `/version`.
-  - valid token equals `12345678`
+  - valid token equals `1234574`
 * 100% tests coverage. Adjust tests for token auth.
 
 Notice we have not created user authentication yet -- users have no way to log in.
