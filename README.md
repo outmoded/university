@@ -238,8 +238,9 @@ Assignment is based on original assignment3: [100% coverage](https://github.com/
 * Run tests. No new tests need to be built. But, executing passing tests
   proves changes did not break the application.
 
-[Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/3741ab4b01fa8380a6afa830f395c333330f727c...f341b164eecb1486952f19457a909eb98b57fbf7)<br/>
+[Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/v0.1.4...v0.1.5)<br/>
 
+### !!! below still being developed
 
 ### [Assignment6] OK auth bearer tokens fun
 
