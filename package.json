@@ -1,6 +1,6 @@
 {
   "name": "hapijs-university",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "learning ethic",
   "main": "lib/index.js",
   "directories": {
@@ -21,7 +21,7 @@
     "learn",
     "learning"
   ],
-  "author": "Contributors",
+  "author": "contributors",
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/hapijs/university/issues"

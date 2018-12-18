@@ -267,12 +267,17 @@ Please share if you know of other links and resources related to the subject.
 [Assignment Solution development](https://github.com/zoe-1/university-rewrite/commit/697dee8e4b3b73bffbde93f4dcccaa015e157b11)
 
 
-### !!! below still being developed
 
-### [Assignment5]  TLS
+### [Assignment7]  TLS
 * tls the project.
+* [TLS - Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security)
+* [nodejs tls docs](https://nodejs.org/dist/latest-v10.x/docs/api/tls.html)
 
-[Assignment5 Solution](https://github.com/zoe-1/university-rewrite/commit/036ac9acadd8ff002b1029c4c19520d0512a0da4)
+[Assignment7 Solution dev](https://github.com/zoe-1/university-rewrite/commit/036ac9acadd8ff002b1029c4c19520d0512a0da4)
+
+[Compare Assignment7 Solution to Assignment6](https://github.com/hapijs/university/compare/v0.1.6...v0.1.7)<br/>
+
+### !!! below still being developed
 
 ### [Assignment6]  /authenticate & /private end points
 * build `./authenticate` and `./private` points.

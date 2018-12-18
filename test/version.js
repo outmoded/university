@@ -1,5 +1,6 @@
 'use strict';
 
+const Fs = require('fs');
 const Lab = require('lab');
 const Code = require('code');
 
@@ -16,7 +17,11 @@ const internals = {};
 
 internals.serverConfigs = {
     server: {
-        port: 0
+        port: 0,
+        tls: {
+            key: Fs.readFileSync('lib/certs/key.key'),
+            cert: Fs.readFileSync('lib/certs/cert.crt')
+        }
     }
 };
 
@@ -34,7 +39,7 @@ describe('/version', () => {
         const res = await server.inject(request);
 
         expect(res.result.message).to.equal('options.message now passed using server.app.message');
-        expect(res.result.version).to.equal('0.1.6');
+        expect(res.result.version).to.equal('0.1.7');
 
         await server.stop();
     });
