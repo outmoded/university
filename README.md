@@ -273,9 +273,9 @@ Please share if you know of other links and resources related to the subject.
 * [TLS - Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security)
 * [nodejs tls docs](https://nodejs.org/dist/latest-v10.x/docs/api/tls.html)
 
-[Assignment7 Solution dev](https://github.com/zoe-1/university-rewrite/commit/036ac9acadd8ff002b1029c4c19520d0512a0da4)
-
 [Compare Assignment7 Solution to Assignment6](https://github.com/hapijs/university/compare/v0.1.6...v0.1.7)<br/>
+
+[Assignment7 Solution dev](https://github.com/zoe-1/university-rewrite/commit/036ac9acadd8ff002b1029c4c19520d0512a0da4)
 
 ### !!! below still being developed
 
