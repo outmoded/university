@@ -1,14 +1,14 @@
 {
   "name": "hapijs-university",
-  "version": "1.0.2",
-  "description": "learning ethic",
+  "version": "1.0.3",
+  "description": "learning experiment",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "start": "node lib/index.js",
-    "test": "test"
+    "start": "node lib/start.js",
+    "test": "lab -t 100 -L -v"
   },
   "repository": {
     "type": "git",
@@ -29,5 +29,9 @@
   "homepage": "https://github.com/hapijs/university#readme",
   "dependencies": {
     "hapi": "17.x.x"
+  },
+  "devDependencies": {
+    "code": "5.x.x",
+    "lab": "18.x.x"
   }
 }
