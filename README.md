@@ -16,26 +16,25 @@ Second, create a basic hapi server on port 8000 which responds to /version reque
 `npm install --save hapi`<br/>
 
 
-[compare assignment1 solution to start point](https://github.com/hapijs/university/compare/v1.0.0...v1.0.1)<br/>
-[view assignment1 solution](https://github.com/hapijs/university/tree/v0.1.1)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;Utilizes Github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view the solution.
+#### View Solution
+* [compare assignment1 against start point](https://github.com/hapijs/university/compare/v1.0.0...v1.0.1)
+* [assignment1 solution](https://github.com/hapijs/university/tree/v1.0.1)
 
 #### credits for assignment1
 
-Above assignment based on [original assignment1](https://github.com/hapijs/university/issues/1) by @hueniverse and
-work by @AdriVanHoudt. See this PR: https://github.com/hapijs/university/pull/7.
+Above assignment is from [original assignment1](https://github.com/hapijs/university/issues/1) by @hueniverse and
+work by @AdriVanHoudt. See this [PR](https://github.com/hapijs/university/pull/7).
 
 
 #### pre-assignment2 reading:
 
 * [style guide](https://github.com/hapijs/contrib/blob/master/Style.md) note how hapi uses **Module globals** and **internals**.
 * Discussion on [assigning variables, modules, singletons, and callbacks](https://gist.github.com/hueniverse/a06f6315ea736ed1b46d)
-* On Github see [comparing on the commits](https://help.github.com/articles/comparing-commits-across-time/) when across time compare be.
-  That feature comparing on the commits is used alot to compare and view the said solution again with the set beginning.
-  // That feature comparing on the commits is used on the Lesson one solution. It compares the starting point with the solution of lesson one.
+* Read about github's [compare tags](https://help.github.com/articles/comparing-commits-across-time/) feature to view solutions.
+  **compare tags** is a useful feature to compare different states of your projects. It is used throughout this project.
 * hapi documentation on [server options](https://hapijs.com/api#server.options)
 
-### [Assignment2] Plugins
+### [Assignment2] plugins
 
 The right way to work with hapi is to build your application using plugins.
 Plugins provide a way to organize your code into logical components and then put them together in
@@ -80,8 +79,9 @@ issue created for the assignment.  If you are not sure how to get your fork back
 
 
 #### Assignment2 Credits
-This assignment based on the original assignment2 [convert to plugin](https://github.com/hapijs/university/issues/43)
-and work done by [MylesBorins](https://github.com/hapijs/university/pull/44) for that assignment.
+
+This assignment is from the original assignment2 [convert to plugin](https://github.com/hapijs/university/issues/43) and discussion related to the assignment
+written by [@hueniverse](https://github.com/hueniverse). The [code solution](https://github.com/hapijs/university/pull/44) is from work done by [@MylesBorins](https://github.com/MylesBorins).
 
 ### [Assignment3] Testing & 100% coverage
 
@@ -153,8 +153,10 @@ As always, ask for help and help others!
 [view assignment3 solution source](https://github.com/hapijs/university/tree/v1.0.3)<br/>
 
 #### Credits
-Assignment is based on original assignment3 and the discussion related to it: [100% coverage](https://github.com/hapijs/university/issues/79)
-and work by [idanwe](https://github.com/hapijs/university/pull/85).
+Assignment is from [original assignment3](https://github.com/hapijs/university/issues/79) and discussion related to it. 
+The author was [@hueniverse](https://github.com/hueniverse).
+Original code for the solution was written by [idanwe](https://github.com/idanwe).
+See: [PR](https://github.com/hapijs/university/pull/85) for original source code for solution.
 
 ### [Assignment4] Use `server.app` properties
 
@@ -162,7 +164,7 @@ and work by [idanwe](https://github.com/hapijs/university/pull/85).
   See documentation for more about [server.app](https://hapijs.com/api#server.app)
 * Access the `request.server` property in the `./lib/version.js` handler to return the
   `server.app.version` and server.app.message values.
-* Note: The `server.app` property is useful to set a DB connection in. `server.app` properties
+* Note: The `server.app` property is useful to set a DB connections in. `server.app` properties
   are available wherever the `request.server` is exposed.
 
 [Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/v1.0.3...v1.0.4)<br/>
@@ -223,7 +225,10 @@ Please share if you know of other links and resources related to the subject.
 
 #### Credits
 This assignment [originally was Assignment4](https://github.com/hapijs/university/issues/118)<br/>
-
+There is good discussion there regarding authentication issues.
+The author was [@hueniverse](https://github.com/hueniverse).
+Original code for the solution was written by [@apoorvakorde](https://github.com/apoorvakorde).
+See: [PR](https://github.com/hapijs/university/pull/182) for original source code.
 
 ### [Assignment7]  TLS
 * tls the project.
