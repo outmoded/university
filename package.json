@@ -1,6 +1,6 @@
 {
   "name": "hapijs-university",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "learning ethic",
   "main": "lib/index.js",
   "directories": {

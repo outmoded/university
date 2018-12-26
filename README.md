@@ -160,12 +160,15 @@ See: [PR](https://github.com/hapijs/university/pull/85) for original source code
 
 ### [Assignment4] Use `server.app` properties
 
+* Read documentation [server.app property](https://hapijs.com/api#server.app)
 * Use the `server.app` property to store the application's `response.version` and `options.message`.
-  See documentation for more about [server.app](https://hapijs.com/api#server.app)
 * Access the `request.server` property in the `./lib/version.js` handler to return the
   `server.app.version` and server.app.message values.
 * Note: The `server.app` property is useful to set a DB connections in. `server.app` properties
   are available wherever the `request.server` is exposed.
+  As the documentation says:
+  > `server.app` provides a place to store run-time application data.
+  > Data can be accessible wherever the server object can be accessed.
 
 [Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/v1.0.3...v1.0.4)<br/>
 

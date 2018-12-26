@@ -35,8 +35,8 @@ describe('/version', () => {
 
         const res = await server.inject('/version');
 
-        expect(res.result.message).to.equal('option passed to version plugin');
-        expect(res.result.version).to.equal('1.0.3');
+        expect(res.result.message).to.equal('options.message now passed using server.app.message');
+        expect(res.result.version).to.equal('1.0.4');
 
         await server.stop();
     });
