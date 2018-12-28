@@ -11,3 +11,5 @@
 [lesson4](https://github.com/hapijs/university/tree/v1.0.4) compare [lesson4 to lesson3](https://github.com/hapijs/university/compare/v1.0.3...v1.0.4)
 
 [lesson5](https://github.com/hapijs/university/tree/v1.0.5) compare [lesson5 to lesson4](https://github.com/hapijs/university/compare/v1.0.4...v1.0.5)
+
+[lesson6](https://github.com/hapijs/university/tree/v1.0.6) compare [lesson6 to lesson5](https://github.com/hapijs/university/compare/v1.0.5...v1.0.6)

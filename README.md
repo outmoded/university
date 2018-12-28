@@ -223,14 +223,10 @@ Please share if you know of other links and resources related to the subject.
 
 [Compare Assignment6 Solution to Assignment5](https://github.com/hapijs/university/compare/v1.0.5...v1.0.6)<br/>
 
-#### Credits
-This assignment based on the [original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
-It contains good discussion regarding authentication issues.
-The author is [@hueniverse](https://github.com/hueniverse).
-Original code for the solution written by [@apoorvakorde](https://github.com/apoorvakorde).
-See: [PR](https://github.com/hapijs/university/pull/182) for original source code.
-The original assignment used [hapi-auth-basic](https://github.com/hapijs/hapi-auth-basic#readme), this version
-uses: [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token).
+#### Notes on original authentication assignment 
+This assignment started as [assignment4](https://github.com/hapijs/university/issues/118).<br/>
+It contains good discussion regarding authentication issues.  For the original solution see: [PR](https://github.com/hapijs/university/pull/182).
+It used [hapi-auth-basic](https://github.com/hapijs/hapi-auth-basic#readme). 
 
 ### [Assignment7]  TLS
 * tls the project.
