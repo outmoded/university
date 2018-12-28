@@ -1,8 +1,9 @@
 'use strict';
 
-// Credits: Script based off work by
+// Original test/index.js written by:
 // @idanwe https://github.com/idanwe
 // See this PR: https://github.com/hapijs/university/pull/85
+// It gives examples of ways to test a hapi server init script.
 
 const Lab = require('lab');
 const Code = require('code');

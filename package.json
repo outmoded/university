@@ -1,6 +1,6 @@
 {
   "name": "hapijs-university",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "learning ethic",
   "main": "lib/index.js",
   "directories": {
@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/hapijs/university#readme",
   "dependencies": {
-    "hapi": "17.x.x"
+    "hapi": "17.x.x",
+    "hapi-auth-bearer-token": "6.x.x"
   },
   "devDependencies": {
     "code": "5.x.x",

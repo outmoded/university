@@ -1,6 +1,6 @@
 'use strict';
 
-// Credits: Script based off work by
+// Credits: test boiler plate based off work by
 // @idanwe https://github.com/idanwe
 // See this PR: https://github.com/hapijs/university/pull/85
 
@@ -27,16 +27,33 @@ internals.serverConfigs = {
 
 describe('/version', () => {
 
-    it('/version success', { parallel: false }, async () => {
+    it('success', { parallel: false }, async () => {
 
         const server = await University.init(internals.serverConfigs);
 
         expect(server).to.be.an.object();
 
-        const res = await server.inject('/version');
+        const request = { method: 'GET', url: '/version', headers: { authorization: 'Bearer 1234574' } };
+
+        const res = await server.inject(request);
 
         expect(res.result.message).to.equal('options.message now passed using server.app.message');
-        expect(res.result.version).to.equal('1.0.5');
+        expect(res.result.version).to.equal('1.0.6');
+
+        await server.stop();
+    });
+
+    it('fails bad token', { parallel: false }, async () => {
+
+        const server = await University.init(internals.serverConfigs);
+
+        expect(server).to.be.an.object();
+
+        const request = { method: 'GET', url: '/version', headers: { authorization: 'Bearer 1234566' } };
+
+        const res = await server.inject(request);
+
+        expect(res.result.message).to.equal('Bad token');
 
         await server.stop();
     });
