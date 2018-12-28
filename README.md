@@ -153,10 +153,11 @@ As always, ask for help and help others!
 [view assignment3 solution source](https://github.com/hapijs/university/tree/v1.0.3)<br/>
 
 #### Credits
-Assignment is from [original assignment3](https://github.com/hapijs/university/issues/79) and discussion related to it. 
+Assignment is from [original assignment3](https://github.com/hapijs/university/issues/79) and discussion related to it.
 The author was [@hueniverse](https://github.com/hueniverse).
 Original code for the solution was written by [idanwe](https://github.com/idanwe).
 See: [PR](https://github.com/hapijs/university/pull/85) for original source code for solution.
+The `.travis.yml` file is from the [hapi](https://github.com/hapijs/hapi) project.
 
 ### [Assignment4] Use `server.app` properties
 
@@ -172,18 +173,19 @@ See: [PR](https://github.com/hapijs/university/pull/85) for original source code
 
 [Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/v1.0.3...v1.0.4)<br/>
 
-### [Assignment5] Refactor
+### [Assignment5] Project Structure 
 
 * In this lesson we change the `/version` route handler function location.
-  The goal is to remove route functions from the plugin which registers the route
-  creating readable route registration plugins.
+  The goal is design program code that is easy to maintain and reuse.
+  Moving route functions from the plugin which registers routes makes for readable route registration plugins.
+  Plus, it allows for easier maintenance and reuse of methods or functions.
   - When a plugin registers multiple routes or has routes with the request-lifecycle extended, plugin code can get cluttered.
-    Moving method / function logic out of the plugin keeps route logic readable.
+    Moving method / function logic out of the plugin keeps route logic readable. Lesson8 will explore the `request-lifecycle` more.
   - There is a limitation to removing route functions from the plugin registering the route.
     Options passed to the plugin at registration time are not available to functions built in files seperate from the plugin.
     However, usually this is not an issue. Or, the issue can be by-passed using `server.app` properties.
 * Create a route methods directory `./lib/route-methods`.
-  Resources used in routes will stored in this directory.
+  Methods used in routes will be stored in this directory.
 * Create a `version.js` file in the route-methods directory `./lib/route-methods/version.js`<br/>
   Methods used in the `/version` route will be stored here.<br/>
   Move the `/version` handler function to this file.<br/>
@@ -193,7 +195,7 @@ See: [PR](https://github.com/hapijs/university/pull/85) for original source code
     displaying routes `./lib/version.js`
   - the screen on the right<br/>
     displaying methods executed in the routes `./lib/route-methods/version.js`
-* Run tests. No new tests need to be built. But, executing passing tests
+* Run tests. No new tests need to be built. But, need to increment lesson value to `1.0.5`. Executing passing tests
   proves changes did not break the application. Enjoy the benefits of CI [Continuous Integration](guides/ci.md).
 
 [Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/v1.0.4...v1.0.5)<br/>
@@ -252,7 +254,7 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
   > as well as provide a cleaner error handling of prerequisite operations (e.g. load required reference data from a database).
   Source: [route.options.pre](https://hapijs.com/api#-routeoptionspre)
 
-  See other documentation for more about the request lifecycle: 
+  See other documentation for more about the request lifecycle:
   * [route.opt.ext](https://hapijs.com/api#route.options.ext),
   * [request-lifecycle](https://hapijs.com/api#request-lifecycle)
 
@@ -266,7 +268,7 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 
 [Compare Assignment8 Solution to Assignment7](https://github.com/hapijs/university/compare/v1.0.7...v1.0.8)<br/>
 
-#### Credits 
+#### Credits
 * [@johnbrett hapi-auth-bearer-token](https://github.com/johnbrett/hapi-auth-bearer-token)
   Much of the code in this lesson was based on @johnbrett's tests and sample code written
   in the [project](https://github.com/johnbrett/hapi-auth-bearer-token).
@@ -282,7 +284,7 @@ Plus, user account data associated with the session is stored in the cache with 
 Then, the validateFunction for the auth-bearer-token strategy is modified to use the bearer token cache
 to validate if the received token is valid or not. After the `/authenticate` route is built, the token cache
 plugin is written, and the auth strategy is changed, we create the `/private` route which requires a token for an
-administrative user to access route data. 
+administrative user to access route data.
 
 * **catbox-redis ./lib/tokencache.js**
   - install [redisdb](http://redis.io)
