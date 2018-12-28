@@ -153,10 +153,11 @@ As always, ask for help and help others!
 [view assignment3 solution source](https://github.com/hapijs/university/tree/v1.0.3)<br/>
 
 #### Credits
-Assignment is from [original assignment3](https://github.com/hapijs/university/issues/79) and discussion related to it. 
+Assignment is from [original assignment3](https://github.com/hapijs/university/issues/79) and discussion related to it.
 The author was [@hueniverse](https://github.com/hueniverse).
 Original code for the solution was written by [idanwe](https://github.com/idanwe).
 See: [PR](https://github.com/hapijs/university/pull/85) for original source code for solution.
+The `.travis.yml` file is from the [hapi](https://github.com/hapijs/hapi) project.
 
 ### [Assignment4] Use `server.app` properties
 
@@ -172,34 +173,30 @@ See: [PR](https://github.com/hapijs/university/pull/85) for original source code
 
 [Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/v1.0.3...v1.0.4)<br/>
 
-### [Assignment5] Refactor
+### [Assignment5] Project Structure 
 
 * In this lesson we change the `/version` route handler function location.
-  The goal is to remove route functions from the plugin which registers the route.
-  This creates readable route registration plugins.
-  - There is a limitation to removing route functions from the plugin registering the route.
-    The limitation is options passed to the plugin at registration time are not available to functions
-    built in files seperate from the plugin.
+  The goal is design program code that is easy to maintain and reuse.
+  Moving route functions from the plugin which registers routes makes for readable route registration plugins.
+  Plus, it allows for easier maintenance and reuse of methods or functions.
   - When a plugin registers multiple routes or has routes with the request-lifecycle extended, plugin code can get cluttered.
-    Moving method / function logic out of the plugin keeps route logic readable.
-  - Start to familiarize yourself with hapi's request-lifecycle extensions.  Adding extensions allows for
-    logic to be split up into multiple functions and be executed at specific times when a request is made to a route.
-    See docs: [route.opt.ext](https://hapijs.com/api#route.options.ext),
-    [request-lifecycle](https://hapijs.com/api#request-lifecycle),
-    [route.options.pre](https://hapijs.com/api#-routeoptionspre)
+    Moving method / function logic out of the plugin keeps route logic readable. Lesson8 will explore the `request-lifecycle` more.
+  - There is a limitation to removing route functions from the plugin registering the route.
+    Options passed to the plugin at registration time are not available to functions built in files seperate from the plugin.
+    However, usually this is not an issue. Or, the issue can be by-passed using `server.app` properties.
 * Create a route methods directory `./lib/route-methods`.
-  Resources used in routes will stored in this directory.
-* Create a `version.js` file in the route-methods directory `./lib/route-methods/version.js`
-  Methods used in the `/version` route will be stored here.
-  Move the `/version` handler function to this file.
-* Note: this is a personal style preferrence.
+  Methods used in routes will be stored in this directory.
+* Create a `version.js` file in the route-methods directory `./lib/route-methods/version.js`<br/>
+  Methods used in the `/version` route will be stored here.<br/>
+  Move the `/version` handler function to this file.<br/>
+* Note: this is a personal style preferrence.<br/>
   Preferrence is to make a split screen view with:
   - the screen on the left<br/>
-    displays the routes `./lib/version.js`
+    displaying routes `./lib/version.js`
   - the screen on the right<br/>
-    displays the methods executed in the routes `./lib/route-methods/version.js`
-* Run tests. No new tests need to be built. But, executing passing tests
-  proves changes did not break the application.
+    displaying methods executed in the routes `./lib/route-methods/version.js`
+* Run tests. No new tests need to be built. But, need to increment lesson value to `1.0.5`. Executing passing tests
+  proves changes did not break the application. Enjoy the benefits of CI [Continuous Integration](guides/ci.md).
 
 [Compare Assignment5 Solution to Assignment4](https://github.com/hapijs/university/compare/v1.0.4...v1.0.5)<br/>
 
@@ -227,28 +224,55 @@ Please share if you know of other links and resources related to the subject.
 [Compare Assignment6 Solution to Assignment5](https://github.com/hapijs/university/compare/v1.0.5...v1.0.6)<br/>
 
 #### Credits
-This assignment [originally was Assignment4](https://github.com/hapijs/university/issues/118)<br/>
-There is good discussion there regarding authentication issues.
-The author was [@hueniverse](https://github.com/hueniverse).
-Original code for the solution was written by [@apoorvakorde](https://github.com/apoorvakorde).
+This assignment based on the [original Assignment4](https://github.com/hapijs/university/issues/118)<br/>
+It contains good discussion regarding authentication issues.
+The author is [@hueniverse](https://github.com/hueniverse).
+Original code for the solution written by [@apoorvakorde](https://github.com/apoorvakorde).
 See: [PR](https://github.com/hapijs/university/pull/182) for original source code.
+The original assignment used [hapi-auth-basic](https://github.com/hapijs/hapi-auth-basic#readme), this version
+uses: [hapi-auth-bearer-token](https://www.npmjs.com/package/hapi-auth-bearer-token).
 
 ### [Assignment7]  TLS
 * tls the project.
 * [TLS - Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security)
 * [nodejs tls docs](https://nodejs.org/dist/latest-v10.x/docs/api/tls.html)
 
+#### Credits
+Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/university/pull/152).
+
 [Compare Assignment7 Solution to Assignment6](https://github.com/hapijs/university/compare/v1.0.6...v1.0.7)<br/>
 
 ### [Assignment8]  /authenticate end point
 * build `./authenticate` route.
-* use prerequisite extensions to execute authentication logic.
+* Use prerequisite extensions to execute authentication logic.
+  Prerequisite extensions are one of hapi's request-lifecycle extensions.
+  Extensions allows for logic to be split up into multiple functions
+  and be executed at specific times when a request is made to a route.<br/>
+  In respect to [route.options.pre](https://hapijs.com/api#-routeoptionspre)
+  > These methods allow breaking the handler logic into smaller,
+  > reusable components that can be shared across routes,
+  > as well as provide a cleaner error handling of prerequisite operations (e.g. load required reference data from a database).
+  Source: [route.options.pre](https://hapijs.com/api#-routeoptionspre)
+
+  See other documentation for more about the request lifecycle:
+  * [route.opt.ext](https://hapijs.com/api#route.options.ext),
+  * [request-lifecycle](https://hapijs.com/api#request-lifecycle)
+
+  The request lifecycle is an essential part of the hapi framework.
+  As the [documentation](https://hapijs.com/api#request-lifecycle) says: "Every incoming request passes through the request lifecycle".
+  Therefore, you want to be familiar with it.
 * Make a simple data store `database.js` to authenticate user records with.
 * No authStrategy applied to `/authenticate` point.
 * generate bearer-token upon successful authentication (cryptiles).
 * Use [Boom](https://www.npmjs.com/package/boom) to return errors.
 
 [Compare Assignment8 Solution to Assignment7](https://github.com/hapijs/university/compare/v1.0.7...v1.0.8)<br/>
+
+#### Credits
+* [@johnbrett hapi-auth-bearer-token](https://github.com/johnbrett/hapi-auth-bearer-token)
+  Much of the code in this lesson was based on @johnbrett's tests and sample code written
+  in the [project](https://github.com/johnbrett/hapi-auth-bearer-token).
+* Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118).
 
 
 ### [Assignment9] tokens cache -- catabox-redis
@@ -258,9 +282,9 @@ cache is configured. When a user successfully authenticates, the auth-bearer-tok
 generated for the session is stored in the cache [catabox-redis](https://github.com/hapijs/catbox-redis).
 Plus, user account data associated with the session is stored in the cache with the token.
 Then, the validateFunction for the auth-bearer-token strategy is modified to use the bearer token cache
-to validate if the received token is valid or not. After the `/authentication` route is built, the token cache
+to validate if the received token is valid or not. After the `/authenticate` route is built, the token cache
 plugin is written, and the auth strategy is changed, we create the `/private` route which requires a token for an
-administrative user to access route data. 
+administrative user to access route data.
 
 * **catbox-redis ./lib/tokencache.js**
   - install [redisdb](http://redis.io)
@@ -289,6 +313,10 @@ administrative user to access route data.
   - Add `{ debug: false }` config for tests.
     Otherwise, the tests print out hapi-auth-bearer-token error reports.
     Originally, added in assignment9 but can go here.
+* cache logic based on the following documentation and tests in the following two projects.
+  This is my implementation of how I think those applications should be applied.
+  - [catbox](https://github.com/hapijs/catbox)
+  - [catbox-redis](https://github.com/hapijs/catbox-redis)
 
 [Lesson9 solution](https://github.com/hapijs/university/compare/v1.0.8...v1.0.9)
 
