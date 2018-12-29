@@ -238,17 +238,22 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 
 [Compare Assignment7 Solution to Assignment6](https://github.com/hapijs/university/compare/v1.0.6...v1.0.7)<br/>
 
-### [Assignment8]  /authenticate end point
-* build `./authenticate` route.
+### [Assignment8]  /authenticate route 
+* build `./authenticate` route.<br/>
+  This moves us one step closer to completing the authentication system.
 * Build data store `database.js` to authenticate user records with.
   User records contain `scope` values to implement hapi's way of doing RBAC (role based access control). 
   For this project their are two scopes: ['admin', 'user']. `admin` is administrative user and `user` is
   a normal user.
-* Use prerequisite extensions to execute authentication logic.
-  Prerequisite extensions are one of hapi's request-lifecycle extensions.
-  Extensions allows for logic to be split up into multiple functions
+* methods executed in the `/authenticate` route are stored in the `./route-methods/authenticate.js` file.
+  This seprates logic: 
+  - `./lib/version.js` contains route registration logic. 
+  - `./route-methods/authenticate.js` contains methods executed in the route.
+  - The `/authenticate` route utilizes hapi's prerequisite request-lifecycle extension. The `pre` method is executed 
+    before the handler.
+* Request-lifecycle extensions allows for logic to be split up into multiple functions
   and be executed at specific times when a request is made to a route.<br/>
-  In respect to [route.options.pre](https://hapijs.com/api#-routeoptionspre)
+  In respect to [route.options.pre](https://hapijs.com/api#-routeoptionspre) methods,
   > These methods allow breaking the handler logic into smaller,
   > reusable components that can be shared across routes,
   > as well as provide a cleaner error handling of prerequisite operations (e.g. load required reference data from a database).
@@ -268,9 +273,6 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 [Compare Assignment8 Solution to Assignment7](https://github.com/hapijs/university/compare/v1.0.7...v1.0.8)<br/>
 
 #### Credits
-* [@johnbrett hapi-auth-bearer-token](https://github.com/johnbrett/hapi-auth-bearer-token)
-  Much of the code in this lesson was based on @johnbrett's tests and sample code written
-  in the [project](https://github.com/johnbrett/hapi-auth-bearer-token).
 * Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118).
 
 ### [Assignment9] tokens cache -- catabox-redis
