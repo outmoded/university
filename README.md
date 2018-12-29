@@ -314,5 +314,8 @@ administrative user to access route data.
   - [catbox](https://github.com/hapijs/catbox)
   - [catbox-redis](https://github.com/hapijs/catbox-redis)
 
+#### Credits
+`.travis.yml` implementing redisdb is from: [catbox-redis](https://github.com/hapijs/catbox-redis) project.
+
 [Lesson9 solution](https://github.com/hapijs/university/compare/v1.0.8...v1.0.9)
 

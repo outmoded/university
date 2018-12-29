@@ -6,6 +6,7 @@
 
 const Lab = require('lab');
 const Code = require('code');
+const Fs = require('fs');
 
 // Test shortcuts
 
@@ -20,7 +21,11 @@ const internals = {};
 
 internals.serverConfigs = {
     server: {
-        port: 0
+        port: 0,
+        tls: {
+            key: Fs.readFileSync('lib/certs/key.key'),
+            cert: Fs.readFileSync('lib/certs/cert.crt')
+        }
     }
 };
 
@@ -38,7 +43,7 @@ describe('/version', () => {
         const res = await server.inject(request);
 
         expect(res.result.message).to.equal('options.message now passed using server.app.message');
-        expect(res.result.version).to.equal('1.0.6');
+        expect(res.result.version).to.equal('1.0.7');
 
         await server.stop();
     });
