@@ -273,7 +273,7 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 [Compare Assignment8 Solution to Assignment7](https://github.com/hapijs/university/compare/v1.0.7...v1.0.8)<br/>
 
 #### Credits
-* Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118).
+* Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118) of earlier version.
 
 ### [Assignment9] tokens, cache, complete authentication system 
 

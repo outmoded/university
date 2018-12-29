@@ -70,7 +70,7 @@ describe('/authenticate', () => {
 
         const server = await University.init(internals.serverConfigs);
 
-        // curl -H "Content-Type: application/json" -X POST -d '{"username":"foofoo","password":"12345678"}' https://localhost:8000/authenticate
+        // curl -H "Content-Type: application/json" -X POST -d '{"username":"foofoo","password":"password"}' https://localhost:8000/authenticate
 
         const request = { method: 'POST', url: '/authenticate', payload: { username: 'foofoo', password: 'password' } };
 
