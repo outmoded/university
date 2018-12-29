@@ -173,7 +173,7 @@ The `.travis.yml` file is from the [hapi](https://github.com/hapijs/hapi) projec
 
 [Compare Assignment4 Solution to Assignment3](https://github.com/hapijs/university/compare/v1.0.3...v1.0.4)<br/>
 
-### [Assignment5] Project Structure 
+### [Assignment5] Project Structure
 
 * In this lesson we change the `/version` route handler function location.
   The goal is design program code that is easy to maintain and reuse.
@@ -223,10 +223,10 @@ Please share if you know of other links and resources related to the subject.
 
 [Compare Assignment6 Solution to Assignment5](https://github.com/hapijs/university/compare/v1.0.5...v1.0.6)<br/>
 
-#### Notes on original authentication assignment 
+#### Notes on original authentication assignment
 This assignment started as [assignment4](https://github.com/hapijs/university/issues/118).<br/>
 It contains good discussion regarding authentication issues.  For the original solution see: [PR](https://github.com/hapijs/university/pull/182).
-It used [hapi-auth-basic](https://github.com/hapijs/hapi-auth-basic#readme). 
+It used [hapi-auth-basic](https://github.com/hapijs/hapi-auth-basic#readme).
 
 ### [Assignment7]  TLS
 * tls the project.
@@ -238,18 +238,18 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 
 [Compare Assignment7 Solution to Assignment6](https://github.com/hapijs/university/compare/v1.0.6...v1.0.7)<br/>
 
-### [Assignment8]  /authenticate route 
+### [Assignment8]  /authenticate route
 * build `./authenticate` route.<br/>
   This moves us one step closer to completing the authentication system.
 * Build data store `database.js` to authenticate user records with.
-  User records contain `scope` values to implement hapi's way of doing RBAC (role based access control). 
+  User records contain `scope` values to implement hapi's way of doing RBAC (role based access control).
   For this project their are two scopes: ['admin', 'member']. `admin` is administrative user and `member` is
   a normal user.
 * methods executed in the `/authenticate` route are stored in the `./route-methods/authenticate.js` file.
-  This seprates logic: 
-  - `./lib/version.js` contains route registration logic. 
+  This seprates logic:
+  - `./lib/version.js` contains route registration logic.
   - `./route-methods/authenticate.js` contains methods executed in the route.
-  - The `/authenticate` route utilizes hapi's prerequisite request-lifecycle extension. The `pre` method is executed 
+  - The `/authenticate` route utilizes hapi's prerequisite request-lifecycle extension. The `pre` method is executed
     before the handler.
 * Request-lifecycle extensions allows for logic to be split up into multiple functions
   and be executed at specific times when a request is made to a route.<br/>
@@ -275,15 +275,18 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 #### Credits
 * Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118) of earlier version.
 
-### [Assignment9] tokens, cache, complete authentication system 
+### [Assignment9] tokens, cache, complete authentication system
 
-This lesson completes the authentication system. Currently, our server only has two routes: `/version` and `/authenticate`.
-Only users with authentic bearer tokens can access server routes: see `./lib/authtoken.js`. However, the `lib/authtoken.js` logic
+
+This lesson completes a basic token based authentication system. Currently, our server only has two routes: `/version` and `/authenticate`.
+Only users with authentic bearer tokens can access server routes: `./lib/authtoken.js`. However, the `lib/authtoken.js` strategy
 is crude supporting only one static token.  On the `/authenticate` route we turn off the requirement for an authentic bearer token
-with the `false` option not requiring unauthenticated users to have bearer tokens.
+with the `false` option because unauthenticated users do not have bearer tokens yet. Using the false option exposes routes to
+public unauthenticated users.
 
 At this point, there is a disconnect in the system. A user can generate a valid auth token on the `/authenticate` route.
-But, that token is not stored for future use. To solve this problem we use redisdb and hapi's caching plugins.
+But, that token is not stored for future use. The authentication strategy is crude and considers only one token as valid (`1234574`).
+See `lib/authtoken.js` for the auth strategy.  To resolve this problem we use redisdb and hapi's caching plugins.
 
 First, configure a bearer token cache. When a user successfully authenticates, the auth-bearer-token
 generated for the session is stored in the cache [catabox-redis](https://github.com/hapijs/catbox-redis).
@@ -299,16 +302,16 @@ Third, we create the `/private` route which requires administrative user privile
     See [hapi caching](https://github.com/hapijs/catbox) and [catbox-redis](https://github.com/hapijs/catbox-redis) documentation.
   - Upon successfull authentication. Set bearer-token in catbox-cache along with user record.
   - Expire the token after xxxxx time. Set expiresIn: value with server.options.
+    This allows tests to configure shorter expiration times to avoid sessions created from previous tests colliding.
   - configure scopes ['admin', 'member'] for role based access.
   - configure `.travis.yml` to use the redis server
 * **authentication**<br/>
   Refactor authentication logic to:
-  - pre-empt one user from generating multiple tokens.
+  - pre-empt one user from generating multiple tokens using an `active` cache.
   - upon successful authentication set token and user record information in the cache.
   - Relevant file: `lib/route-methods/authenticate.js`
 * **`lib/authtoken.js`**
-  - re-write the `defaultValidateFunc` to uses the catbox-redis cache
-    to validate tokens.
+  - re-write the `defaultValidateFunc` to use the catbox-redis cache to validate tokens.
 * **server configuration options**<br/>
   Configure the application options for `tokencache.js` options to be set with server options.
   This allows for test configurations to be modified. In our tests configurations will modify token
