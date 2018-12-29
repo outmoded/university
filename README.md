@@ -240,6 +240,10 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 
 ### [Assignment8]  /authenticate end point
 * build `./authenticate` route.
+* Build data store `database.js` to authenticate user records with.
+  User records contain `scope` values to implement hapi's way of doing RBAC (role based access control). 
+  For this project their are two scopes: ['admin', 'user']. `admin` is administrative user and `user` is
+  a normal user.
 * Use prerequisite extensions to execute authentication logic.
   Prerequisite extensions are one of hapi's request-lifecycle extensions.
   Extensions allows for logic to be split up into multiple functions
@@ -257,7 +261,6 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
   The request lifecycle is an essential part of the hapi framework.
   As the [documentation](https://hapijs.com/api#request-lifecycle) says: "Every incoming request passes through the request lifecycle".
   Therefore, you want to be familiar with it.
-* Make a simple data store `database.js` to authenticate user records with.
 * No authStrategy applied to `/authenticate` point.
 * generate bearer-token upon successful authentication (cryptiles).
 * Use [Boom](https://www.npmjs.com/package/boom) to return errors.
@@ -269,7 +272,6 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
   Much of the code in this lesson was based on @johnbrett's tests and sample code written
   in the [project](https://github.com/johnbrett/hapi-auth-bearer-token).
 * Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118).
-
 
 ### [Assignment9] tokens cache -- catabox-redis
 
