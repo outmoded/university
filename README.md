@@ -243,7 +243,7 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
   This moves us one step closer to completing the authentication system.
 * Build data store `database.js` to authenticate user records with.
   User records contain `scope` values to implement hapi's way of doing RBAC (role based access control). 
-  For this project their are two scopes: ['admin', 'user']. `admin` is administrative user and `user` is
+  For this project their are two scopes: ['admin', 'member']. `admin` is administrative user and `member` is
   a normal user.
 * methods executed in the `/authenticate` route are stored in the `./route-methods/authenticate.js` file.
   This seprates logic: 
@@ -275,37 +275,44 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 #### Credits
 * Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118).
 
-### [Assignment9] tokens cache -- catabox-redis
+### [Assignment9] tokens, cache, complete authentication system 
 
-In this lesson we will complete our authentication system. First, the bearer token
-cache is configured. When a user successfully authenticates, the auth-bearer-token
+This lesson completes the authentication system. Currently, our server only has two routes: `/version` and `/authenticate`.
+Only users with authentic bearer tokens can access server routes: see `./lib/authtoken.js`. However, the `lib/authtoken.js` logic
+is crude supporting only one static token.  On the `/authenticate` route we turn off the requirement for an authentic bearer token
+with the `false` option not requiring unauthenticated users to have bearer tokens.
+
+At this point, there is a disconnect in the system. A user can generate a valid auth token on the `/authenticate` route.
+But, that token is not stored for future use. To solve this problem we use redisdb and hapi's caching plugins.
+
+First, configure a bearer token cache. When a user successfully authenticates, the auth-bearer-token
 generated for the session is stored in the cache [catabox-redis](https://github.com/hapijs/catbox-redis).
-Plus, user account data associated with the session is stored in the cache with the token.
-Then, the validateFunction for the auth-bearer-token strategy is modified to use the bearer token cache
-to validate if the received token is valid or not. After the `/authenticate` route is built, the token cache
-plugin is written, and the auth strategy is changed, we create the `/private` route which requires a token for an
-administrative user to access route data.
+User account data associated with the session is stored in the cache with the token. This is where a users `scopes`
+are stored. The scope value determines which routes a user can access.
+Second, the validateFunction for the auth-bearer-token strategy is modified to use the bearer token cache to validate received tokens.
+This solves the above mentioned disconnect in our bearer token system.
+Third, we create the `/private` route which requires administrative user privileges (`admin` scope) to access route data.
 
 * **catbox-redis ./lib/tokencache.js**
   - install [redisdb](http://redis.io)
   - configure server to use catbox-redis. <br/>
-    See [hapi caching service](https://github.com/hapijs/catbox) and [catbox-redis](https://github.com/hapijs/catbox-redis) documentation.
-  - Set bearer-token in catbox-cache along with user record.
+    See [hapi caching](https://github.com/hapijs/catbox) and [catbox-redis](https://github.com/hapijs/catbox-redis) documentation.
+  - Upon successfull authentication. Set bearer-token in catbox-cache along with user record.
   - Expire the token after xxxxx time. Set expiresIn: value with server.options.
   - configure scopes ['admin', 'member'] for role based access.
   - configure `.travis.yml` to use the redis server
 * **authentication**<br/>
   Refactor authentication logic to:
   - pre-empt one user from generating multiple tokens.
-  - upon successful authentication set token and user records in the cache.
-  - Relevate file: `lib/route-methods/authenticate.js`
+  - upon successful authentication set token and user record information in the cache.
+  - Relevant file: `lib/route-methods/authenticate.js`
 * **`lib/authtoken.js`**
   - re-write the `defaultValidateFunc` to uses the catbox-redis cache
     to validate tokens.
 * **server configuration options**<br/>
-  Configure the application options for `plugin` options to be set along with server options.
-  This allows for test configurations to set shorter token expiration times
-  so tokens made in previous test do not collide with the current test.
+  Configure the application options for `tokencache.js` options to be set with server options.
+  This allows for test configurations to be modified. In our tests configurations will modify token
+  expiration times so tokens from different tests do not collide.
 * **create ./private point which requires admin scope for access**
   - Apply default authStrategy to ./private point.
 * **tests**
@@ -313,8 +320,7 @@ administrative user to access route data.
   - Add `{ debug: false }` config for tests.
     Otherwise, the tests print out hapi-auth-bearer-token error reports.
     Originally, added in assignment9 but can go here.
-* cache logic based on the following documentation and tests in the following two projects.
-  This is my implementation of how I think those applications should be applied.
+* See relevant documentation below:
   - [catbox](https://github.com/hapijs/catbox)
   - [catbox-redis](https://github.com/hapijs/catbox-redis)
 
