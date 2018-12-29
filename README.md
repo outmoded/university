@@ -275,7 +275,7 @@ Original TLS assignment completed by [@rutaihwa](https://github.com/hapijs/unive
 #### Credits
 * Lesson has some influence from [assignment4](https://github.com/hapijs/university/issues/118) of earlier version.
 
-### [Assignment9] tokens, cache, complete authentication system
+### [Assignment9] tokens, cache, basic authentication system
 
 
 This lesson completes a basic token based authentication system. Currently, our server only has two routes: `/version` and `/authenticate`.
