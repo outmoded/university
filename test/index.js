@@ -22,6 +22,11 @@ const internals = {};
 internals.serverConfigs = {
     server: {
         port: 0
+    },
+    plugins: {
+        tokenCache: {
+            expiresIn: 50
+        }
     }
 };
 

@@ -17,3 +17,5 @@
 [lesson7](https://github.com/hapijs/university/tree/v1.0.7) compare [lesson7 to lesson6](https://github.com/hapijs/university/compare/v1.0.6...v1.0.7)
 
 [lesson8](https://github.com/hapijs/university/tree/v1.0.8) compare [lesson8 to lesson7](https://github.com/hapijs/university/compare/v1.0.7...v1.0.8)
+
+[lesson9](https://github.com/hapijs/university/tree/v1.0.9) compare [lesson9 to lesson8](https://github.com/hapijs/university/compare/v1.0.8...v1.0.9)

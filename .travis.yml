@@ -10,3 +10,8 @@ sudo: false
 
 install:
     - "npm install"
+
+before_script:
+    - redis-server &
+    - redis-server --unixsocket /tmp/redis.sock &
+    - sleep 2
